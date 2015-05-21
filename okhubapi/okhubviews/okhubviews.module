@@ -1,0 +1,874 @@
+<?php
+// $Id;
+
+/**
+ * @file
+ *   A Views backend to query the OKHUB API.
+ */
+module_load_include('inc', 'okhubapi', 'default');
+require_once(OKHUB_API_LIBRARY_PATH . 'okhubwrapper.wrapper.inc');
+define('OKHUB_VIEWS_DEFAULT_SIZE_CATEGORIES', 40);
+
+/**
+ * Implementation of hook_views_api().
+ */
+function okhubviews_views_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "views" && $api == "views_default") {
+    return array("version" => "3.0");
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function okhubviews_help($path, $arg) {
+  switch ($path) {
+  case 'admin/help#okhubviews':
+    $output = '';
+    $output .= '<h3>' . t('OKHUB Views') . '</h3>';
+    $output .= '<p>' . t('This module allows to use Views to retrieve OKHUB documents and organisations using the OKHUB API. It creates default views for documents and organisations, as well as blocks with exposed filters that can be changed to adapt them to your specific needs.');
+    return $output;
+  }
+}
+
+/**
+ * Implementation of hook_views_plugins().
+ */
+function okhubviews_views_plugins() {
+  $plugins = array(
+    'module' => 'okhubviews',
+    'query' => array(
+      'okhubviews_views_plugin_query' => array(
+        'title' => t('OKHUB Query'),
+        'help' => t('Allows to query the OKHUB API.'),
+        'handler' => 'okhubviews_views_plugin_query',
+        'parent' => 'views_plugin_query',
+        'path' => drupal_get_path('module', 'okhubviews') . '/plugins',
+      ),
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implementation of hook_views_data().
+ */
+function okhubviews_views_data() {
+  $additional_fields = variable_get('okhubapi_additional_fields', FALSE);
+
+  // Documents
+  // Base data
+  $data['okhubviews_documents']['table']['group']  = t('OKHUB');
+  $data['okhubviews_documents']['table']['base'] = array(
+    'field' => 'object_id',
+    'title' => t('OKHUB: OKHUB Documents'),
+    'help' => t('Query OKHUB Documents.'),
+    'query class' => 'okhubviews_views_plugin_query',
+  );
+  // Fields 
+  $data['okhubviews_documents']['object_id'] = array(
+    'title' => t('Object ID'),
+    'help' => t('Unique identifier of this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_documents']['object_type'] = array(
+    'title' => t('Object type'),
+    'help' => t('Type of object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_documents']['title'] = array(
+    'title' => t('Title'),
+    'help' => t('Readable identifier of this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_documents']['site'] = array(
+    'title' => t('Site'),
+    'help' => t('Dataset.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_documents']['metadata_url'] = array(
+    'title' => t('Metadata URL'),
+    'help' => t('Web-accessible uri for this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field_url',
+    ),
+  );
+  $data['okhubviews_documents']['timestamp'] = array(
+    'title' => t('Timestamp'),
+    'help' => t('Indicates when record was indexed in the API.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+    ),
+  );
+  $data['okhubviews_documents']['website_url'] = array(
+    'title' => t('Website URL'),
+    'help' => t('URL for the asset on the collection website.'),
+    'field' => array(
+      'handler' => 'views_handler_field_url',
+    ),
+  );
+  $data['okhubviews_documents']['name'] = array(
+    'title' => t('Name'),
+    'help' => t('Name of the object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_documents']['asset_id'] = array(
+    'title' => t('Asset ID'),
+    'help' => t('Asset identifier.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+    ),
+  );
+  $data['okhubviews_documents']['date_created'] = array(
+    'title' => t('Date created'),
+    'help' => t('Date in which the object was added to the collection.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+    ),
+  );
+  $data['okhubviews_documents']['date_updated'] = array(
+    'title' => t('Date updated'),
+    'help' => t('Date in which the object was last modified.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+    ),
+  );
+  $data['okhubviews_documents']['category_theme_array'] = array(
+    'title' => t('Themes'),
+    'help' => t('Thematic categories which apply to the document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_categories',
+    ),
+  );
+  if ($additional_fields) {
+  $data['okhubviews_documents']['category_subject_array'] = array(
+    'title' => t('Subjects'),
+    'help' => t('Subject-based categories which apply to the document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_categories',
+    ),
+  );
+  }
+  $data['okhubviews_documents']['category_region_array'] = array(
+    'title' => t('Regions'),
+    'help' => t('Regions that apply to the document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_categories',
+    ),
+  );
+  $data['okhubviews_documents']['country_focus_array'] = array(
+    'title' => t('Countries'),
+    'help' => t('Countries that apply to the document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_categories',
+    ),
+  );
+  $data['okhubviews_documents']['keywords'] = array(
+    'title' => t('Keywords'),
+    'help' => t('Subject keywords that relate to the asset.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_keywords',
+    ),
+  );
+  $data['okhubviews_documents']['description'] = array(
+    'title' => t('Description'),
+    'help' => t('Description of the document.'),
+    'field' => array(
+      'handler' => 'views_handler_field_markup',
+      'format' => 'full_html',
+    ),
+  );
+  $data['okhubviews_documents']['authors'] = array(
+    'title' => t('Authors'),
+    'help' => t('Authors (First initial. Surname).'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_authors',
+    ),
+  );
+  $data['okhubviews_documents']['corporate_author'] = array(
+    'title' => t('Corporate authors'),
+    'help' => t('Corporate Authors.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_documents']['language_name'] = array(
+    'title' => t('Language'),
+    'help' => t('The language in which the title, headline and description are written.'),
+  );
+  $data['okhubviews_documents']['metadata_languages'] = array(
+    'title' => t("Metadata languages"),
+    'help' => t("Metadata languages"),
+    'field' => array(
+      'handler' => "okhubviews_handler_field_metadata_languages"
+    )
+  );
+  $data['okhubviews_documents']['publication_date'] = array(
+    'title' => t('Publication date'),
+    'help' => t('Year when the research document was first published.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+    ),
+  );
+  $data['okhubviews_documents']['publisher'] = array(
+    'title' => t('Publisher'),
+    'help' => t('Organisation that published the research.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_documents']['licence_type'] = array(
+    'title' => t('Licence type'),
+    'help' => t('Licence type.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_documents']['urls'] = array(
+    'title' => t('External URLs'),
+    'help' => t('External URLs of the full text document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_urls',
+    ),
+  );
+  // General filters
+  $data['okhubviews_documents']['object_id_filter'] = array(
+    'title' => t('Object ID'),
+    'help' => t('The object ID of the document.'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['sector_filter'] = array(
+    'title' => t("Sector"),
+    'help' => t("The category sector to use when retrieving documents (e.g. Bibliographies)"),
+    'filter' => array(
+      'handler' => "okhubviews_handler_filter_sector"
+    )
+  );
+  $data['okhubviews_documents']['dataset_filter'] = array(
+    'title' => t('Dataset'),
+    'help' => t('Dataset from where to retrieve the documents (Eldis or Bridge).'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_dataset',
+    ),
+  );
+  $data['okhubviews_documents']['query_filter'] = array(
+    'title' => t('Query'),
+    'help' => t('The text to search for across all fields. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['country_filter'] = array(
+    'title' => t('Countries'),
+    'help' => t('Filter by countries'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_countries',
+    ),
+  );
+  $data['okhubviews_documents']['keyword_filter'] = array(
+    'title' => t('Keyword'),
+    'help' => t('The name of a keyword to search for. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['region_filter'] = array(
+    'title' => t('Regions'),
+    'help' => t('Filter by regions. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_regions',
+    ),
+  );
+  $data['okhubviews_documents']['theme_filter'] = array(
+    'title' => t('Themes'),
+    'help' => t('Filter by themes'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_themes',
+    ),
+  );
+  if ($additional_fields) {
+  $data['okhubviews_documents']['subject_filter'] = array(
+    'title' => t('Subjects'),
+    'help' => t('Filter by subjects'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_subjects',
+    ),
+  );
+  }
+  $data['okhubviews_documents']['license_filter'] = array(
+    'title' => t('License'),
+    'help' => t('Filter by type of license. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['metadata_published_after_filter'] = array(
+    'title' => t('Metadata published after'),
+    'help' => t('Date after which the metadata was published. Format: YYYY-MM-DD (year, month, day). See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['metadata_published_before_filter'] = array(
+    'title' => t('Metadata published before'),
+    'help' => t('Date before which the metadata was published. Format: YYYY-MM-DD (year, month, day). See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['metadata_published_year_filter'] = array(
+    'title' => t('Metadata published year'),
+    'help' => t('The metadata was published during the specified year. Format: YYYY (year). See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  // Document specific filters
+  $data['okhubviews_documents']['author_filter'] = array(
+    'title' => t('Author(s)'),
+    'help' => t('The author(s) of the document. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['publisher_filter'] = array(
+    'title' => t('Publisher ID'),
+    'help' => t('The publisher object id. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['publisher_name_filter'] = array(
+    'title' => t('Publisher name'),
+    'help' => t('A text string to match on part of the publisher name. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['publisher_country_filter'] = array(
+    'title' => t('Publisher country'),
+    'help' => t('The country where the publisher is located. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['copyright_clearance_filter'] = array(
+    'title' => t('Copyright'),
+    'help' => t('Whether the copyright holder has given permission for ELDIS to host the information. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['redistribute_clearance_filter'] = array(
+    'title' => t('Redistribute'),
+    'help' => t('Whether the copyright holder has given permission for the information to be redistributed. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['language_name_filter'] = array(
+    'title' => t('Language'),
+    'help' => t('The language the document is written in (case sensitive). See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['document_published_after_filter'] = array(
+    'title' => t('Document published after'),
+    'help' => t('Date after which the document was published. Format: YYYY-MM-DD. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['document_published_before_filter'] = array(
+    'title' => t('Document published before'),
+    'help' => t('Date before which the document was published. Format: YYYY-MM-DD. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_documents']['document_published_year_filter'] = array(
+    'title' => t('Document published year'),
+    'help' => t('The document was published during the specified year. Format: YYYY. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  // Documents sort field
+  $data['okhubviews_documents']['sort_order'] = array(
+    'title' => t('Sort order'),
+    'help' => t('Note that you can only use one type of sort, and only once.'),
+    'sort' => array(
+      'handler' => 'okhubviews_handler_sort',
+    ),
+  );
+  // Organisations
+  // Base data
+  $data['okhubviews_organisations']['table']['group']  = t('OKHUB');
+  $data['okhubviews_organisations']['table']['base'] = array(
+    'field' => 'object_id',
+    'title' => t('OKHUB: OKHUB Organisations'),
+    'help' => t('Query OKHUB Organisations.'),
+    'query class' => 'okhubviews_views_plugin_query',
+  );
+  // Fields 
+  $data['okhubviews_organisations']['object_id'] = array(
+    'title' => t('Object ID'),
+    'help' => t('Unique identifier of this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['object_type'] = array(
+    'title' => t('Object type'),
+    'help' => t('Type of object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['title'] = array(
+    'title' => t('Title'),
+    'help' => t('Readable identifier of this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['site'] = array(
+    'title' => t('Site'),
+    'help' => t('Dataset.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['metadata_url'] = array(
+    'title' => t('Metadata URL'),
+    'help' => t('Web-accessible uri for this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field_url',
+    ),
+  );
+  $data['okhubviews_organisations']['timestamp'] = array(
+    'title' => t('Timestamp'),
+    'help' => t('Indicates when record was indexed in the API.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+    ),
+  );
+  $data['okhubviews_organisations']['website_url'] = array(
+    'title' => t('Website URL'),
+    'help' => t('URL for the asset on the collection website.'),
+    'field' => array(
+      'handler' => 'views_handler_field_url',
+    ),
+  );
+  $data['okhubviews_organisations']['name'] = array(
+    'title' => t('Name'),
+    'help' => t('Name of the object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['asset_id'] = array(
+    'title' => t('Asset ID'),
+    'help' => t('Asset identifier.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+    ),
+  );
+  $data['okhubviews_organisations']['date_created'] = array(
+    'title' => t('Date created'),
+    'help' => t('Date in which the object was added to the collection.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+    ),
+  );
+  $data['okhubviews_organisations']['date_updated'] = array(
+    'title' => t('Date updated'),
+    'help' => t('Date in which the object was last modified.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+    ),
+  );
+  $data['okhubviews_organisations']['category_theme_array'] = array(
+    'title' => t('Themes'),
+    'help' => t('Thematic categories which apply to the document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_categories',
+    ),
+  );
+  if ($additional_fields) {
+  $data['okhubviews_organisations']['category_subject_array'] = array(
+    'title' => t('Subjects'),
+    'help' => t('Subject categories which apply to the document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_categories',
+    ),
+  );
+  }
+  $data['okhubviews_organisations']['category_region_array'] = array(
+    'title' => t('Regions'),
+    'help' => t('Regions that apply to the document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_categories',
+    ),
+  );
+  $data['okhubviews_organisations']['country_focus_array'] = array(
+    'title' => t('Countries'),
+    'help' => t('Countries that apply to the document.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_categories',
+    ),
+  );
+  $data['okhubviews_organisations']['keywords'] = array(
+    'title' => t('Keywords'),
+    'help' => t('Subject keywords that relate to the asset.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field_keywords',
+    ),
+  );
+  $data['okhubviews_organisations']['description'] = array(
+    'title' => t('Description'),
+    'help' => t('Description of the document.'),
+    'field' => array(
+      'handler' => 'views_handler_field_markup',
+      'format' => 'full_html',
+    ),
+  );
+  $data['okhubviews_organisations']['acronym'] = array(
+    'title' => t('Acronym'),
+    'help' => t('Acronym of organisation.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['alternative_acronym'] = array(
+    'title' => t('Alternative acronym'),
+    'help' => t('Alternative acronym of organisation.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['alternative_name'] = array(
+    'title' => t('Alternative name'),
+    'help' => t('Alternative name of organisation.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['organisation_type'] = array(
+    'title' => t('Organisation type'),
+    'help' => t('Primary function or role of the organisation in relation to international development.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_organisations']['organisation_url'] = array(
+    'title' => t('Organisation URL'),
+    'help' => t('Link to the organisation\'s website.'),
+    'field' => array(
+      'handler' => 'views_handler_field_url',
+    ),
+  );
+  $data['okhubviews_organisations']['location_country'] = array(
+    'title' => t('Location country'),
+    'help' => t('Country where the organisation is located.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  // General filters
+  $data['okhubviews_organisations']['object_id_filter'] = array(
+    'title' => t('Object ID'),
+    'help' => t('The object ID of the document.'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_organisations']['dataset_filter'] = array(
+    'title' => t('Dataset'),
+    'help' => t('Dataset from where to retrieve the organisations (Eldis or Bridge).'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_dataset',
+    ),
+  );
+  $data['okhubviews_organisations']['query_filter'] = array(
+    'title' => t('Query'),
+    'help' => t('The text to search for across all fields. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_organisations']['country_filter'] = array(
+    'title' => t('Countries'),
+    'help' => t('Filter by countries'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_countries',
+    ),
+  );
+  $data['okhubviews_organisations']['keyword_filter'] = array(
+    'title' => t('Keyword'),
+    'help' => t('The name of a keyword to search for. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_organisations']['region_filter'] = array(
+    'title' => t('Regions'),
+    'help' => t('Filter by regions. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_regions',
+    ),
+  );
+  $data['okhubviews_organisations']['theme_filter'] = array(
+    'title' => t('Themes'),
+    'help' => t('Filter by themes'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_themes',
+    ),
+  );
+  if ($additional_fields) {
+  $data['okhubviews_organisations']['subject_filter'] = array(
+    'title' => t('Subjects'),
+    'help' => t('Filter by subject'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_themes',
+    ),
+  );
+  }
+  $data['okhubviews_organisations']['license_filter'] = array(
+    'title' => t('License'),
+    'help' => t('Filter by type of license. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_organisations']['metadata_published_after_filter'] = array(
+    'title' => t('Metadata published after'),
+    'help' => t('Date after which the metadata was published. Format: YYYY-MM-DD (year, month, day). See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_organisations']['metadata_published_before_filter'] = array(
+    'title' => t('Metadata published before'),
+    'help' => t('Date before which the metadata was published. Format: YYYY-MM-DD (year, month, day). See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_organisations']['metadata_published_year_filter'] = array(
+    'title' => t('Metadata published year'),
+    'help' => t('The metadata was published during the specified year. Format: YYYY (year). See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  // Organisation specific filters
+  $data['okhubviews_organisations']['acronym_filter'] = array(
+    'title' => t('Acronym'),
+    'help' => t('The acronym for an organisation. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_organisations']['organisation_name_filter'] = array(
+    'title' => t('Organisation name'),
+    'help' => t('The name of an organisation. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_organisations']['location_country_filter'] = array(
+    'title' => t('Location country'),
+    'help' => t('The country in which the organisation is located. See help at http://api.okhub.ac.uk/docs/functions/search/'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  // Organisations sort field
+  $data['okhubviews_organisations']['sort_order'] = array(
+    'title' => t('Sort order'),
+    'help' => t('Note that you can only use one type of sort, and only once.'),
+    'sort' => array(
+      'handler' => 'okhubviews_handler_sort',
+    ),
+  );
+
+  // Themes table
+  $data['okhubviews_themes']['table']['group']  = t('OKHUB');
+  $data['okhubviews_themes']['table']['base'] = array(
+    'field' => 'object_id',
+    'title' => t('OKHUB: OKHUB Themes'),
+    'help' => t('Query OKHUB Themes.'),
+    'query class' => 'okhubviews_views_plugin_query',
+  );
+
+  // Fields
+
+  $data['okhubviews_themes']['object_id'] = array(
+    'title' => t('Object ID'),
+    'help' => t('Unique identifier of this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_themes']['object_type'] = array(
+    'title' => t('Object type'),
+    'help' => t('Type of object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_themes']['title'] = array(
+    'title' => t('Title'),
+    'help' => t('Readable identifier of this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_themes']['site'] = array(
+    'title' => t('Site'),
+    'help' => t('Dataset.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+  );
+  $data['okhubviews_themes']['metadata_url'] = array(
+    'title' => t('Metadata URL'),
+    'help' => t('Web-accessible uri for this object.'),
+    'field' => array(
+      'handler' => 'views_handler_field_url',
+    ),
+  );
+  $data['okhubviews_themes']['level'] = array(
+    'title' => t("Level"),
+    'help' => t("Nesting level of the Theme"),
+    'field' => array(
+      "handler" => 'views_handler_field'
+    )
+  );
+
+  $data['okhubviews_themes']['parent_object_id'] = array(
+    'title' => t("Parent"),
+    'help' => t("The Object ID of the parent of this theme"),
+    'field' => array(
+      'handler' => "views_handler_field"
+    )
+  );
+
+  $data['okhubviews_themes']['category_id'] = array(
+    "title" => t("Category ID"),
+    'help' => t("Category ID of the theme"),
+    'field' => array(
+      'handler' => "views_handler_field"
+    )
+  );
+
+  $data['okhubviews_themes']['cat_parent'] = array(
+    'title' => t("Parent Category"),
+    'help' => t("Category number of the theme's parent"),
+    'field' => array(
+      'handler' => "views_handler_field"
+    )
+  );
+
+  // Filters
+
+  $data['okhubviews_themes']['object_id_filter'] = array(
+    'title' => t('Object ID'),
+    'help' => t('The object ID of the document.'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_text',
+    ),
+  );
+  $data['okhubviews_themes']['level_filter'] = array(
+    'title' => t("Level"),
+    'help' => t("Limit view to only a specific level"),
+    'field' => array(
+      'handler' => "views_handler_filter_equality"
+    )
+  );
+
+  // Sort
+
+  $data['okhubviews_themes']['sort_order'] = array(
+    'title' => t('Sort order'),
+    'help' => t('Note that you can only use one type of sort, and only once.'),
+    'sort' => array(
+      'handler' => 'okhubviews_handler_sort',
+    ),
+  );
+
+  return $data;
+}
+
+/**
+ * Hide/display subjects on default view depending on API key.
+ */
+function okhubviews_okhub_api_key() {
+  $additional_fields = variable_get('okhubapi_additional_fields', FALSE);
+  $assets =  array('documents','organisations');
+  foreach ($assets as $asset) {
+    $view_name = 'okhub_' . $asset . '_view';
+    $view = views_get_view($view_name);
+    $table = 'okhubviews_' . $asset;
+    if ($additional_fields) {
+      if (!function_exists("okhubviews_display_subject_field")){
+        include_once drupal_get_path("module", "okhubviews") . "/okhubviews.views_default.inc";
+      }
+      okhubviews_display_subject_field($view->display['default'], $table);
+      okhubviews_display_subject_filter($view->display['default'], $table);
+    }
+    else {
+      $field = 'category_subject_array';
+      $filter = 'subject_filter';
+      unset($view->display['default']->display_options['fields']['category_subject_array']);
+      unset($view->display['default']->display_options['filters']['subject_filter']);
+    }
+    views_ui_cache_set($view);
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function okhubviews_theme($existing) {
+  return array(
+    'views_view_field__okhub_organisations_view__site' => array(
+      'arguments' => array('view' => NULL, 'field' => NULL, 'row' => NULL),
+      'template' => 'views-view-field--okhub-organisations-view--site',
+      'original hook' => 'views_view_field',
+      'path' => drupal_get_path('module', 'okhubviews') . '/theme',
+      'type' => 'module',
+      'preprocess functions' => array('template_preprocess', 'template_preprocess_views_view_field'),
+    ),
+    'views_view_field__okhub_documents_view__site' => array(
+      'arguments' => array('view' => NULL, 'field' => NULL, 'row' => NULL),
+      'template' => 'views-view-field--okhub-documents-view--site',
+      'original hook' => 'views_view_field',
+      'path' => drupal_get_path('module', 'okhubviews') . '/theme',
+      'type' => 'module',
+      'preprocess functions' => array('template_preprocess', 'template_preprocess_views_view_field'),
+    ),
+  );
+}
+
+
+
+
+
+
+

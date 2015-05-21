@@ -1,0 +1,12 @@
+;$Id:
+name = OKHUB Content
+description = Provide Ctools content to display individual items from the OKHUB API in the Panels system
+core = 7.x
+version = "7.x-1.0-beta"
+package = OKHUB
+
+files[] = okhubcontent.module
+
+
+dependencies[] = "okhubapi"
+dependencies[] = "ctools"

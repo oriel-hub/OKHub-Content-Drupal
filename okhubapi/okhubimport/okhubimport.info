@@ -1,0 +1,17 @@
+;$Id$
+name = OKHUB Import 
+description = Imports assets and categories from the OKHUB Collection via the OKHUB API, using the Feeds module.
+package = OKHUB
+core = 7.x
+version = 7.x-1.0-beta
+
+configure = admin/config/services/okhubimport
+
+files[] = okhubimport.admin.inc
+files[] = okhubimport.install
+files[] = okhubimport.module
+
+dependencies[] = "okhubapi"
+dependencies[] = "feeds"
+dependencies[] = "feeds_ui"
+dependencies[] = "date"

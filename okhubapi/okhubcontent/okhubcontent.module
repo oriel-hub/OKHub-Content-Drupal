@@ -1,0 +1,90 @@
+<?php
+/**
+ * @file 
+ */
+/**
+ * Implements hook_ctools_plugin_directory.
+ *
+ * @param $module
+ * @param $plugin
+ *
+ * @return string|null
+ */
+function okhubcontent_ctools_plugin_directory($module, $plugin){
+  if ($module === "ctools"){
+    if ($plugin === "contexts"){
+      return "plugins/contexts";
+    }
+    else if ($plugin === "arguments"){
+      return "plugins/arguments";
+    }
+    else if ($plugin === "content_types"){
+      return "plugins/content_types";
+    }
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_api.
+ *
+ * @param $module
+ * @param $api
+ *
+ * @return array
+ */
+function okhubcontent_ctools_plugin_api($module, $api){
+  if ($module === "page_manager" && $api === "pages_default"){
+    return array("version" => 1);
+  }
+}
+
+/**
+ * Implement hook_default_page_manager_pages.
+ *
+ * Loads files from the /pages directory to import panels.
+ *
+ * @return array
+ */
+function okhubcontent_default_page_manager_pages(){
+  $pages = array();
+  $path = drupal_get_path("module", "okhubcontent") . "/pages";
+  $files = drupal_system_listing('/.inc$/', $path, "name", 0);
+  foreach ($files as $file){
+    if (is_readable($path . '/' . $file->filename)){
+      include_once $path . "/" . $file->filename;
+      $pages[$page->name] = $page;
+    }
+  }
+  return $pages;
+}
+
+/**
+ * Implements hook_theme.
+ *
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ *
+ * @return array
+ */
+function okhubcontent_theme($existing, $type, $theme, $path){
+  $path = drupal_get_path("module", "okhubcontent") . '/theme';
+  $themeables = array();
+  $themeables['okhubcontent_document'] = array(
+    "variables" => array("fields" => array(), "document" => new stdClass, "conf" => array()),
+    'path' => $path,
+    "template" => "okhubcontent_document"
+  );
+  $themeables['okhubcontent_field_documents'] = array(
+    "variables" => array("documents" => array(), "document" => new stdClass, "conf" => array()),
+    'path' => $path,
+    "template" => "okhubcontent_field_documents"
+  );
+  $themeables['okhubcontent_field_metadata_languages'] = array(
+    "variables" => array("languages" => array(), "document" => new stdClass, "conf" => array()),
+    'path' => $path,
+    "template" => "okhubcontent_field_metadata_languages"
+  );
+  return $themeables;
+}

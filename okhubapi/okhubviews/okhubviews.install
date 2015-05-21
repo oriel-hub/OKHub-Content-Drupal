@@ -1,0 +1,32 @@
+<?php
+// $Id;
+
+/**
+ * @file
+ *  OKHUB Views install file.
+ */
+
+/**
+ * Implements hook_enable()
+ */
+function okhubviews_enable() {
+  drupal_flush_all_caches();
+}
+
+/**
+ * Implements hook_disable()
+ */
+function okhubviews_disable() {
+  $default_views_names = array('okhub_documents_view','okhub_organisations_view');
+  foreach ($default_views_names as $view_name) {
+    if ($view = views_get_view($view_name)) {
+      $view->disabled = TRUE;
+    }
+  }
+  drupal_flush_all_caches();
+}
+
+
+
+
+

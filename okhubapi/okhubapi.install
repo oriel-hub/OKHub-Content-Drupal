@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the OKHUB API module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function okhubapi_uninstall() {
+  variable_del('okhubapi_api_key');
+  variable_del('okhubapi_api_url');
+  variable_del('okhubapi_number_items');
+  variable_del('okhubapi_age_items');
+  variable_del('okhubapi_cache_time');
+  variable_del('okhubapi_response_format');
+  variable_del('okhubapi_api_default_dataset');
+}
+
+/**
+ * Implements hook_schema().
+ *
+ * Creates the cache table to be used by the module.
+ */
+function okhubapi_schema() {
+  $schema = array();
+  $schema['okhubapi_cache'] = drupal_get_schema_unprocessed('system', 'cache');
+  return $schema;
+}
+
+

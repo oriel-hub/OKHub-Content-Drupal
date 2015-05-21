@@ -1,0 +1,28 @@
+;$Id:
+name = OKHUB Views
+description = Query the collection of OKHUB documents and organisations using Views
+core = 7.x
+version = "7.x-1.0-beta"
+package = OKHUB
+
+files[] = okhubviews.module
+files[] = okhubviews.install
+files[] = okhubviews.views_default.inc
+files[] = plugins/okhubviews_views_plugin_query.inc
+files[] = handlers/okhubviews_handler_field_urls.inc
+files[] = handlers/okhubviews_handler_field_keywords.inc
+files[] = handlers/okhubviews_handler_field_metadata_languages.inc
+files[] = handlers/okhubviews_handler_field_authors.inc
+files[] = handlers/okhubviews_handler_field_categories.inc
+files[] = handlers/okhubviews_handler_field_title.inc
+files[] = handlers/okhubviews_handler_filter_sector.inc
+files[] = handlers/okhubviews_handler_filter_text.inc
+files[] = handlers/okhubviews_handler_filter_dataset.inc
+files[] = handlers/okhubviews_handler_filter_regions.inc
+files[] = handlers/okhubviews_handler_filter_countries.inc
+files[] = handlers/okhubviews_handler_filter_themes.inc
+files[] = handlers/okhubviews_handler_filter_subjects.inc
+files[] = handlers/okhubviews_handler_sort.inc
+
+dependencies[] = "okhubapi"
+dependencies[] = "views"

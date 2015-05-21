@@ -1,0 +1,187 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ *  OKHUB API Module.
+ *
+ * This module uses the OKHUB Knowldege Services API (http://developer.okhub.org/hub-api-documentation/api-explorer) in order
+ * to search, display and import data and metadata contained in the OKHUB
+ * datasets, which are maintained by the OKHUB.
+ */
+
+/* --------------------- Hooks implementations -------------------- */
+
+/**
+ * Include files that implement the request and objects classes
+ */
+require_once('okhubapi.default.inc');
+require_once(OKHUB_API_LIBRARY_PATH . 'okhubwrapper.default.inc');
+
+/**
+ * Implements hook_flush_caches().
+ */
+function okhubapi_flush_caches() {
+  return array(OKHUB_API_CACHE_REQUESTS);
+}
+
+/**
+ * Implements hook_enable().
+ */
+function okhubapi_enable() {
+    drupal_flush_all_caches();
+    drupal_set_message(t('To use the OKHUB API module, first go to the <a href="@url">OKHUB API Administration</a> to set general parameters, including your OKHUB API key.', array('@url' => url('admin/config/services/okhubapi'))));
+}
+
+/**
+ * Implements hook_disable().
+ */
+function okhubapi_disable() {
+    drupal_flush_all_caches();
+}
+
+/**
+ * Implements of hook_menu().
+ */
+function okhubapi_menu() {
+  $items = array();
+
+  $items['admin/config/services/okhubapi'] = array(
+    'title' => t('OKHUB API Module settings'),
+    'description' => t('Global settings for the OKHUB API module.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('okhubapi_settings_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('administer okhubapi'),
+    'file' => 'okhubapi.admin.inc',
+  );
+  
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function okhubapi_permission() {
+  return array(
+    'administer okhubapi' => array(
+      'title' => t('Administer the OKHUB API module'), 
+      'description' => t('Perform administration tasks for the OKHUB API module.'),
+    ),
+  );
+}
+ 
+/**
+ * Implements hook_help().
+ */
+function okhubapi_help($path, $arg) {
+  if ($path == 'admin/help#okhubapi') {
+    return t('Uses the OKHUB API to provide access to Eldis and Bridge content. API documentation: ') . OKHUB_API_DOCUMENTATION_URL;
+  }
+}
+
+/**
+ * Function used to retrieve OKHUB items using get_all.
+ */
+function okhubapi_get_all($type, $set, $format) {
+  $okhubwrapper = new OkhubApiWrapper;
+  $api_key = variable_get('okhubapi_api_key', '');
+  $response = $okhubwrapper->getAll($type, $set, $api_key, $format);
+  return $response;
+}
+
+/**
+ * Function used to retrieve OKHUB items using search, with parameters.
+ */
+function okhubapi_search($type, $set, $format, $params, $extra_fields = array()) {
+  $okhubwrapper = new OkhubApiWrapper;
+  $api_key = variable_get('okhubapi_api_key', '');
+  $response = $okhubwrapper->search($type, $set, $api_key, $format, 0, 0, 0, $params, $extra_fields);
+  return $response;
+}
+
+/* ---------------- Examples of calls to the OKHUB API --------------- */
+
+/**
+ * Implements hook_block_info().
+ */
+function okhubapi_block_info() {
+  $blocks = array();
+  $blocks['okhubapi_eldis_documents'] = array(
+    'info' => t('Eldis documents'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['okhubapi_eldis_organisations'] = array(
+    'info' => t('Eldis organisations'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['okhubapi_bridge_documents'] = array(
+    'info' => t('Bridge documents'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function okhubapi_block_view($block_name = '') {
+  $block = array();
+  $content = '';
+
+  // Retrieves latest Eldis documents
+  if ($block_name == 'okhubapi_latest_eldis_documents') {
+    $response = okhubapi_get_all('documents', 'eldis', 'full');
+    $items = $response->getArrayLinks();
+    if (is_array($items)) {
+      $theme_args = array('items' => $items, 'type' => 'ol');
+      $content = theme('item_list', $theme_args);
+    }
+    else  {
+      $content = theme('help', 'Error when recovering block content.');
+    }
+    $block['subject'] = t('Eldis recent documents');
+  }
+  
+  // Retrieves latest Eldis organisations
+  if ($block_name == 'okhubapi_latest_eldis_organisations') {
+    $response = okhubapi_get_all('organisations', 'eldis', 'full');
+    $items = $response->getArrayLinks();
+    if (is_array($items)) {
+      $theme_args = array('items' => $items, 'type' => 'ol');
+      $content = theme('item_list', $theme_args);
+    }
+    else  {
+      $content = theme('help', 'Error when recovering block content.');
+    }
+    $block['subject'] = t('Eldis latest organisations');
+  }
+  
+    // Retrieves latest Bridge documents
+  if ($block_name == 'okhubapi_latest_bridge_documents') {
+    $response = okhubapi_get_all('documents', 'bridge', 'full');
+    $items = $response->getArrayLinks();
+    if (is_array($items)) {
+      $theme_args = array('items' => $items, 'type' => 'ol');
+      $content = theme('item_list', $theme_args);
+    }
+    else  {
+      $content = theme('help', 'Error when recovering block content.');
+    }
+    $block['subject'] = t('Bridge latest documents');
+  }
+  $block['content'] = $content;
+  return $block;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+;$Id$
+name = OKHUB API 
+description = Provides access to the OKHUB collection via the OKHUB Knowledge Services API.
+package = OKHUB
+core = 7.x
+version = 7.x-1.0-beta
+
+configure = admin/config/services/okhubapi
+
+files[] = okhubapi.admin.inc
+files[] = okhubapi.install
+files[] = okhubapi.module
