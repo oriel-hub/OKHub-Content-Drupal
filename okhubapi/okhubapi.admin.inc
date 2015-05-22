@@ -32,7 +32,15 @@ function okhubapi_settings_form() {
     '#default_value' => variable_get('okhubapi_default_dataset', OKHUB_API_DEFAULT_DATASET),
     '#description' => t('OKHUB dataset to be used by default.'),
   );
-
+  
+  $form['general']['okhubimport_default_datasources'] = array(
+    '#title' => t('Default data sources'),
+    '#type' => 'checkboxes',
+    '#options' => _okhubapi_get_sources_options(),
+  	'#default_value' => variable_get('okhubimport_default_datasources', ''),
+    '#description' => t('OKHUB data sources to be used by default. If none selected then ALL sources used.'),
+  );
+  
   $form['okhubapi_number_items'] = array(
     '#title' => t('Default number of items'),
     '#type' => 'textfield',
@@ -75,6 +83,23 @@ function okhubapi_settings_form() {
   );
 
   return system_settings_form($form);
+}
+
+/**
+ * Get array of sources for form.
+ */
+function _okhubapi_get_sources_options(){
+	global $language;
+    $sources_response = okhubapi_get_all('sources', 'hub', 'full');
+    $sources_options = array();
+    if(isset($sources_response->results)){
+	    foreach($sources_response->results as $source){
+	    	if(isset($source->code) && isset($source->name)){
+	    		$sources_options[$source->code[0]] = $source->name[$language->language][0];
+	    	}
+	    }
+    }
+ 	return $sources_options;
 }
 
 /**
