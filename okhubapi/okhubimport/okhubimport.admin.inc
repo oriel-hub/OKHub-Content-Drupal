@@ -31,13 +31,22 @@ function okhubimport_settings_form() {
   // TODO To allow fetchers to override this.
   $form['general']['okhubimport_default_dataset'] = array(
     '#title' => t('Default dataset'),
-    '#type' => 'select',
+    '#type' => 'hidden',
+/*  '#type' => 'select',
     '#options' => array(
       'hub' => 'OKhub'
-    ),
+    ),*/
     '#required' => TRUE,
     '#default_value' => variable_get('okhubimport_default_dataset', OKHUB_API_DEFAULT_DATASET),
     '#description' => t('OKHUB dataset to be used by default.'),
+  );
+
+  $form['general']['okhubimport_default_datasources'] = array(
+    '#title' => t('Default data sources'),
+    '#type' => 'checkboxes',
+    '#options' => _okhubapi_get_sources_options(),
+  	'#default_value' => variable_get('okhubimport_default_datasources', ''),
+    '#description' => t('OKHUB data sources to be used by default. If none selected then ALL sources used.'),
   );
 
   $form['general']['assets'] = array (

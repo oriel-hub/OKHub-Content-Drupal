@@ -24,10 +24,11 @@ function okhubapi_settings_form() {
 
   $form['okhubapi_default_dataset'] = array(
     '#title' => t('Default dataset'),
-    '#type' => 'select',
+    '#type' => 'hidden',
+/*  '#type' => 'select',
     '#options' => array(
       'hub' => 'OKhub'
-    ),
+    ),*/
     '#required' => FALSE,
     '#default_value' => variable_get('okhubapi_default_dataset', OKHUB_API_DEFAULT_DATASET),
     '#description' => t('OKHUB dataset to be used by default.'),
@@ -85,30 +86,6 @@ function okhubapi_settings_form() {
   return system_settings_form($form);
 }
 
-/**
- * Get array of sources for form.
- */
-function _okhubapi_get_sources_options(){
-	global $language;
-    $sources_response = okhubapi_get_all('sources', 'hub', 'full');
-    $sources_options = array();
-    if(isset($sources_response->results)){
-	    foreach($sources_response->results as $source){
-	    	$is_semantic = FALSE;
-	    	if(isset($source->okhub_is)){
-	    		if(isset($source->okhub_is['semantic'])){
-	    			if($source->okhub_is['semantic'][0]){
-	    				$is_semantic = TRUE;
-	    			}
-	    		}
-	    	}
-	    	if(isset($source->code) && isset($source->name) && !$is_semantic){
-	    		$sources_options[$source->code[0]] = $source->name[$language->language][0];
-	    	}
-	    }
-    }
- 	return $sources_options;
-}
 
 /**
  * Clear the request cache.
