@@ -174,6 +174,23 @@ function okhubapi_block_view($block_name = '') {
   return $block;
 }
 
+/*
+ * Function to return the defualt datasource as a string for passing to setParam with sources attribute
+ */
+function _okhubapi_get_datasources_param(){
+	$datasources_param = '';
+    if ($datasources = variable_get('okhubimport_default_datasources')) {
+    	foreach($datasources as $datasource => $value){
+    		if($value){
+    			if($datasources_param){
+    				$datasources_param .= '|';
+    			}
+    			$datasources_param .= $datasource;
+    		}
+    	}
+    }
+    return $datasources_param;
+}
 
 
 

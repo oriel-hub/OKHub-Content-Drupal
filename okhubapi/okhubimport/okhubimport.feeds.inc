@@ -47,6 +47,10 @@ class OkhubAssetsFetcher extends FeedsFetcher {
    */
   public function fetch(FeedsSource $source) {
     $this->okhub_api_wrapper->setObjectType($this->config['asset_type']);
+    $datasources = _okhubapi_get_datasources_param();
+    if ($datasources) {
+      $this->okhub_api_wrapper->setParam('source', $datasources);
+    }
     $fetcher_result = new OkhubContentFetcherResult($this);
     return $fetcher_result;
   }
@@ -111,6 +115,10 @@ class OkhubCategoriesFetcher extends FeedsFetcher {
       if ($levels = variable_get('okhubimport_levels_categories')) {
         $this->okhub_api_wrapper->setParam('level', $levels);
       }
+    }
+    $datasources = _okhubapi_get_datasources_param();
+    if ($datasources) {
+      $this->okhub_api_wrapper->setParam('source', $datasources);
     }
     $fetcher_result = new OkhubContentFetcherResult($this);
     return $fetcher_result;
