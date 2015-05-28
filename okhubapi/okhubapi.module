@@ -175,18 +175,31 @@ function okhubapi_block_view($block_name = '') {
 }
 
 /*
- * Function to return the defualt datasource as a string for passing to setParam with sources attribute
+ * Function to return the selected datasources as array
  */
-function _okhubapi_get_datasources_param(){
-	$datasources_param = '';
+function _okhubapi_get_selected_datasources_array(){
+	$datasources_arr = array();
     if ($datasources = variable_get('okhubimport_default_datasources')) {
     	foreach($datasources as $datasource => $value){
     		if($value){
-    			if($datasources_param){
-    				$datasources_param .= '|';
-    			}
-    			$datasources_param .= $datasource;
+    			$datasources_arr[] = $datasource;
     		}
+    	}
+    }
+    return $datasources_param;
+}
+
+/*
+ * Function to return the selected datasources as a string for passing to setParam with sources attribute
+ */
+function _okhubapi_get_datasources_param(){
+	$datasources_param = '';
+    if ($datasources = _okhubapi_get_selected_datasources_array()) {
+    	foreach($datasources as $datasource){
+    		if($datasources_param){
+    			$datasources_param .= '|';
+    		}
+    		$datasources_param .= $datasource;
     	}
     }
     return $datasources_param;
@@ -216,14 +229,4 @@ function _okhubapi_get_sources_options(){
     }
  	return $sources_options;
 }
-
-
-
-
-
-
-
-
-
-
 
