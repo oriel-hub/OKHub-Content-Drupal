@@ -233,7 +233,7 @@ function _okhubapi_get_sources_options(){
 /**
  * Get array of all themes (or for only for selected datasources) for form.
  */
-function _okhubapi_get_themes_options($selected_datasources_only = FALSE){
+function _okhubapi_get_themes_arr($selected_datasources_only = FALSE){
 	global $language;
 	$params = array();
 	if($selected_datasources_only){
@@ -241,26 +241,59 @@ function _okhubapi_get_themes_options($selected_datasources_only = FALSE){
 		$params['source'] = $datasources;
 	}
     $themes_response = okhubapi_search('themes', 'hub', 'full', $params);
-    $themes_options = array();
+    $theme_arr = array();
     if(isset($themes_response->results)){
 	    foreach($themes_response->results as $theme){
 	    	if(isset($theme->object_id) && isset($theme->title)){
-	    		/*
-	    		 * This gets the last available source title for the theme 
-	    		 * NEEDS REVIEW -- Which title should we get? 
-	    		 */
-	    		$default_theme_title = '';
-	    		foreach($theme->title as $title){
-	    			if(isset($title[$language->language])){
-	    				$default_theme_title = $title[$language->language][0];
-	    			}
-	    		}
-	    		if($default_theme_title){
-	    			$themes_options[$theme->object_id['hub']] = $default_theme_title;
-	    		}
+	    		$theme_arr[$theme->object_id['hub']] = $theme;
 	    	}
 	    }
     }
+ 	return $theme_arr;
+}
+
+
+/**
+ * Get theme options for form
+ */
+function _okhubapi_get_themes_options($theme_arr){
+	$themes_options = array();
+	foreach($theme_arr as $theme){
+		$default_theme_title = '';
+		$lang_title_arr = array();
+	    foreach($theme->title as $title_arr){
+	    	foreach($title_arr as $lang => $title){
+	    		$built_title = $title[0] . ' [' . $lang . ']';
+    			if(!in_array($built_title, $lang_title_arr)){
+    				$lang_title_arr[] = $built_title;
+    			}
+    		}
+    	}
+	   	foreach($lang_title_arr as $title){
+    		if($default_theme_title) {
+    			$default_theme_title .= ' | ';
+    		}
+    		$default_theme_title .= $title;
+    	}
+    	if($default_theme_title){
+    		$themes_options[$theme->object_id['hub']] = $default_theme_title;
+    	} 
+    }
  	return $themes_options;
+}
+
+/*
+ * Prepare a list of available languages from the 
+ */
+function _okhubapi_get_language_options_from_themes($theme_options){
+	$language_options = array('all' => 'All');
+	foreach($theme_options as $theme_arr){
+		foreach($theme_arr->title as $source => $source_theme_arr){
+			foreach($source_theme_arr as $lang_key => $value){
+				$language_options[$lang_key] = $lang_key;
+			}
+		}
+	}
+	return $language_options;
 }
 

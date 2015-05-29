@@ -11,6 +11,7 @@
  * Note: The author of the imported assets is a required field. It's set globally and overrides the importers'. 
  */
 function okhubimport_settings_form() {
+  drupal_add_js(drupal_get_path('module', 'okhubimport') . '/js/okhubimport-admin.js');
   $okhubwrapper = new OkhubApiWrapper();
   $form = array();
   $additional_fields = variable_get('okhubapi_additional_fields', FALSE);
@@ -82,14 +83,28 @@ function okhubimport_settings_form() {
     '#description' => t('Import documents and/or organisations posted within the indicated period.'),
   );
   
+  $theme_arr = _okhubapi_get_themes_arr(TRUE);
+  
+  $theme_options = _okhubapi_get_themes_options($theme_arr);
+  
+  $language_options_for_themes = _okhubapi_get_language_options_from_themes($theme_arr);
+  
+  $form['general']['assets']['okhubimport_default_lang_themes'] = array(
+    '#title' => t('Language selection for Themes'),
+    '#type' => 'select',
+    '#options' => $language_options_for_themes,
+  	'#default_value' => variable_get('okhubimport_default_lang_themes', ''),
+    '#description' => t('Languages to be used to filter Themes.'),
+  );
+  
   $form['general']['assets']['okhubimport_default_themes'] = array(
     '#title' => t('Themes'),
     '#type' => 'select',
-    '#options' => _okhubapi_get_themes_options(TRUE),
+    '#options' => $theme_options,
   	'#default_value' => variable_get('okhubimport_default_themes', ''),
     '#description' => t('Themes to be used to filter results. If none selected then ALL themes used.'),
   );
-
+/*
   $form['general']['assets']['okhubimport_levels_categories'] = array(
     '#title' => t('Levels of categories'),
     '#type' => 'select',
@@ -102,7 +117,7 @@ function okhubimport_settings_form() {
     '#default_value' => variable_get('okhubimport_levels_categories', OKHUB_IMPORT_LEVELS_CATEGORIES),
     '#description' => t('The levels of categories to import.'),
   );
-
+*/
   $form['general']['assets']['okhubimport_new_user'] = array(
     '#title' => t('Author'),
     '#type' => 'textfield',
