@@ -77,6 +77,7 @@
 				$("#edit-okhubimport-default-themes")
 		         .append(newOption);
 			}
+			$('.form-item-okhubimport-default-themes').find(".Tokenize").remove();
 			$('#edit-okhubimport-default-themes').tokenize({
 				displayDropdownOnFocus: true,
 				newElements:false
