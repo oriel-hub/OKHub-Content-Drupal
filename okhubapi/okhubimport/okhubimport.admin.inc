@@ -103,6 +103,7 @@ function okhubimport_settings_form() {
   $form['general']['assets']['okhubimport_default_themes'] = array(
     '#title' => t('Themes'),
     '#type' => 'select',
+    '#multiple' => 'true',
     '#options' => $theme_options,
   	'#default_value' => variable_get('okhubimport_default_themes', ''),
     '#description' => t('Themes to be used to filter results. If none selected then ALL themes used.'),

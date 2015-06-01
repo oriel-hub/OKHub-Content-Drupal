@@ -10,7 +10,8 @@
 		Drupal.okhubimport.themeOptionsOriginal = new Array();
 		var cnt = 0;
 		$("#edit-okhubimport-default-themes option").each(function(){
-			Drupal.okhubimport.themeOptionsOriginal[cnt] = {value:$(this).val(), text:$(this).text()};
+			var imSelected = ($(this).is("[selected]")) ? true:false;
+			Drupal.okhubimport.themeOptionsOriginal[cnt] = {value:$(this).val(), selected:imSelected, text:$(this).text()};
 			cnt++;
 		});
 		
@@ -58,16 +59,23 @@
 					newTextValue = okhubimportStrForSelectedLang(object.text, langSelected);
 				}
 				if(newTextValue){
-					newOptionSet[cnt] = {value:object.value, text:newTextValue};
+					newOptionSet[cnt] = {value:object.value, selected:object.selected, text:newTextValue};
 					cnt++;
 				}
 			});
 			newOptionSet.sort(okhubimportStrSort);
 			for (var i = 0, len = newOptionSet.length; i < len; i++) {
-			     $("#edit-okhubimport-default-themes")
-		         .append($("<option></option>")
+			    var newOption = $("<option></option>")
 		         .attr("value",newOptionSet[i].value)
-		         .text(newOptionSet[i].text));
+		         .text(newOptionSet[i].text); 
+			    
+			    newOption.removeAttr('selected');
+			    if(newOptionSet[i].selected){
+			    	newOption.attr("selected","selected");
+			    }
+			    
+				$("#edit-okhubimport-default-themes")
+		         .append(newOption);
 			}
 			$('#edit-okhubimport-default-themes').tokenize({
 				displayDropdownOnFocus: true,
