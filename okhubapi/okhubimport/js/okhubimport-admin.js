@@ -69,6 +69,10 @@
 		         .attr("value",newOptionSet[i].value)
 		         .text(newOptionSet[i].text));
 			}
+			$('#edit-okhubimport-default-themes').tokenize({
+				displayDropdownOnFocus: true,
+				newElements:false
+			});
 		});
 		$("#edit-okhubimport-default-lang-themes" ).trigger( "change" );
 	}
