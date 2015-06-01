@@ -13,6 +13,7 @@
 function okhubimport_settings_form() {
   drupal_add_css(drupal_get_path('module', 'okhubapi') . '/lib/tokenize/jquery.tokenize.css');
   drupal_add_js(drupal_get_path('module', 'okhubapi') . '/lib/tokenize/jquery.tokenize.js');
+  drupal_add_css(drupal_get_path('module', 'okhubimport') . '/css/okhubimport-admin.css');
   drupal_add_js(drupal_get_path('module', 'okhubimport') . '/js/okhubimport-admin.js');
   $okhubwrapper = new OkhubApiWrapper();
   $form = array();
