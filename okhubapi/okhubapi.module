@@ -100,6 +100,16 @@ function okhubapi_search($type, $set, $format, $params, $extra_fields = array())
   return $response;
 }
 
+/**
+ * Function used to retrieve OKHUB items using count, with parameters.
+ */
+function okhubapi_count($type, $set, $api_key, $count_category, $age_results = 0, $params) {
+  $okhubwrapper = new OkhubApiWrapper;
+  $api_key = variable_get('okhubapi_api_key', '');
+  $response = $okhubwrapper->count($type, $set, $api_key, $count_category, $age_results, $params);
+  return $response;	
+}
+
 /* ---------------- Examples of calls to the OKHUB API --------------- */
 
 /**
