@@ -46,11 +46,11 @@ function okhubimport_settings_form() {
   );
 
   $form['general']['okhubimport_default_datasources'] = array(
-    '#title' => t('Default data sources'),
+    '#title' => t('Data sources to import from'),
     '#type' => 'checkboxes',
     '#options' => _okhubapi_get_sources_options(),
   	'#default_value' => variable_get('okhubimport_default_datasources', ''),
-    '#description' => t('OKHUB data sources to be used by default. If none selected then ALL sources used.'),
+    '#description' => t('OKHUB data sources to be used to import data from. If none selected then ALL sources used.'),
   );
 
   $form['general']['assets'] = array (
