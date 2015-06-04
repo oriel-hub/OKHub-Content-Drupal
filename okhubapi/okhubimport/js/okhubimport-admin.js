@@ -89,7 +89,8 @@
 				$("#edit-okhubimport-default-themes")
 		         .append(newOption);
 			}
-			if(okhubimportJqueryVersionCheck(1,8)){
+			if(okhubimportJqueryVersionCheck(1,6)){
+				/* Tokenize requires jQuery 1.6 */
 				$('.form-item-okhubimport-default-themes').find(".Tokenize").remove();
 				$('#edit-okhubimport-default-themes').tokenize({
 					displayDropdownOnFocus: true,
