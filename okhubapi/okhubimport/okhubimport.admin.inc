@@ -44,13 +44,23 @@ function okhubimport_settings_form() {
     '#default_value' => variable_get('okhubimport_default_dataset', OKHUB_API_DEFAULT_DATASET),
     '#description' => t('OKHUB dataset to be used by default.'),
   );
+  
+  $sources_options = _okhubapi_get_sources_options();
 
   $form['general']['okhubimport_default_datasources'] = array(
     '#title' => t('Data sources to import from'),
     '#type' => 'checkboxes',
-    '#options' => _okhubapi_get_sources_options(),
+    '#options' => $sources_options,
   	'#default_value' => variable_get('okhubimport_default_datasources', ''),
     '#description' => t('OKHUB data sources to be used to import data from. If none selected then ALL sources used.'),
+  );
+  
+  $form['general']['okhubimport_priority_datasource'] = array(
+    '#title' => t('Priority data source to import from'),
+    '#type' => 'select',
+    '#options' => $sources_options,
+  	'#default_value' => variable_get('okhubimport_priority_datasource', ''),
+    '#description' => t('The priority OKHUB data source to be used to import data from (where multiple for one document).'),
   );
   
   $form['general']['okhubimport_default_language'] = array(
