@@ -103,7 +103,7 @@ function okhubapi_search($type, $set, $format, $params, $extra_fields = array())
 /**
  * Function used to retrieve OKHUB items using count, with parameters.
  */
-function okhubapi_count($type, $set, $api_key, $count_category, $age_results = 0, $params) {
+function okhubapi_count($type, $set, $count_category, $age_results = 0, $params = array()) {
   $okhubwrapper = new OkhubApiWrapper;
   $api_key = variable_get('okhubapi_api_key', '');
   $response = $okhubwrapper->count($type, $set, $api_key, $count_category, $age_results, $params);
@@ -305,5 +305,22 @@ function _okhubapi_get_language_options_from_themes($theme_options){
 		}
 	}
 	return $language_options;
+}
+
+
+/**
+ * Get array of all languages for form.
+ */
+function _okhubapi_get_all_languages_arr(){
+    $languages_response = okhubapi_count('documents', 'hub', 'language');
+    $language_arr = array();
+    if(isset($languages_response->results)){
+	    foreach($languages_response->results as $language){
+	    	if(isset($language->name)){
+	    		$language_arr[$language->name] = $language->name;
+	    	}
+	    }
+    }
+ 	return $language_arr;
 }
 

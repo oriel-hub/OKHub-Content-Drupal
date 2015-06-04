@@ -52,6 +52,14 @@ function okhubimport_settings_form() {
   	'#default_value' => variable_get('okhubimport_default_datasources', ''),
     '#description' => t('OKHUB data sources to be used to import data from. If none selected then ALL sources used.'),
   );
+  
+  $form['general']['okhubimport_default_language'] = array(
+    '#title' => t('Data default language to import from'),
+    '#type' => 'select',
+    '#options' => _okhubapi_get_all_languages_arr(),
+  	'#default_value' => variable_get('okhubimport_default_language', ''),
+    '#description' => t('OKHUB data language to be used to import data from. Will use alernative if chosen language not found'),
+  );
 
   $form['general']['assets'] = array (
     '#type' => 'fieldset',
