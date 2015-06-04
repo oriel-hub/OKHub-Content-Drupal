@@ -15,6 +15,18 @@
 			cnt++;
 		});
 		
+		function okhubimportJqueryVersionCheck(a,b,c){
+			if (typeof a === "undefined" || a === null) { a = 0; }
+			if (typeof b === "undefined" || b === null) { b = 0; }
+			if (typeof c === "undefined" || c === null) { c = 0; }
+			var versionCheckPass = false;
+			var vernums = $.fn.jquery.split('.');
+			if (parseInt(vernums[0]) >= a && parseInt(vernums[1]) >= b && parseInt(vernums[2]) >= c) {
+				versionCheckPass = true;
+			}
+			return versionCheckPass;
+		}
+		
 		function okhubimportStrForSelectedLang(str, lang){
 			returnStr = '';
 			var langCodeStr = "["+lang+"]";
@@ -77,11 +89,13 @@
 				$("#edit-okhubimport-default-themes")
 		         .append(newOption);
 			}
-			$('.form-item-okhubimport-default-themes').find(".Tokenize").remove();
-			$('#edit-okhubimport-default-themes').tokenize({
-				displayDropdownOnFocus: true,
-				newElements:false
-			});
+			if(okhubimportJqueryVersionCheck(1,8)){
+				$('.form-item-okhubimport-default-themes').find(".Tokenize").remove();
+				$('#edit-okhubimport-default-themes').tokenize({
+					displayDropdownOnFocus: true,
+					newElements:false
+				});
+			}
 		});
 		$("#edit-okhubimport-default-lang-themes" ).trigger( "change" );
 	}
