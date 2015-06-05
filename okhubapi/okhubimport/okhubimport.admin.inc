@@ -63,12 +63,20 @@ function okhubimport_settings_form() {
     '#description' => t('The priority OKHUB data source to be used to import data from (where multiple for one document).'),
   );
   
-  $form['general']['okhubimport_default_language'] = array(
-    '#title' => t('Data default language to import from'),
+  $form['general']['okhubimport_priority_language'] = array(
+    '#title' => t('Priority language to import from'),
     '#type' => 'select',
     '#options' => _okhubapi_get_all_languages_arr(),
-  	'#default_value' => variable_get('okhubimport_default_language', ''),
-    '#description' => t('OKHUB data language to be used to import data from. Will use alernative if chosen language not found'),
+  	'#default_value' => variable_get('okhubimport_priority_language', ''),
+    '#description' => t('OKHUB data priority language to be used to import data from. Will use alernative if chosen language not found'),
+  );
+  
+  $form['general']['okhubimport_only_use_priority_language'] = array(
+    '#title' => t('Only use priority language'),
+    '#type' => 'select',
+    '#options' => array(0 => 'No', 1 => 'Yes'),
+  	'#default_value' => variable_get('okhubimport_only_use_priority_language', ''),
+    '#description' => t('OKHUB data only import from the prority language don\'t use alternative'),
   );
 
   $form['general']['assets'] = array (
