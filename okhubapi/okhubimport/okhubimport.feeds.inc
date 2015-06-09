@@ -36,6 +36,8 @@ class OkhubAssetsFetcher extends FeedsFetcher {
     $this->okhub_api_wrapper->setSite(variable_get('okhubimport_default_dataset', OKHUB_API_DEFAULT_DATASET));
     $this->okhub_api_wrapper->setNumRequested(variable_get('okhubimport_number_assets', OKHUB_IMPORT_NUM_ASSETS));
     $this->okhub_api_wrapper->setAgeResults(variable_get('okhubimport_age_new_assets', OKHUB_IMPORT_AGE_NEW_ASSETS));
+    $this->okhub_api_wrapper->setPriorityDatasource(variable_get('okhubimport_priority_datasource', ''));
+    $this->okhub_api_wrapper->setPriorityLanguage(variable_get('okhubimport_priority_language', ''));
     $this->okhub_api_wrapper->setFormat('full');
     if ($query_string = variable_get('okhubimport_query_string')) {
       $this->okhub_api_wrapper->setQueryString($query_string);
@@ -197,10 +199,10 @@ class OkhubAssetsParser extends FeedsParser {
       $results = $response->getResults();
       foreach($results as $asset) {
         $item = array(
-          'object_id' => $asset->object_id,
-          'object_type' => $asset->object_type,
-          'title' => $asset->title,
-          'metadata_url' => $asset->metadata_url,
+          'object_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),
+          'object_type' => $asset->get_value(OKHUB_API_FN_ITEM_TYPE),
+          'title' => $asset->get_value(OKHUB_API_FN_TITLE),
+          'metadata_url' => $asset->get_value(OKHUB_API_METADATA_URL),
         );
         $result->items[] = $item;
       }
@@ -337,31 +339,31 @@ class OkhubDocumentsParser extends FeedsParser {
       $results = $response->getResults();
       foreach($results as $asset) {
         $item = array(
-          'object_id' => $asset->object_id,
-          'object_type' => $asset->object_type,
-          'title' => $asset->title,
-          'site' => $asset->site,
-          'metadata_url' => $asset->metadata_url,
-          'timestamp' => $asset->timestamp,
-          'website_url' => $asset->website_url,
-          'name' => $asset->name,
-          'asset_id' => $asset->asset_id,
-          'date_created' => $asset->date_created,
-          'date_updated' => $asset->date_updated,
-          'category_theme_array' => $asset->category_theme_array,
-          'category_subject_array' => $asset->category_subject_array,
-          'category_region_array' => $asset->category_region_array,
-          'country_focus_array' => $asset->country_focus_array,
-          'keywords' => $asset->keywords,
-          'description' => $asset->description,
-          'authors' => $asset->authors,
-          'language_name' => $asset->language_name,
-          'publication_date' => $asset->publication_date,
-          'publisher' => $asset->publisher,
-          'publisher_id' => $asset->publisher_id,
-          'licence_type' => $asset->licence_type,
-          'document_type' => $asset->document_type,
-          'urls' => $asset->urls,
+          'object_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),
+          'object_type' => $asset->get_value(OKHUB_API_FN_ITEM_TYPE),
+          'title' => $asset->get_value(OKHUB_API_FN_TITLE),
+          'site' => $asset->get_value(OKHUB_API_FN_SITE),
+          'metadata_url' => $asset->get_value(OKHUB_API_METADATA_URL),
+          'timestamp' => $asset->get_value(OKHUB_API_FN_TIMESTAMP),
+          'website_url' => $asset->get_value(OKHUB_API_WEBSITE_URL),
+          'name' => $asset->get_value(OKHUB_API_FN_NAME),
+          'asset_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),
+          'date_created' => $asset->get_value(OKHUB_API_DATE_CREATED),
+          'date_updated' => $asset->get_value(OKHUB_API_DATE_UPDATED),
+          'category_theme_array' => $asset->get_value('category_theme_array'),
+          'category_subject_array' => $asset->get_value('category_subject_array'),
+          'category_region_array' => $asset->get_value('category_region_array'),
+          'country_focus_array' => $asset->get_value('country_focus_array'),
+          'keywords' => $asset->get_value('keywords'),
+          'description' => $asset->get_value(OKHUB_API_FN_DESCRIPTION),
+          'authors' => $asset->get_value('author'),
+          'language_name' => $asset->get_value(OKHUB_API_METADATA_URL),
+          'publication_date' => $asset->get_value('publication_date'),
+          'publisher' => $asset->get_value('publisher'),
+          'publisher_id' => $asset->get_value('publisher_id'),
+          'licence_type' => $asset->get_value('licence_type'),
+          'document_type' => $asset->get_value(OKHUB_API_DOCUMENT_TYPE),
+          'urls' => $asset->get_value(OKHUB_API_URLS),
         );
         $result->items[] = $item;
       }
@@ -486,29 +488,29 @@ class OkhubOrganisationsParser extends FeedsParser {
       $results = $response->getResults();
       foreach($results as $asset) {
         $item = array(
-          'object_id' => $asset->object_id,
-          'object_type' => $asset->object_type,
-          'title' => $asset->title,
-          'site' => $asset->site,
-          'metadata_url' => $asset->metadata_url,
-          'timestamp' => $asset->timestamp,
-          'website_url' => $asset->website_url,
-          'name' => $asset->name,
-          'asset_id' => $asset->asset_id,
-          'date_created' => $asset->date_created,
-          'date_updated' => $asset->date_updated,
-          'category_theme_array' => $asset->category_theme_array,
-          'category_subject_array' => $asset->category_subject_array,
-          'category_region_array' => $asset->category_region_array,
-          'country_focus_array' => $asset->country_focus_array,
-          'keywords' => $asset->keywords,
-          'description' => $asset->description,
+          'object_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),
+          'object_type' => $asset->get_value(OKHUB_API_FN_ITEM_TYPE),
+          'title' => $asset->get_value(OKHUB_API_FN_TITLE),
+          'site' => $asset->get_value(OKHUB_API_FN_SITE),
+          'metadata_url' => $asset->get_value(OKHUB_API_FN_METADATA_URL),
+          'timestamp' => $asset->get_value(OKHUB_API_FN_TIMESTAMP),
+          'website_url' => $asset->get_value(OKHUB_API_FN_WEBSITE_URL),
+          'name' => $asset->get_value(OKHUB_API_FN_NAME),
+          'asset_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),
+          'date_created' => $asset->get_value(OKHUB_API_DATE_CREATED),
+          'date_updated' => $asset->get_value(OKHUB_API_DATE_UPDATED),
+          'category_theme_array' => $asset->get_value('category_theme_array'),
+          'category_subject_array' => $asset->get_value('category_subject_array'),
+          'category_region_array' => $asset->get_value('category_region_array'),
+          'country_focus_array' => $asset->get_value('country_focus_array'),
+          'keywords' => $asset->get_value('keywords'),
+          'description' => $asset->get_value(OKHUB_API_DATE_DESCRIPTION),
           '$acronym' => $asset->acronym,
-          '$alternative_acronym' => $asset->alternative_acronym,
-          '$alternative_name' => $asset->alternative_name,
-          '$organisation_type' => $asset->organisation_type,
-          '$organisation_url' => $asset->organisation_url,
-          'location_country' => $asset->location_country,
+          '$alternative_acronym' => $asset->get_value('acronym'),
+          '$alternative_name' => get_value(OKHUB_API_FN_NAME),
+          '$organisation_type' => $asset->get_value('organisation_type'),
+          '$organisation_url' => $asset->get_value('organisation_url'),
+          'location_country' => $asset->get_value('country'),
         );
         $result->items[] = $item;
       }
@@ -586,17 +588,17 @@ class OkhubCategoriesParser extends FeedsParser {
       $results = $response->getResults();
       foreach($results as $category) {
         $item = array(
-          'name' => $category->name,
-          'title' => $category->title,
-          'category_id' => $category->category_id,
-          'cat_superparent' => $category->cat_superparent,
-          'parent_object_id' => $category->parent_object_id,
-          'site' => $category->site,
-          'website_url' => $category->website_url,
-          'metadata_url' => $category->metadata_url,
-          'object_id' => $category->object_id,
-          'object_type' => $category->object_type,
-          'timestamp' => $category->timestamp,
+          'name' => $category->get_value(OKHUB_API_FN_NAME),
+          'title' => $category->get_value(OKHUB_API_FN_TITLE),
+          'category_id' => $category->get_value(OKHUB_API_FN_ITEM_ID),
+          'cat_superparent' => FALSE,
+          'parent_object_id' => FALSE,
+          'site' => $category->get_value(OKHUB_API_FN_SITE),
+          'website_url' => $category->get_value(OKHUB_API_FN_WEBSITE_URL),
+          'metadata_url' => $category->get_value(OKHUB_API_FN_METADATA_URL),
+          'object_id' => $category->get_value(OKHUB_API_FN_ITEM_ID),
+          'object_type' => $category->get_value(OKHUB_API_FN_ITEM_TYPE),
+          'timestamp' => $category->get_value(OKHUB_API_FN_TIMESTAMP),
         );
         if (isset($category->archived) && ($category->archived === 'true')) {
           $item['archived'] = 1;
@@ -604,12 +606,12 @@ class OkhubCategoriesParser extends FeedsParser {
         else {
           $item['archived'] = 0;
         }
-        if (($category->cat_parent == 1) || ($category->cat_parent == 2)){
+/*        if (($category->cat_parent == 1) || ($category->cat_parent == 2)){
           $item['cat_parent'] = 0;
         }
         else {
           $item['cat_parent'] = $category->cat_parent;
-        }
+        }*/
         $result->items[] = $item;
       }
     }
@@ -697,20 +699,20 @@ class OkhubCountriesParser extends FeedsParser {
       $results = $response->getResults();
       foreach($results as $country) {
         $item = array(
-          'object_id' => $country->object_id,
-          'object_type' => $country->object_type,
-          'title' => $country->title,
-          'site' => $country->site,
-          'metadata_url' => $country->metadata_url,
-          'timestamp' => $country->timestamp,
-          'website_url' => $country->website_url,
-          'name' => $country->name,
-          'alternative_name' => $country->alternative_name,
-          'asset_id' => $country->asset_id,
-          'iso_number' => $country->iso_number,
-          'iso_three_letter_code' => $country->iso_three_letter_code,
-          'iso_two_letter_code' => $country->iso_two_letter_code,
-          'category_region_array' => $country->category_region_array,  
+          'object_id' => $country->get_value(OKHUB_API_FN_ITEM_ID),
+          'object_type' => $country->get_value(OKHUB_API_FN_ITEM_TYPE),
+          'title' => $country->get_value(OKHUB_API_FN_TITLE),
+          'site' => $country->get_value(OKHUB_API_FN_SITE),
+          'metadata_url' => $country->get_value(OKHUB_API_FN_METADATA_URL),
+          'timestamp' => $country->get_value(OKHUB_API_FN_TIMESTAMP),
+          'website_url' => $country->get_value(OKHUB_API_FN_WEBSITE_URL),
+          'name' => $country->get_value(OKHUB_API_FN_NAME),
+          'alternative_name' => $country->get_value('alternative_name'),
+          'asset_id' => $country->get_value(OKHUB_API_FN_ITEM_ID),
+          'iso_number' => $country->get_value('iso_number'),
+          'iso_three_letter_code' => $country->get_value('iso_three_letter_code'),
+          'iso_two_letter_code' => $country->get_value('iso_two_letter_code'),
+          'category_region_array' => $country->get_value('category_region_array'),  
         );
         $result->items[] = $item;
       }

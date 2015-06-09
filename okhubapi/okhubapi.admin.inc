@@ -33,13 +33,39 @@ function okhubapi_settings_form() {
     '#default_value' => variable_get('okhubapi_default_dataset', OKHUB_API_DEFAULT_DATASET),
     '#description' => t('OKHUB dataset to be used by default.'),
   );
+ 
+  $sources_options = _okhubapi_get_sources_options();
   
   $form['general']['okhubimport_default_datasources'] = array(
     '#title' => t('Default data sources'),
     '#type' => 'checkboxes',
-    '#options' => _okhubapi_get_sources_options(),
+    '#options' => $sources_options,
   	'#default_value' => variable_get('okhubimport_default_datasources', ''),
     '#description' => t('OKHUB data sources to be used by default. If none selected then ALL sources used.'),
+  );
+  
+  $form['general']['okhubimport_priority_datasource'] = array(
+    '#title' => t('Priority data source to import from'),
+    '#type' => 'select',
+    '#options' => $sources_options,
+  	'#default_value' => variable_get('okhubimport_priority_datasource', ''),
+    '#description' => t('The priority OKHUB data source to be used to import data from (where multiple for one document).'),
+  );
+  
+  $form['general']['okhubimport_priority_language'] = array(
+    '#title' => t('Priority language to import from'),
+    '#type' => 'select',
+    '#options' => _okhubapi_get_all_languages_arr(),
+  	'#default_value' => variable_get('okhubimport_priority_language', ''),
+    '#description' => t('OKHUB data priority language to be used to import data from. Will use alernative if chosen language not found'),
+  );
+  
+  $form['general']['okhubimport_only_use_priority_language'] = array(
+    '#title' => t('Only use priority language'),
+    '#type' => 'select',
+    '#options' => array(0 => 'No', 1 => 'Yes'),
+  	'#default_value' => variable_get('okhubimport_only_use_priority_language', ''),
+    '#description' => t('OKHUB data only import from the prority language don\'t use alternative'),
   );
   
   $form['okhubapi_number_items'] = array(

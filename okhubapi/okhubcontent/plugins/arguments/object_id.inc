@@ -21,7 +21,8 @@ function okhubcontent_argument_context($arg = null, $conf = NULL, $empty = FALSE
   $okhubWrapper = new OkhubApiWrapper();
   $dataset = variable_get('okhubapi_default_dataset', OKHUB_API_DEFAULT_DATASET);
   $apiKey = variable_get('okhubapi_api_key', '');
-  $item = $okhubWrapper->get("documents", $dataset, $apiKey, "full", $arg);
+  $priorities = _okhubapi_get_priorities_arr();
+  $item = $okhubWrapper->get("documents", $dataset, $apiKey, "full", $arg, $priorities);
   if (!empty($item) && !empty($item->results)){
     $document = $item->results[0];
   }

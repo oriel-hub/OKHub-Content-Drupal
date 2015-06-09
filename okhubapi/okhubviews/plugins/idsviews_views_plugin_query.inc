@@ -20,6 +20,8 @@ class okhubviews_views_plugin_query extends views_plugin_query_default {
   function init($base_table, $base_field, $options) {
     parent::init($base_table, $base_field, $options);
     $this->okhub_wrapper = new OkhubApiWrapper();
+    $this->okhub_wrapper->setPriorityDatasource(variable_get('okhubimport_priority_datasource', ''));
+    $this->okhub_wrapper->setPriorityLanguage(variable_get('okhubimport_priority_language', ''));
   }
 
   /**

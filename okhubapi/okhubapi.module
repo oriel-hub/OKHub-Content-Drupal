@@ -86,7 +86,8 @@ function okhubapi_help($path, $arg) {
 function okhubapi_get_all($type, $set, $format) {
   $okhubwrapper = new OkhubApiWrapper;
   $api_key = variable_get('okhubapi_api_key', '');
-  $response = $okhubwrapper->getAll($type, $set, $api_key, $format);
+  $priorities = _okhubapi_get_priorities_arr();
+  $response = $okhubwrapper->getAll($type, $set, $api_key, $format, $priorities);
   return $response;
 }
 
@@ -96,7 +97,8 @@ function okhubapi_get_all($type, $set, $format) {
 function okhubapi_search($type, $set, $format, $params, $extra_fields = array()) {
   $okhubwrapper = new OkhubApiWrapper;
   $api_key = variable_get('okhubapi_api_key', '');
-  $response = $okhubwrapper->search($type, $set, $api_key, $format, 0, 0, 0, $params, $extra_fields);
+  $priorities = _okhubapi_get_priorities_arr();
+  $response = $okhubwrapper->search($type, $set, $api_key, $format, 0, 0, 0, $params, $extra_fields, $priorities);
   return $response;
 }
 
@@ -106,7 +108,8 @@ function okhubapi_search($type, $set, $format, $params, $extra_fields = array())
 function okhubapi_count($type, $set, $count_category, $age_results = 0, $params = array()) {
   $okhubwrapper = new OkhubApiWrapper;
   $api_key = variable_get('okhubapi_api_key', '');
-  $response = $okhubwrapper->count($type, $set, $api_key, $count_category, $age_results, $params);
+  $priorities = _okhubapi_get_priorities_arr();
+  $response = $okhubwrapper->count($type, $set, $api_key, $count_category, $age_results, $params, $priorities);
   return $response;	
 }
 
@@ -316,11 +319,21 @@ function _okhubapi_get_all_languages_arr(){
     $language_arr = array();
     if(isset($languages_response->results)){
 	    foreach($languages_response->results as $language){
-	    	if(isset($language->name)){
-	    		$language_arr[$language->name] = $language->name;
+	    	if($language_name = $language->get_value('object_name')){
+	    		$language_arr[$language_name] = $language_name;
 	    	}
 	    }
     }
  	return $language_arr;
+}
+
+/**
+ * Get array of priorities for requests (datasource and language)
+ */
+function _okhubapi_get_priorities_arr(){
+    $priorities = array();
+    $priorities['priority_datasource'] = variable_get('okhubimport_priority_datasource', '');
+    $priorities['priority_language'] = variable_get('okhubimport_priority_language', '');
+ 	return $priorities;
 }
 
