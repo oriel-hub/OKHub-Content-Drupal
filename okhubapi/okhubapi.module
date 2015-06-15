@@ -253,8 +253,8 @@ function _okhubapi_get_themes_arr($selected_datasources_only = FALSE){
     $theme_arr = array();
     if(isset($themes_response->results)){
 	    foreach($themes_response->results as $theme){
-	    	if(isset($theme->object_id) && isset($theme->title)){
-	    		$theme_arr[$theme->object_id['hub']] = $theme;
+	    	if($theme->get_value(OKHUB_API_FN_ITEM_ID) && $theme->get_value(OKHUB_API_FN_TITLE)){
+	    		$theme_arr[$theme->get_value(OKHUB_API_FN_ITEM_ID)] = $theme;
 	    	}
 	    }
     }
@@ -270,7 +270,7 @@ function _okhubapi_get_themes_options($theme_arr){
 	foreach($theme_arr as $theme){
 		$default_theme_title = '';
 		$lang_title_arr = array();
-	    foreach($theme->title as $title_arr){
+	    foreach($theme->get_value_object(OKHUB_API_FN_TITLE) as $title_arr){
 	    	foreach($title_arr as $lang => $title){
 	    		$built_title = $title[0] . ' [' . $lang . ']';
     			if(!in_array($built_title, $lang_title_arr)){
@@ -285,7 +285,7 @@ function _okhubapi_get_themes_options($theme_arr){
     		$default_theme_title .= $title;
     	}
     	if($default_theme_title){
-    		$themes_options[$theme->object_id['hub']] = $default_theme_title;
+    		$themes_options[$theme->get_value(OKHUB_API_FN_ITEM_ID)] = $default_theme_title;
     	} 
     }
  	return $themes_options;
@@ -297,7 +297,7 @@ function _okhubapi_get_themes_options($theme_arr){
 function _okhubapi_get_language_options_from_themes($theme_options){
 	$language_options = array('all' => 'All');
 	foreach($theme_options as $theme_arr){
-		foreach($theme_arr->title as $source => $source_theme_arr){
+		foreach($theme_arr->get_value_object(OKHUB_API_FN_TITLE) as $source => $source_theme_arr){
 			foreach($source_theme_arr as $lang_key => $value){
 				$language_options[$lang_key] = $lang_key;
 			}
