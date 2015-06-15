@@ -228,15 +228,11 @@ function _okhubapi_get_sources_options(){
     if(isset($sources_response->results)){
 	    foreach($sources_response->results as $source){
 	    	$is_semantic = FALSE;
-	    	if(isset($source->okhub_is)){
-	    		if(isset($source->okhub_is['semantic'])){
-	    			if($source->okhub_is['semantic'][0]){
-	    				$is_semantic = TRUE;
-	    			}
-	    		}
-	    	}
-	    	if(isset($source->code) && isset($source->name) && !$is_semantic){
-	    		$sources_options[$source->code[0]] = $source->name[$language->language][0];
+    		if($source->get_value('is_semantic')){
+    			$is_semantic = TRUE;
+    		}
+	    	if($source->get_value('code') && $source->get_value('name') && !$is_semantic){
+	    		$sources_options[$source->get_value('code')] = $source->get_value('name');
 	    	}
 	    }
     }
