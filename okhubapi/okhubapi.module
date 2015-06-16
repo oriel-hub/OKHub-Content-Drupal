@@ -231,8 +231,8 @@ function _okhubapi_get_sources_options(){
     		if($source->get_value('is_semantic')){
     			$is_semantic = TRUE;
     		}
-	    	if($source->get_value('code') && $source->get_value('name') && !$is_semantic){
-	    		$sources_options[$source->get_value('code')] = $source->get_value('name');
+	    	if($source->get_value(OKHUB_API_FN_SOURCE_CODE) && $source->get_value(OKHUB_API_FN_NAME) && !$is_semantic){
+	    		$sources_options[$source->get_value(OKHUB_API_FN_SOURCE_CODE)] = $source->get_value(OKHUB_API_FN_NAME);
 	    	}
 	    }
     }
