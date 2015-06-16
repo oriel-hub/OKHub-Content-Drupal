@@ -50,8 +50,12 @@ class OkhubAssetsFetcher extends FeedsFetcher {
   public function fetch(FeedsSource $source) {
     $this->okhub_api_wrapper->setObjectType($this->config['asset_type']);
     $datasources = _okhubapi_get_datasources_param();
-    if ($datasources) {
+    if($datasources) {
       $this->okhub_api_wrapper->setParam('source', $datasources);
+    }
+    $themes = _okhubapi_get_themes_param();
+    if($themes) {
+      $this->okhub_api_wrapper->setParam('theme_id', $themes);
     }
     $fetcher_result = new OkhubContentFetcherResult($this);
     return $fetcher_result;

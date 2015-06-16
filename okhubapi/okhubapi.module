@@ -203,19 +203,71 @@ function _okhubapi_get_selected_datasources_array(){
 }
 
 /*
+ * Function to return the selected themes as array
+ */
+function _okhubapi_get_selected_themes_array(){
+	$themes_arr = array();
+    if ($themes_arr = variable_get('okhubimport_default_themes')) {
+    	/*
+    	 * API works on theme names, rather than IDs so need to look them up 
+    	 * (I wanted to use IDs -- if the API modified to use IDs don't need to do the next line)
+    	 */
+    	//$themes_arr = _okhubapi_get_theme_names_array_from_ids($themes_arr);
+    	foreach($themes_arr as $theme => $value){
+    		if($value){
+    			$themes_arr[] = $theme;
+    		}
+    	}
+    }
+    return $themes_arr;
+}
+
+/*
+ * Function to return the selected theme names from a list of theme ids
+ */
+function _okhubapi_get_theme_names_array_from_ids($ids_arr){
+	$names_arr = array();
+	$theme_arr = _okhubapi_get_themes_arr();
+	foreach($theme_arr as $id => $name){
+		$names_arr[$id] = $name;
+	}
+	return $names_arr;
+}
+
+/*
  * Function to return the selected datasources as a string for passing to setParam with sources attribute
  */
 function _okhubapi_get_datasources_param(){
 	$datasources_param = '';
-    if ($datasources = _okhubapi_get_selected_datasources_array()) {
-    	foreach($datasources as $datasource){
-    		if($datasources_param){
-    			$datasources_param .= '|';
-    		}
-    		$datasources_param .= $datasource;
-    	}
+    if ($selected_datasources = _okhubapi_get_selected_datasources_array()) {
+    	$datasources_param = _okhubapi_array_to_url_param($selected_datasources);
     }
     return $datasources_param;
+}
+
+/*
+ * Function to return the selected themes as a string for passing to setParam with themes attribute
+ */
+function _okhubapi_get_themes_param(){
+	$themes_param = '';
+    if ($selected_themes = _okhubapi_get_selected_themes_array()) {
+    	$themes_param = _okhubapi_array_to_url_param($selected_themes);
+    }
+    return $themes_param;
+}
+
+/*
+ * Turn an array into a parameter list for URL in call to API
+ */
+function _okhubapi_array_to_url_param($arr){
+	$param_list = '';
+    foreach($arr as $value){
+    	if($param_list){
+    		$param_list .= '|';
+    	}
+    	$param_list .= str_replace(' ', '+', $value);
+    }
+    return $param_list;
 }
 
 /**
@@ -247,7 +299,9 @@ function _okhubapi_get_themes_arr($selected_datasources_only = FALSE){
 	$params = array();
 	if($selected_datasources_only){
 		$datasources = _okhubapi_get_datasources_param();
-		$params['source'] = $datasources;
+		if($datasources){
+			$params['source'] = $datasources;
+		}
 	}
     $themes_response = okhubapi_search('themes', 'hub', 'full', $params);
     $theme_arr = array();
