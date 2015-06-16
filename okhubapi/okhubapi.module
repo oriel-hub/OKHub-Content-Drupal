@@ -94,11 +94,11 @@ function okhubapi_get_all($type, $set, $format) {
 /**
  * Function used to retrieve OKHUB items using search, with parameters.
  */
-function okhubapi_search($type, $set, $format, $params, $extra_fields = array()) {
+function okhubapi_search($type, $set, $format, $params, $extra_fields = array(), $num_requested = 0, $age_results = 0, $start_offset = 0) {
   $okhubwrapper = new OkhubApiWrapper;
   $api_key = variable_get('okhubapi_api_key', '');
   $priorities = _okhubapi_get_priorities_arr();
-  $response = $okhubwrapper->search($type, $set, $api_key, $format, 0, 0, 0, $params, $extra_fields, $priorities);
+  $response = $okhubwrapper->search($type, $set, $api_key, $format, $num_requested, $age_results, $start_offset, $params, $extra_fields, $priorities);
   return $response;
 }
 
@@ -120,18 +120,13 @@ function okhubapi_count($type, $set, $count_category, $age_results = 0, $params 
  */
 function okhubapi_block_info() {
   $blocks = array();
-  $blocks['okhubapi_eldis_documents'] = array(
-    'info' => t('Eldis documents'),
-    'cache' => DRUPAL_NO_CACHE,
-  );
-  $blocks['okhubapi_eldis_organisations'] = array(
-    'info' => t('Eldis organisations'),
-    'cache' => DRUPAL_NO_CACHE,
-  );
-  $blocks['okhubapi_bridge_documents'] = array(
-    'info' => t('Bridge documents'),
-    'cache' => DRUPAL_NO_CACHE,
-  );
+  $sources_options = _okhubapi_get_sources_options();
+  foreach($sources_options as $source_code => $source_name){
+	  $blocks['okhubapi_new_' . str_replace('_', '$', $source_code) . '_docs'] = array(
+	    'info' => t($source_name . ' documents'),
+	    'cache' => DRUPAL_NO_CACHE,
+	  );  	
+  }
   return $blocks;
 }
 
@@ -142,47 +137,26 @@ function okhubapi_block_view($block_name = '') {
   $block = array();
   $content = '';
 
-  // Retrieves latest Eldis documents
-  if ($block_name == 'okhubapi_latest_eldis_documents') {
-    $response = okhubapi_get_all('documents', 'eldis', 'full');
-    $items = $response->getArrayLinks();
-    if (is_array($items)) {
-      $theme_args = array('items' => $items, 'type' => 'ol');
-      $content = theme('item_list', $theme_args);
-    }
-    else  {
-      $content = theme('help', 'Error when recovering block content.');
-    }
-    $block['subject'] = t('Eldis recent documents');
+  $block_name_arr = explode('_', $block_name);
+  if(count($block_name_arr) > 3){
+  	if($block_name_arr[0] == 'okhubapi' && $block_name_arr[1] == 'new' && $block_name_arr[3] == 'docs'){
+  		$sources_options = _okhubapi_get_sources_options();
+  		$source_id = str_replace('$', '_', $block_name_arr[2]);
+  		$params = array('source' => $source_id);
+	    $response = okhubapi_search('documents', OKHUB_API_DEFAULT_DATASET, 'full', $params, $extra_fields = array(), $num_requested = 5);
+	    $items = $response->getArrayLinks($source_id);
+	    if (is_array($items)) {
+	      $theme_args = array('items' => $items, 'type' => 'ol');
+	      $content = theme('item_list', $theme_args);
+	    }
+	    else  {
+	      $content = theme('help', 'Error when recovering block content.');
+	    }
+	    $source_name = $sources_options[$source_id];
+	    $block['subject'] = t($source_name . ' recent documents');
+  	}
   }
-  
-  // Retrieves latest Eldis organisations
-  if ($block_name == 'okhubapi_latest_eldis_organisations') {
-    $response = okhubapi_get_all('organisations', 'eldis', 'full');
-    $items = $response->getArrayLinks();
-    if (is_array($items)) {
-      $theme_args = array('items' => $items, 'type' => 'ol');
-      $content = theme('item_list', $theme_args);
-    }
-    else  {
-      $content = theme('help', 'Error when recovering block content.');
-    }
-    $block['subject'] = t('Eldis latest organisations');
-  }
-  
-    // Retrieves latest Bridge documents
-  if ($block_name == 'okhubapi_latest_bridge_documents') {
-    $response = okhubapi_get_all('documents', 'bridge', 'full');
-    $items = $response->getArrayLinks();
-    if (is_array($items)) {
-      $theme_args = array('items' => $items, 'type' => 'ol');
-      $content = theme('item_list', $theme_args);
-    }
-    else  {
-      $content = theme('help', 'Error when recovering block content.');
-    }
-    $block['subject'] = t('Bridge latest documents');
-  }
+ 
   $block['content'] = $content;
   return $block;
 }
@@ -287,7 +261,7 @@ function _okhubapi_array_to_url_param($arr){
  */
 function _okhubapi_get_sources_options(){
 	global $language;
-    $sources_response = okhubapi_get_all('sources', 'hub', 'full');
+    $sources_response = okhubapi_get_all('sources', OKHUB_API_DEFAULT_DATASET, 'full');
     $sources_options = array();
     if(isset($sources_response->results)){
 	    foreach($sources_response->results as $source){
@@ -315,7 +289,7 @@ function _okhubapi_get_themes_arr($selected_datasources_only = FALSE){
 			$params['source'] = $datasources;
 		}
 	}
-    $themes_response = okhubapi_search('themes', 'hub', 'full', $params);
+    $themes_response = okhubapi_search('themes', OKHUB_API_DEFAULT_DATASET, 'full', $params);
     $theme_arr = array();
     if(isset($themes_response->results)){
 	    foreach($themes_response->results as $theme){
@@ -377,7 +351,7 @@ function _okhubapi_get_language_options_from_themes($theme_options){
  * Get array of all languages for form.
  */
 function _okhubapi_get_all_languages_arr(){
-    $languages_response = okhubapi_count('documents', 'hub', 'language');
+    $languages_response = okhubapi_count('documents', OKHUB_API_DEFAULT_DATASET, 'language');
     $language_arr = array();
     if(isset($languages_response->results)){
 	    foreach($languages_response->results as $language){
