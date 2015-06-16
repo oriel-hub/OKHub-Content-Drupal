@@ -57,6 +57,10 @@ class OkhubAssetsFetcher extends FeedsFetcher {
     if($themes) {
       $this->okhub_api_wrapper->setParam('theme_id', $themes);
     }
+    $lang = _okhubapi_get_lang_param();
+    if($lang) {
+      $this->okhub_api_wrapper->setParam('lang', $lang);
+    }
     $fetcher_result = new OkhubContentFetcherResult($this);
     return $fetcher_result;
   }

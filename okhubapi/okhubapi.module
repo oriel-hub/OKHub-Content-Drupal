@@ -257,6 +257,18 @@ function _okhubapi_get_themes_param(){
 }
 
 /*
+ * Function to return the selected priority lang code if "Only use priority language" true
+ * Returns a string for passing to setParam with lang attribute
+ */
+function _okhubapi_get_lang_param(){
+	$lang = '';
+	if(variable_get('okhubimport_only_use_priority_language', '')){
+		$lang = variable_get('okhubimport_priority_language', '');
+	}
+    return $lang;
+}
+
+/*
  * Turn an array into a parameter list for URL in call to API
  */
 function _okhubapi_array_to_url_param($arr){
