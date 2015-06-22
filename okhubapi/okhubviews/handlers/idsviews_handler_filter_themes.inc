@@ -23,14 +23,14 @@ class okhubviews_handler_filter_themes extends views_handler_filter {
       $themes = $response->results;
       foreach ($themes as $theme) {
         $name_theme = substr($theme->title,0,$length_title);
-        if (strlen($theme->title) > $length_title) {
+        if (strlen($theme->get_value(OKHUB_API_FN_TITLE)) > $length_title) {
           $name_theme .= '...';
         }
-        $level = $theme->level;
+        $level = $theme->get_value('level');
         $padding_str = '-';
         $padding = strlen($name_theme) + strlen($padding_str)*($level - 1);
         $name_theme = str_pad($name_theme, $padding, $padding_str, STR_PAD_LEFT);
-        $themes_values[$theme->object_id] = $name_theme;
+        $themes_values[$theme->get_value(OKHUB_API_FN_ITEM_ID)] = $name_theme;
       }
     }
     $form['value'] = array(

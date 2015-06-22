@@ -21,10 +21,10 @@ class okhubviews_handler_filter_countries extends views_handler_filter {
       $countries = $response->results;
       foreach ($countries as $country) {
         $name_country = substr($country->title,0,$length_title);
-        if (strlen($country->title) > $length_title) {
+        if (strlen($country->get_value(OKHUB_API_FN_TITLE)) > $length_title) {
           $name_country .= '...';
         }
-        $countries_values[$country->object_id] = $name_country;
+        $countries_values[$country->get_value(OKHUB_API_FN_ITEM_ID)] = $name_country;
       }
     }
     $form['value'] = array(

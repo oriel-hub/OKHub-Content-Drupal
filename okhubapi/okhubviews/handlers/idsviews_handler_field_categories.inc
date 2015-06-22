@@ -46,19 +46,19 @@ class okhubviews_handler_field_categories extends views_handler_field {
     }
     else {
       foreach ($value as $item) {
-        if (isset($item->name)) {
+        if ($item->get_value(OKHUB_API_FN_NAME)) {
           $filter = strtolower($item->object_type) . '_filter[]';
-          if (isset($item->object_id)) {
-            $params[$filter] = $item->object_id;
+          if ($item->get_value(OKHUB_API_FN_ITEM_ID)) {
+            $params[$filter] = $item->get_value(OKHUB_API_FN_ITEM_ID);
           }
           else {
-            $params[$filter] = $item->name;
+            $params[$filter] = $item->get_value(OKHUB_API_FN_NAME);
           }
           if (!empty($this->options['display_as_links'])) {
-            $items[] = l($item->name, $view_url, array('query' => $params));
+            $items[] = l($item->get_value(OKHUB_API_FN_NAME), $view_url, array('query' => $params));
           }
           else {
-            $items[] = $this->sanitize_value($item->name);
+            $items[] = $this->sanitize_value($item->get_value(OKHUB_API_FN_NAME));
           }
         }
       }

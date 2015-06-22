@@ -20,11 +20,11 @@ class okhubviews_handler_filter_regions extends views_handler_filter {
     if (isset($response->results)) {
       $regions = $response->results;
       foreach ($regions as $region) {
-        $name_region = substr($region->title,0,$length_title);
-        if (strlen($region->title) > $length_title) {
+        $name_region = substr($region->get_value(OKHUB_API_FN_TITLE),0,$length_title);
+        if (strlen($region->get_value(OKHUB_API_FN_TITLE)) > $length_title) {
           $name_region .= '...';
         }
-        $regions_values[$region->object_id] = $name_region;
+        $regions_values[$region->get_value(OKHUB_API_FN_ITEM_ID)] = $name_region;
       }
     }
     $form['value'] = array(

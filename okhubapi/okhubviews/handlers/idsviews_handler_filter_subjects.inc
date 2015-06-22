@@ -23,14 +23,14 @@ class okhubviews_handler_filter_subjects extends views_handler_filter {
       $subjects = $response->results;
       foreach ($subjects as $subject) {
         $name_subject = substr($subject->title,0,$length_title);
-        if (strlen($subject->title) > $length_title) {
+        if (strlen($subject->get_value(OKHUB_API_FN_TITLE)) > $length_title) {
           $name_subject .= '...';
         }
-        $level = $subject->level;
+        $level = $subject->get_value('level');
         $padding_str = '-';
         $padding = strlen($name_subject) + strlen($padding_str)*($level - 1);
         $name_subject = str_pad($name_subject, $padding, $padding_str, STR_PAD_LEFT);
-        $subjects_values[$subject->object_id] = $name_subject;
+        $subjects_values[$subject->get_value(OKHUB_API_FN_ITEM_ID)] = $name_subject;
       }
     }
     $form['value'] = array(

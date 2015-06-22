@@ -25,13 +25,13 @@ class okhubviews_handler_field_title extends views_handler_field {
     $view_url = $this->view->get_url();
     $item = $this->get_value($values);
     $tipo = gettype($item);
-    if (isset($item->title)) {
+    if ($item->get_value(OKHUB_API_FN_TITLE)) {
       $params['object_id_filter'] = $item->object_id;
       if (!empty($this->options['display_as_links'])) {
-        $link_title = l($item->title, $view_url, array('query' => $params));
+        $link_title = l($item->get_value(OKHUB_API_FN_TITLE), $view_url, array('query' => $params));
       }
       else {
-        $link_title = $this->sanitize_value($item->title);
+        $link_title = $this->sanitize_value($item->get_value(OKHUB_API_FN_TITLE));
       }
     }
     return $link_title;
