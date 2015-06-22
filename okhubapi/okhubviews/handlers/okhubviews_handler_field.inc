@@ -34,7 +34,6 @@ class okhubviews_handler_field extends views_handler_field {
   function get_value($values, $field = NULL) {
     $alias = isset($field) ? $this->aliases[$field] : $this->field_alias;
     if ($values->get_value($alias)) {
-    	print_r($values->get_value($alias));
       return $values->get_value($alias);
     }
   }
@@ -47,7 +46,6 @@ class okhubviews_handler_field extends views_handler_field {
    */
   function render($values) {
     $value = $this->get_value($values);
-    return $value;
     return $this->sanitize_value($value);
   }
 
