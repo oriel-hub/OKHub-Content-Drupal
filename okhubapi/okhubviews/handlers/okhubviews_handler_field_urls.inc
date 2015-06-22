@@ -1,6 +1,6 @@
 <?php
 
-class okhubviews_handler_field_urls extends views_handler_field {
+class okhubviews_handler_field_urls extends okhubviews_handler_field {
 
   function option_definition() {
     $options = parent::option_definition();

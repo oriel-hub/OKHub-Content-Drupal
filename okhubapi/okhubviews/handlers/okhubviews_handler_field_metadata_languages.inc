@@ -3,7 +3,7 @@
  * @file 
  */
 
-class okhubviews_handler_field_metadata_languages extends views_handler_field {
+class okhubviews_handler_field_metadata_languages extends okhubviews_handler_field {
 
   function option_definition(){
     $definition = parent::option_definition();

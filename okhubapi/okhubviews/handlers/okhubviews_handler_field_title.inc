@@ -1,6 +1,6 @@
 <?php
 
-class okhubviews_handler_field_title extends views_handler_field {
+class okhubviews_handler_field_title extends okhubviews_handler_field {
 
   function option_definition() {
     $options = parent::option_definition();
@@ -23,6 +23,7 @@ class okhubviews_handler_field_title extends views_handler_field {
     $params = array();
     $link_title = '';
     $view_url = $this->view->get_url();
+    print_r($values);
     $item = $this->get_value($values);
     $tipo = gettype($item);
     if ($item->get_value(OKHUB_API_FN_TITLE)) {

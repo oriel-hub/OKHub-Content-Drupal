@@ -1,6 +1,6 @@
 <?php
 
-class okhubviews_handler_field_categories extends views_handler_field {
+class okhubviews_handler_field_categories extends okhubviews_handler_field {
 
   function option_definition() {
     $options = parent::option_definition();
@@ -41,6 +41,8 @@ class okhubviews_handler_field_categories extends views_handler_field {
     $view_url = $this->view->get_url();
     $items = array();
     $value = $this->get_value($values);
+    //print_r($value);
+    return NULL;
     if (empty($value[0])) {
       return NULL;
     }
