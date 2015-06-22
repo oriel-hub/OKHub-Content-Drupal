@@ -26,7 +26,7 @@ class okhubviews_handler_field_title extends views_handler_field {
     $item = $this->get_value($values);
     $tipo = gettype($item);
     if ($item->get_value(OKHUB_API_FN_TITLE)) {
-      $params['object_id_filter'] = $item->object_id;
+      $params['object_id_filter'] = $item->get_value(OKHUB_API_FN_ITEM_ID);
       if (!empty($this->options['display_as_links'])) {
         $link_title = l($item->get_value(OKHUB_API_FN_TITLE), $view_url, array('query' => $params));
       }
