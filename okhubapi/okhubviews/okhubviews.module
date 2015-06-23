@@ -67,81 +67,81 @@ function okhubviews_views_data() {
     'query class' => 'okhubviews_views_plugin_query',
   );
   // Fields 
-  $data['okhubviews_documents']['object_id'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_ITEM_ID] = array(
     'title' => t('Object ID'),
     'help' => t('Unique identifier of this object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_documents']['object_type'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_ITEM_TYPE] = array(
     'title' => t('Object type'),
     'help' => t('Type of object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_documents']['title'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_TITLE] = array(
     'title' => t('Title'),
     'help' => t('Readable identifier of this object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_documents']['site'] = array(
     'title' => t('Site'),
     'help' => t('Dataset.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_documents']['metadata_url'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_METADATA_URL] = array(
     'title' => t('Metadata URL'),
     'help' => t('Web-accessible uri for this object.'),
     'field' => array(
-      'handler' => 'views_handler_field_url',
+      'handler' => 'okhubviews_handler_field_urls',
     ),
   );
-  $data['okhubviews_documents']['timestamp'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_TIMESTAMP] = array(
     'title' => t('Timestamp'),
     'help' => t('Indicates when record was indexed in the API.'),
     'field' => array(
-      'handler' => 'views_handler_field_date',
+      'handler' => 'okhubviews_handler_field_date',
     ),
   );
-  $data['okhubviews_documents']['website_url'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_WEBSITE_URL] = array(
     'title' => t('Website URL'),
     'help' => t('URL for the asset on the collection website.'),
     'field' => array(
-      'handler' => 'views_handler_field_url',
+      'handler' => 'okhubviews_handler_field_urls',
     ),
   );
-  $data['okhubviews_documents']['name'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_NAME] = array(
     'title' => t('Name'),
     'help' => t('Name of the object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_documents']['asset_id'] = array(
     'title' => t('Asset ID'),
     'help' => t('Asset identifier.'),
     'field' => array(
-      'handler' => 'views_handler_field_numeric',
+      'handler' => 'okhubviews_handler_field_numeric',
     ),
   );
-  $data['okhubviews_documents']['date_created'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_DATE_CREATED] = array(
     'title' => t('Date created'),
     'help' => t('Date in which the object was added to the collection.'),
     'field' => array(
-      'handler' => 'views_handler_field_date',
+      'handler' => 'okhubviews_handler_field_date',
     ),
   );
-  $data['okhubviews_documents']['date_updated'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_DATE_UPDATED] = array(
     'title' => t('Date updated'),
     'help' => t('Date in which the object was last modified.'),
     'field' => array(
-      'handler' => 'views_handler_field_date',
+      'handler' => 'okhubviews_handler_field_date',
     ),
   );
   $data['okhubviews_documents']['category_theme_array'] = array(
@@ -181,11 +181,11 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field_keywords',
     ),
   );
-  $data['okhubviews_documents']['description'] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_DESCRIPTION] = array(
     'title' => t('Description'),
     'help' => t('Description of the document.'),
     'field' => array(
-      'handler' => 'views_handler_field_markup',
+      'handler' => 'okhubviews_handler_field_markup',
       'format' => 'full_html',
     ),
   );
@@ -200,7 +200,7 @@ function okhubviews_views_data() {
     'title' => t('Corporate authors'),
     'help' => t('Corporate Authors.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_documents']['language_name'] = array(
@@ -218,21 +218,21 @@ function okhubviews_views_data() {
     'title' => t('Publication date'),
     'help' => t('Year when the research document was first published.'),
     'field' => array(
-      'handler' => 'views_handler_field_date',
+      'handler' => 'okhubviews_handler_field_date',
     ),
   );
   $data['okhubviews_documents']['publisher'] = array(
     'title' => t('Publisher'),
     'help' => t('Organisation that published the research.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_documents']['licence_type'] = array(
     'title' => t('Licence type'),
     'help' => t('Licence type.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_documents']['urls'] = array(
@@ -425,81 +425,81 @@ function okhubviews_views_data() {
     'query class' => 'okhubviews_views_plugin_query',
   );
   // Fields 
-  $data['okhubviews_organisations']['object_id'] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_ITEM_ID] = array(
     'title' => t('Object ID'),
     'help' => t('Unique identifier of this object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_organisations']['object_type'] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_ITEM_TYPE] = array(
     'title' => t('Object type'),
     'help' => t('Type of object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_organisations']['title'] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_TITLE] = array(
     'title' => t('Title'),
     'help' => t('Readable identifier of this object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_organisations']['site'] = array(
     'title' => t('Site'),
     'help' => t('Dataset.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_organisations']['metadata_url'] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_METADATA_URL] = array(
     'title' => t('Metadata URL'),
     'help' => t('Web-accessible uri for this object.'),
     'field' => array(
-      'handler' => 'views_handler_field_url',
+      'handler' => 'okhubviews_handler_field_urls',
     ),
   );
-  $data['okhubviews_organisations']['timestamp'] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_TIMESTAMP] = array(
     'title' => t('Timestamp'),
     'help' => t('Indicates when record was indexed in the API.'),
     'field' => array(
-      'handler' => 'views_handler_field_date',
+      'handler' => 'okhubviews_handler_field_date',
     ),
   );
-  $data['okhubviews_organisations']['website_url'] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_WEBSITE_URL] = array(
     'title' => t('Website URL'),
     'help' => t('URL for the asset on the collection website.'),
     'field' => array(
-      'handler' => 'views_handler_field_url',
+      'handler' => 'okhubviews_handler_field_urls',
     ),
   );
-  $data['okhubviews_organisations']['name'] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_NAME] = array(
     'title' => t('Name'),
     'help' => t('Name of the object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_organisations']['asset_id'] = array(
+/*  $data['okhubviews_organisations']['asset_id'] = array(
     'title' => t('Asset ID'),
     'help' => t('Asset identifier.'),
     'field' => array(
-      'handler' => 'views_handler_field_numeric',
+      'handler' => 'okhubviews_handler_field_numeric',
     ),
-  );
-  $data['okhubviews_organisations']['date_created'] = array(
+  );*/
+  $data['okhubviews_organisations'][OKHUB_API_FN_DATE_CREATED] = array(
     'title' => t('Date created'),
     'help' => t('Date in which the object was added to the collection.'),
     'field' => array(
-      'handler' => 'views_handler_field_date',
+      'handler' => 'okhubviews_handler_field_date',
     ),
   );
-  $data['okhubviews_organisations']['date_updated'] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_DATE_UPDATED] = array(
     'title' => t('Date updated'),
     'help' => t('Date in which the object was last modified.'),
     'field' => array(
-      'handler' => 'views_handler_field_date',
+      'handler' => 'okhubviews_handler_field_date',
     ),
   );
   $data['okhubviews_organisations']['category_theme_array'] = array(
@@ -518,32 +518,32 @@ function okhubviews_views_data() {
     ),
   );
   }
-  $data['okhubviews_organisations']['category_region_array'] = array(
+/*  $data['okhubviews_organisations']['category_region_array'] = array(
     'title' => t('Regions'),
     'help' => t('Regions that apply to the document.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field_categories',
     ),
-  );
-  $data['okhubviews_organisations']['country_focus_array'] = array(
+  );*/
+/*  $data['okhubviews_organisations']['country_focus_array'] = array(
     'title' => t('Countries'),
     'help' => t('Countries that apply to the document.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field_categories',
     ),
-  );
-  $data['okhubviews_organisations']['keywords'] = array(
+  );*/
+/*  $data['okhubviews_organisations']['keywords'] = array(
     'title' => t('Keywords'),
     'help' => t('Subject keywords that relate to the asset.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field_keywords',
     ),
-  );
-  $data['okhubviews_organisations']['description'] = array(
+  );*/
+  $data['okhubviews_organisations'][OKHUB_API_FN_DESCRIPTION] = array(
     'title' => t('Description'),
     'help' => t('Description of the document.'),
     'field' => array(
-      'handler' => 'views_handler_field_markup',
+      'handler' => 'okhubviews_handler_field_markup',
       'format' => 'full_html',
     ),
   );
@@ -551,42 +551,42 @@ function okhubviews_views_data() {
     'title' => t('Acronym'),
     'help' => t('Acronym of organisation.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_organisations']['alternative_acronym'] = array(
     'title' => t('Alternative acronym'),
     'help' => t('Alternative acronym of organisation.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_organisations']['alternative_name'] = array(
     'title' => t('Alternative name'),
     'help' => t('Alternative name of organisation.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_organisations']['organisation_type'] = array(
     'title' => t('Organisation type'),
     'help' => t('Primary function or role of the organisation in relation to international development.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_organisations']['organisation_url'] = array(
     'title' => t('Organisation URL'),
     'help' => t('Link to the organisation\'s website.'),
     'field' => array(
-      'handler' => 'views_handler_field_url',
+      'handler' => 'okhubviews_handler_field_urls',
     ),
   );
   $data['okhubviews_organisations']['location_country'] = array(
     'title' => t('Location country'),
     'help' => t('Country where the organisation is located.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   // General filters
@@ -718,58 +718,58 @@ function okhubviews_views_data() {
 
   // Fields
 
-  $data['okhubviews_themes']['object_id'] = array(
+  $data['okhubviews_themes'][OKHUB_API_FN_ITEM_ID] = array(
     'title' => t('Object ID'),
     'help' => t('Unique identifier of this object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_themes']['object_type'] = array(
+  $data['okhubviews_themes'][OKHUB_API_FN_ITEM_TYPE] = array(
     'title' => t('Object type'),
     'help' => t('Type of object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_themes']['title'] = array(
+  $data['okhubviews_themes'][OKHUB_API_FN_TITLE] = array(
     'title' => t('Title'),
     'help' => t('Readable identifier of this object.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_themes']['site'] = array(
     'title' => t('Site'),
     'help' => t('Dataset.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_themes']['metadata_url'] = array(
+  $data['okhubviews_themes'][OKHUB_API_FN_METADATA_URL] = array(
     'title' => t('Metadata URL'),
     'help' => t('Web-accessible uri for this object.'),
     'field' => array(
-      'handler' => 'views_handler_field_url',
+      'handler' => 'okhubviews_handler_field_urls',
     ),
   );
-  $data['okhubviews_themes']['level'] = array(
+/*  $data['okhubviews_themes']['level'] = array(
     'title' => t("Level"),
     'help' => t("Nesting level of the Theme"),
     'field' => array(
-      "handler" => 'views_handler_field'
+      "handler" => 'okhubviews_handler_field'
     )
-  );
+  );*/
 
-  $data['okhubviews_themes']['parent_object_id'] = array(
+/*  $data['okhubviews_themes']['parent_object_id'] = array(
     'title' => t("Parent"),
     'help' => t("The Object ID of the parent of this theme"),
     'field' => array(
       'handler' => "views_handler_field"
     )
-  );
+  );*/
 
-  $data['okhubviews_themes']['category_id'] = array(
+  $data['okhubviews_themes'][OKHUB_API_FN_ITEM_ID] = array(
     "title" => t("Category ID"),
     'help' => t("Category ID of the theme"),
     'field' => array(
@@ -777,13 +777,13 @@ function okhubviews_views_data() {
     )
   );
 
-  $data['okhubviews_themes']['cat_parent'] = array(
+/*  $data['okhubviews_themes']['cat_parent'] = array(
     'title' => t("Parent Category"),
     'help' => t("Category number of the theme's parent"),
     'field' => array(
       'handler' => "views_handler_field"
     )
-  );
+  ); */
 
   // Filters
 
