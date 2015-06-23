@@ -25,7 +25,7 @@ class okhubviews_views_plugin_query extends views_plugin_query_default {
   }
 
   /**
-   * Set the dataset that we should be using to make requests from the API (e.g. bridge or eldis).
+   * Set the dataset that we should be using to make requests from the API (hub).
    *
    * @param $dataset
    */
@@ -34,6 +34,19 @@ class okhubviews_views_plugin_query extends views_plugin_query_default {
       // A dataset has been set from an external source, so we update our object's state to reflect that.
       $this->hasDataset = true;
       $this->okhub_wrapper->setSite($dataset);
+    }
+  }
+  
+  /**
+   * Set the datasource that we should be using to make requests from the API (e.g. bridge or eldis).
+   *
+   * @param $dataset
+   */
+  function add_datasource($datasources) {
+    if (isset($datasources)) {
+      // A datasource has been set from an external source, so we update our object's state to reflect that.
+      //$this->hasDatasource = true;
+      $this->okhub_wrapper->setParam('source', $datasources);
     }
   }
 

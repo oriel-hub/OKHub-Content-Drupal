@@ -95,6 +95,13 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
+  $data['okhubviews_documents'][OKHUB_API_FN_SOURCE_CODE] = array(
+    'title' => t('Data Source'),
+    'help' => t('Date Source.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field',
+    ),
+  );
   $data['okhubviews_documents'][OKHUB_API_FN_METADATA_URL] = array(
     'title' => t('Metadata URL'),
     'help' => t('Web-accessible uri for this object.'),
@@ -259,9 +266,16 @@ function okhubviews_views_data() {
   );
   $data['okhubviews_documents']['dataset_filter'] = array(
     'title' => t('Dataset'),
-    'help' => t('Dataset from where to retrieve the documents (Eldis or Bridge).'),
+    'help' => t('Dataset from where to retrieve the documents (hub).'),
     'filter' => array(
       'handler' => 'okhubviews_handler_filter_dataset',
+    ),
+  );
+  $data['okhubviews_documents']['datasource_filter'] = array(
+    'title' => t('Data Source'),
+    'help' => t('Data Source from where to retrieve the documents (Eldis, Bridge CCCCC, etc...).'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_datasource',
     ),
   );
   $data['okhubviews_documents']['query_filter'] = array(
@@ -453,6 +467,13 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
+  $data['okhubviews_organisations'][OKHUB_API_FN_SOURCE_CODE] = array(
+    'title' => t('Data Source'),
+    'help' => t('Date Source.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field',
+    ),
+  );
   $data['okhubviews_organisations'][OKHUB_API_FN_METADATA_URL] = array(
     'title' => t('Metadata URL'),
     'help' => t('Web-accessible uri for this object.'),
@@ -604,6 +625,13 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_filter_dataset',
     ),
   );
+  $data['okhubviews_organisations']['datasource_filter'] = array(
+    'title' => t('Data Source'),
+    'help' => t('Data Source from where to retrieve the documents (Eldis, Bridge CCCCC, etc...).'),
+    'filter' => array(
+      'handler' => 'okhubviews_handler_filter_datasource',
+    ),
+  );
   $data['okhubviews_organisations']['query_filter'] = array(
     'title' => t('Query'),
     'help' => t('The text to search for across all fields. See help at http://api.okhub.ac.uk/docs/functions/search/'),
@@ -742,6 +770,13 @@ function okhubviews_views_data() {
   $data['okhubviews_themes']['site'] = array(
     'title' => t('Site'),
     'help' => t('Dataset.'),
+    'field' => array(
+      'handler' => 'okhubviews_handler_field',
+    ),
+  );
+  $data['okhubviews_themes'][OKHUB_API_FN_SOURCE_CODE] = array(
+    'title' => t('Data Source'),
+    'help' => t('Date Source.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
