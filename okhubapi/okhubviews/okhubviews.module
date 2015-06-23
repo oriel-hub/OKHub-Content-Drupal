@@ -95,7 +95,7 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_documents'][OKHUB_API_FN_SOURCE_CODE] = array(
+  $data['okhubviews_documents'][OKHUB_API_FN_SOURCES] = array(
     'title' => t('Data Source'),
     'help' => t('Date Source.'),
     'field' => array(
@@ -151,7 +151,7 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field_date',
     ),
   );
-  $data['okhubviews_documents']['category_theme_array'] = array(
+/*  $data['okhubviews_documents']['category_theme_array'] = array(
     'title' => t('Themes'),
     'help' => t('Thematic categories which apply to the document.'),
     'field' => array(
@@ -187,7 +187,7 @@ function okhubviews_views_data() {
     'field' => array(
       'handler' => 'okhubviews_handler_field_keywords',
     ),
-  );
+  );*/
   $data['okhubviews_documents'][OKHUB_API_FN_DESCRIPTION] = array(
     'title' => t('Description'),
     'help' => t('Description of the document.'),
@@ -196,20 +196,20 @@ function okhubviews_views_data() {
       'format' => 'full_html',
     ),
   );
-  $data['okhubviews_documents']['authors'] = array(
+  $data['okhubviews_documents']['author'] = array(
     'title' => t('Authors'),
     'help' => t('Authors (First initial. Surname).'),
     'field' => array(
-      'handler' => 'okhubviews_handler_field_authors',
+      'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_documents']['corporate_author'] = array(
+/*  $data['okhubviews_documents']['corporate_author'] = array(
     'title' => t('Corporate authors'),
     'help' => t('Corporate Authors.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
-  );
+  );*/
   $data['okhubviews_documents']['language_name'] = array(
     'title' => t('Language'),
     'help' => t('The language in which the title, headline and description are written.'),
@@ -218,7 +218,7 @@ function okhubviews_views_data() {
     'title' => t("Metadata languages"),
     'help' => t("Metadata languages"),
     'field' => array(
-      'handler' => "okhubviews_handler_field_metadata_languages"
+      'handler' => "okhubviews_handler_field"
     )
   );
   $data['okhubviews_documents']['publication_date'] = array(
@@ -467,7 +467,7 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_organisations'][OKHUB_API_FN_SOURCE_CODE] = array(
+  $data['okhubviews_organisations'][OKHUB_API_FN_SOURCES] = array(
     'title' => t('Data Source'),
     'help' => t('Date Source.'),
     'field' => array(
@@ -774,7 +774,7 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_themes'][OKHUB_API_FN_SOURCE_CODE] = array(
+  $data['okhubviews_themes'][OKHUB_API_FN_SOURCES] = array(
     'title' => t('Data Source'),
     'help' => t('Date Source.'),
     'field' => array(
