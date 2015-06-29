@@ -122,7 +122,7 @@ function okhubapi_block_info() {
   $blocks = array();
   $sources_options = _okhubapi_get_sources_options();
   foreach($sources_options as $source_code => $source_name){
-	  $blocks['okhubapi_new_' . str_replace('_', '$', $source_code) . '_docs'] = array(
+	  $blocks['okhubapi_new_' . $source_code . '_docs'] = array(
 	    'info' => t($source_name . ' documents'),
 	    'cache' => DRUPAL_NO_CACHE,
 	  );  	
@@ -141,7 +141,7 @@ function okhubapi_block_view($block_name = '') {
   if(count($block_name_arr) > 3){
   	if($block_name_arr[0] == 'okhubapi' && $block_name_arr[1] == 'new' && $block_name_arr[3] == 'docs'){
   		$sources_options = _okhubapi_get_sources_options();
-  		$source_id = str_replace('$', '_', $block_name_arr[2]);
+  		$source_id = $block_name_arr[2];
   		$params = array('source' => $source_id);
 	    $response = okhubapi_search('documents', OKHUB_API_DEFAULT_DATASET, 'full', $params, $extra_fields = array(), $num_requested = 5);
 	    $items = $response->getArrayLinks($source_id);
@@ -226,7 +226,9 @@ function _okhubapi_get_datasources_param(){
  */
 function _okhubapi_get_themes_datasources_param(){
 	$datasources_param = '';
+	$all_datasources_with_themes = _okhubapi_get_sources_with_themes_options();
     if ($selected_datasources = _okhubapi_get_selected_datasources_array('okhubimport_themes_datasources')) {
+    	
     	$datasources_param = _okhubapi_array_to_url_param($selected_datasources);
     }
     return $datasources_param;
@@ -288,6 +290,29 @@ function _okhubapi_get_sources_options(){
 	    }
     }
  	return $sources_options;
+}
+
+
+/**
+ * Get array of sources that have themes for form.
+ */
+function _okhubapi_get_sources_with_themes_options(){
+	/* get list of sources that provide themes ...only has source id... so...*/
+    $sources_response = okhubapi_count('themes', OKHUB_API_DEFAULT_DATASET, 'source');
+    $source_arr = array();
+    if(isset($sources_response->results)){
+    	/* get all sources full info - name etc... */
+    	$sources_options = _okhubapi_get_sources_options();
+	    foreach($sources_response->results as $source){
+	    	if(method_exists($source,'get_value')){ /* had to add this line otherwise errored when clearing caches ?? */
+		    	if($source_id = $source->get_value('object_name')){
+		    		$source_full_name = $sources_options[$source_id];
+		    		$source_arr[$source_id] = $source_full_name;
+		    	}
+	    	}
+	    }
+    }
+ 	return $source_arr;
 }
 
 /**

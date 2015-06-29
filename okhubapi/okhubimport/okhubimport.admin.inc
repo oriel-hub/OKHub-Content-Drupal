@@ -112,6 +112,7 @@ function okhubimport_settings_form() {
     '#description' => t('Import documents and/or organisations posted within the indicated period.'),
   );
   
+  $sources_options = _okhubapi_get_sources_with_themes_options();
   
   $form['general']['assets']['okhubimport_themes_datasources'] = array(
     '#title' => t('Data sources to provide themes'),
@@ -119,6 +120,12 @@ function okhubimport_settings_form() {
     '#options' => $sources_options,
   	'#default_value' => variable_get('okhubimport_themes_datasources', ''),
     '#description' => t('OKHUB data sources to be used to provide the themes. If none selected then ALL sources used. Note only data sources that make their themes available are listed.'),
+  );
+  
+  $form['general']['assets'][] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+    '#submit' => array('okhubimport_settings_form_submit'),
   );
   
   $theme_arr = _okhubapi_get_themes_arr(TRUE);
