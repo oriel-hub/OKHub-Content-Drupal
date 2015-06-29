@@ -47,7 +47,18 @@ function okhubimport_settings_form() {
   
   $sources_options = _okhubapi_get_sources_options();
 
-  $form['general']['okhubimport_default_datasources'] = array(
+  
+$form['general']['info'] = array(
+    '#title' => t('general settings information'),
+    '#type' => 'markup',
+	'#markup' => '<ul><li>Data sources: ' . implode(", ", variable_get('okhubimport_default_datasources', '')) . '</li><li>Priority data source: ' . variable_get('okhubimport_priority_datasource', '') . '</li><li>Priority language: ' . variable_get('okhubimport_priority_language', '') . '</li><li>Only use priority language: ' . variable_get('okhubimport_only_use_priority_language', '') . '</li></ul><p>' . l(t('Update global settings'), 'admin/config/services/okhubapi', array('query' => array('destination' => 'admin/config/services/okhubimport'))) . '</p>',
+  );   
+  
+  
+  //    '#value' => 
+  
+  
+ /* $form['general']['okhubimport_default_datasources'] = array(
     '#title' => t('Data sources to import from'),
     '#type' => 'checkboxes',
     '#options' => $sources_options,
@@ -77,7 +88,7 @@ function okhubimport_settings_form() {
     '#options' => array(0 => 'No', 1 => 'Yes'),
   	'#default_value' => variable_get('okhubimport_only_use_priority_language', ''),
     '#description' => t('OKHUB data only import from the prority language don\'t use alternative'),
-  );
+  );*/
 
   $form['general']['assets'] = array (
     '#type' => 'fieldset',
