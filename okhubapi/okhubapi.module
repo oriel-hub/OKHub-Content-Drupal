@@ -164,13 +164,15 @@ function okhubapi_block_view($block_name = '') {
 /*
  * Function to return the selected datasources as array
  */
-function _okhubapi_get_selected_datasources_array(){
+function _okhubapi_get_selected_datasources_array($datasource_var_name = 'okhubimport_default_datasources'){
 	$datasources_arr = array();
-    if ($datasources = variable_get('okhubimport_default_datasources')) {
-    	foreach($datasources as $datasource => $value){
-    		if($value){
-    			$datasources_arr[] = $datasource;
-    		}
+    if ($datasources = variable_get($datasource_var_name)) {
+    	if($datasources != 'all'){
+	    	foreach($datasources as $datasource => $value){
+	    		if($value){
+	    			$datasources_arr[] = $datasource;
+	    		}
+	    	}
     	}
     }
     return $datasources_arr;
@@ -214,6 +216,17 @@ function _okhubapi_get_theme_names_array_from_ids($ids_arr){
 function _okhubapi_get_datasources_param(){
 	$datasources_param = '';
     if ($selected_datasources = _okhubapi_get_selected_datasources_array()) {
+    	$datasources_param = _okhubapi_array_to_url_param($selected_datasources);
+    }
+    return $datasources_param;
+}
+
+/*
+ * Function to return the selected themes datasources as a string for passing to setParam with sources attribute
+ */
+function _okhubapi_get_themes_datasources_param(){
+	$datasources_param = '';
+    if ($selected_datasources = _okhubapi_get_selected_datasources_array('okhubimport_themes_datasources')) {
     	$datasources_param = _okhubapi_array_to_url_param($selected_datasources);
     }
     return $datasources_param;
@@ -284,7 +297,7 @@ function _okhubapi_get_themes_arr($selected_datasources_only = FALSE){
 	global $language;
 	$params = array();
 	if($selected_datasources_only){
-		$datasources = _okhubapi_get_datasources_param();
+		$datasources = _okhubapi_get_themes_datasources_param();
 		if($datasources){
 			$params['source'] = $datasources;
 		}
