@@ -97,7 +97,15 @@ function okhubimport_settings_form() {
     '#description' => t('Number of documents and/or organisations to retrieve in each call to the OKHUB API. Leave blank if you do not want to limit it, and import all available items.'),
   );
   
-  $form['general']['assets']['okhubimport_age_new_assets'] = array(
+   $form['general']['filters'] = array (
+    '#type' => 'fieldset',
+    '#title' => t('Filter importing settings'),
+    '#description' => t('Use these settings to filter the the imported items.'),
+    '#prefix' => '<div class="okhubimport-form-general">',
+    '#suffix' => '</div>',
+  ); 
+  
+  $form['general']['filters']['okhubimport_age_new_assets'] = array(
     '#title' => t('Age of new content'),
     '#type' => 'select',
     '#options' => array(
@@ -112,9 +120,21 @@ function okhubimport_settings_form() {
     '#description' => t('Import documents and/or organisations posted within the indicated period.'),
   );
   
+  $form['general']['assets']['okhubimport_new_user'] = array(
+    '#title' => t('Author'),
+    '#type' => 'textfield',
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#required' => TRUE,
+    '#default_value' => variable_get('okhubimport_new_user', OKHUB_IMPORT_USER),
+    '#description' => t('Imported OKHUB content will be assigned to this user. If the user does not exist, it will be created.'),
+    '#autocomplete_path' => 'user/autocomplete',
+  );
+  
+  
   $sources_options = _okhubapi_get_sources_with_themes_options();
   
-  $form['general']['assets']['okhubimport_themes_datasources'] = array(
+  $form['general']['filters']['okhubimport_themes_datasources'] = array(
     '#title' => t('Data sources to provide themes'),
     '#type' => 'checkboxes',
     '#options' => $sources_options,
@@ -122,7 +142,7 @@ function okhubimport_settings_form() {
     '#description' => t('OKHUB data sources to be used to provide the themes. If none selected then ALL sources used. Note only data sources that make their themes available are listed.'),
   );
   
-  $form['general']['assets'][] = array(
+  $form['general']['filters'][] = array(
     '#type' => 'submit',
     '#value' => t('Save configuration'),
     '#submit' => array('okhubimport_settings_form_submit'),
@@ -134,7 +154,7 @@ function okhubimport_settings_form() {
   
   $language_options_for_themes = _okhubapi_get_language_options_from_themes($theme_arr);
   
-  $form['general']['assets']['okhubimport_default_lang_themes'] = array(
+  $form['general']['filters']['okhubimport_default_lang_themes'] = array(
     '#title' => t('Language selection for Themes'),
     '#type' => 'select',
     '#options' => $language_options_for_themes,
@@ -142,7 +162,7 @@ function okhubimport_settings_form() {
     '#description' => t('Languages to be used to filter Themes.'),
   );
   
-  $form['general']['assets']['okhubimport_default_themes'] = array(
+  $form['general']['filters']['okhubimport_default_themes'] = array(
     '#title' => t('Themes'),
     '#type' => 'select',
     '#multiple' => 'true',
@@ -164,18 +184,8 @@ function okhubimport_settings_form() {
     '#description' => t('The levels of categories to import.'),
   );
 */
-  $form['general']['assets']['okhubimport_new_user'] = array(
-    '#title' => t('Author'),
-    '#type' => 'textfield',
-    '#size' => 10,
-    '#maxlength' => 10,
-    '#required' => TRUE,
-    '#default_value' => variable_get('okhubimport_new_user', OKHUB_IMPORT_USER),
-    '#description' => t('Imported OKHUB content will be assigned to this user. If the user does not exist, it will be created.'),
-    '#autocomplete_path' => 'user/autocomplete',
-  );
 
-  $form['general']['assets']['okhubimport_query_string'] = array(
+  $form['general']['filters']['okhubimport_query_string'] = array(
     '#title' => t('Query string'),
     '#type' => 'textfield',
     '#size' => 40,
