@@ -84,11 +84,15 @@ function okhubapi_help($path, $arg) {
  * Function used to retrieve OKHUB items using get_all.
  */
 function okhubapi_get_all($type, $set, $format) {
-  $okhubwrapper = new OkhubApiWrapper;
-  $api_key = variable_get('okhubapi_api_key', '');
-  $priorities = _okhubapi_get_priorities_arr();
-  $response = $okhubwrapper->getAll($type, $set, $api_key, $format, $priorities);
-  return $response;
+  if(class_exists (OkhubApiWrapper)){
+	$okhubwrapper = new OkhubApiWrapper;
+  	$api_key = variable_get('okhubapi_api_key', '');
+  	$priorities = _okhubapi_get_priorities_arr();
+  	$response = $okhubwrapper->getAll($type, $set, $api_key, $format, $priorities);
+  	return $response;
+  } else {
+  	return false;
+  }
 }
 
 /**
