@@ -147,12 +147,14 @@ function okhubapi_settings_form_validate($form, &$form_state) {
       module_invoke_all('okhub_api_key');
     }
   }
-  $num_items = $form_state['values']['okhubapi_number_items'];
-  if (isset($num_items) && !is_numeric($num_items)) {
-
-  }
-  if (isset($num_items) && ($num_items < 1)) {
-    form_set_error('okhubapi_number_items', t('Please enter a greater number.'));
+  if(isset($form_state['values']['okhubapi_number_items'])){
+	  $num_items = $form_state['values']['okhubapi_number_items'];
+	  if (isset($num_items) && !is_numeric($num_items)) {
+	
+	  }
+	  if (isset($num_items) && ($num_items < 1)) {
+	    form_set_error('okhubapi_number_items', t('Please enter a greater number.'));
+	  }
   }
 }
 
