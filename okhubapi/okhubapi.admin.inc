@@ -22,6 +22,8 @@ function okhubapi_settings_form() {
     '#description' => t('Your OKHUB API key. ') . l(t('If you do not have an API key, request one here.'), OKHUB_API_KEY_URL),
   );
 
+  if(variable_get('okhubapi_api_key', '')){
+  
   $form['okhubapi_default_dataset'] = array(
     '#title' => t('Default dataset'),
     '#type' => 'hidden',
@@ -108,6 +110,8 @@ function okhubapi_settings_form() {
       ),
     ),    
   );
+  
+  }
 
   return system_settings_form($form);
 }

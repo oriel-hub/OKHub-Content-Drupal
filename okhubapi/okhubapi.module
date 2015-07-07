@@ -457,14 +457,21 @@ function _okhubapi_selected_sources_full_name_arr(){
  * Function to display global settings info for module
  */
 function _okhubapi_global_settings_display(){
+	$data_source_string = (count(_okhubapi_selected_sources_full_name_arr())) ? implode(", ",  _okhubapi_selected_sources_full_name_arr()) : 'All';
 	$output = '<ul>'; 
-	$output .= '<li>Data sources: ' . implode(", ",  _okhubapi_selected_sources_full_name_arr()) . '</li>';
+	$output .= '<li>Data sources: ' . $data_source_string . '</li>';
 	$output .= '<li>Priority data source: ' . _okhubapi_get_source_name_from_id(variable_get('okhubimport_priority_datasource', '')) . '</li>';
 	$output .= '<li>Priority language: ' . variable_get('okhubimport_priority_language', '') . '</li>';
 	if(variable_get('okhubimport_only_use_priority_language', '')){
 		$output .= '<li>Only use priority language.</li>';		
 	}
 	$output .= '</ul>';
-	$output .= '<p>' . l(t('Update global settings'), 'admin/config/services/okhubapi', array('query' => array('destination' => 'admin/config/services/okhubimport'))) . '</p>';
 	return $output;
+}
+/*
+ * Link to global settings page
+ */
+function _okhubapi_global_settings_link(){
+	$output = '<p>' . l(t('Update global settings'), 'admin/config/services/okhubapi', array('query' => array('destination' => 'admin/config/services/okhubimport'))) . '</p>';
+	return $output;	
 }
