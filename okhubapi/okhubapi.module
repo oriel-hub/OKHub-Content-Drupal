@@ -84,7 +84,7 @@ function okhubapi_help($path, $arg) {
  * Function used to retrieve OKHUB items using get_all.
  */
 function okhubapi_get_all($type, $set, $format) {
-  if(class_exists (OkhubApiWrapper)){
+  if(class_exists(OkhubApiWrapper)){
 	$okhubwrapper = new OkhubApiWrapper;
   	$api_key = variable_get('okhubapi_api_key', '');
   	$priorities = _okhubapi_get_priorities_arr();
