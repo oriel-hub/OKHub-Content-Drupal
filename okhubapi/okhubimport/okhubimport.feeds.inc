@@ -314,10 +314,10 @@ class OkhubDocumentsParser extends FeedsParser {
         'name' => t('Publisher'),
         'description' => t('Name of the organisation that published the research.'),
       ),
-      'publisher_id' => array(
+/*      'publisher_id' => array(
         'name' => t('Publisher ID'),
         'description' => t('Object ID of the organisation that published the research.'),
-      ),
+      ),*/
       'licence_type' => array(
         'name' => t('Licence type'),
         'description' => t('Licence type.'),

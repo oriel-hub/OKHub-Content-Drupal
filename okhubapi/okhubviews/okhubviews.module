@@ -358,13 +358,13 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_filter_text',
     ),
   );
-  $data['okhubviews_documents']['publisher_filter'] = array(
+/*  $data['okhubviews_documents']['publisher_filter'] = array(
     'title' => t('Publisher ID'),
     'help' => t('The publisher object id. See help at http://api.okhub.ac.uk/docs/functions/search/'),
     'filter' => array(
       'handler' => 'okhubviews_handler_filter_text',
     ),
-  );
+  );*/
   $data['okhubviews_documents']['publisher_name_filter'] = array(
     'title' => t('Publisher name'),
     'help' => t('A text string to match on part of the publisher name. See help at http://api.okhub.ac.uk/docs/functions/search/'),

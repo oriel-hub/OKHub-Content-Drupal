@@ -5885,7 +5885,7 @@ function okhubimport_fields_instances() {
       'bundle' => 'okhub_document',
       'deleted' => '0',
       ),
-    'field_publisher_id' => array(
+ /*   'field_publisher_id' => array(
       'label' => 'Publisher ID',
       'widget' => array(
         'weight' => '26',
@@ -5922,7 +5922,7 @@ function okhubimport_fields_instances() {
       'entity_type' => 'node',
       'bundle' => 'okhub_document',
       'deleted' => '0',
-    ),
+    ),*/
     'field_regions' => array(
         'label' => 'Regions',
         'widget' => array(
