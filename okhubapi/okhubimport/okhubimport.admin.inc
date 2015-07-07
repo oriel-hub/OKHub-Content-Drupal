@@ -51,7 +51,7 @@ function okhubimport_settings_form() {
 $form['general']['info'] = array(
     '#title' => t('general settings information'),
     '#type' => 'markup',
-	'#markup' => '<ul><li>Data sources: ' . implode(", ", variable_get('okhubimport_default_datasources', '')) . '</li><li>Priority data source: ' . variable_get('okhubimport_priority_datasource', '') . '</li><li>Priority language: ' . variable_get('okhubimport_priority_language', '') . '</li><li>Only use priority language: ' . variable_get('okhubimport_only_use_priority_language', '') . '</li></ul><p>' . l(t('Update global settings'), 'admin/config/services/okhubapi', array('query' => array('destination' => 'admin/config/services/okhubimport'))) . '</p>',
+	'#markup' => _okhubapi_global_settings_display(),
   );   
   
   

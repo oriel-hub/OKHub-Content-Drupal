@@ -411,3 +411,17 @@ function _okhubapi_get_priorities_arr(){
  	return $priorities;
 }
 
+
+/*
+ * Function to display global settings info for module
+ */
+function _okhubapi_global_settings_display(){
+	$output = '<ul>'; 
+	$output .= '<li>Data sources: ' . implode(", ", variable_get('okhubimport_default_datasources', '')) . '</li>';
+	$output .= '<li>Priority data source: ' . variable_get('okhubimport_priority_datasource', '') . '</li>';
+	$output .= '<li>Priority language: ' . variable_get('okhubimport_priority_language', '') . '</li>';
+	$output .= '<li>Only use priority language: ' . variable_get('okhubimport_only_use_priority_language', '') . '</li>';
+	$output .= '</ul>';
+	$output .= '<p>' . l(t('Update global settings'), 'admin/config/services/okhubapi', array('query' => array('destination' => 'admin/config/services/okhubimport'))) . '</p>';
+	return $output;
+}
