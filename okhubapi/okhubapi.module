@@ -276,22 +276,49 @@ function _okhubapi_array_to_url_param($arr){
  */
 function _okhubapi_get_sources_options(){
 	global $language;
-    $sources_response = okhubapi_get_all('sources', OKHUB_API_DEFAULT_DATASET, 'full');
-    $sources_options = array();
-    if(isset($sources_response->results)){
-	    foreach($sources_response->results as $source){
-	    	$is_semantic = FALSE;
-    		if($source->get_value('is_semantic')){
-    			$is_semantic = TRUE;
-    		}
-	    	if($source->get_value(OKHUB_API_FN_SOURCE_CODE) && $source->get_value(OKHUB_API_FN_NAME) && !$is_semantic){
-	    		$sources_options[$source->get_value(OKHUB_API_FN_SOURCE_CODE)] = $source->get_value(OKHUB_API_FN_NAME);
-	    	}
+    $sources_data = _okhubapi_get_full_source_data();
+    static $sources_options = false;
+    if(!$sources_options){
+	    $sources_options = array();
+	    if($sources_data){
+		    foreach($sources_data as $source){
+		    	$is_semantic = FALSE;
+	    		if($source->get_value('is_semantic')){
+	    			$is_semantic = TRUE;
+	    		}
+		    	if($source->get_value(OKHUB_API_FN_SOURCE_CODE) && $source->get_value(OKHUB_API_FN_NAME) && !$is_semantic){
+		    		$sources_options[$source->get_value(OKHUB_API_FN_SOURCE_CODE)] = $source->get_value(OKHUB_API_FN_NAME);
+		    	}
+		    }
 	    }
     }
  	return $sources_options;
 }
 
+/*
+ * function to get full source data from api and store in static
+ */
+function _okhubapi_get_full_source_data(){
+	static $sources_data = false;
+	if(!$sources_data){
+		$sources_response = okhubapi_get_all('sources', OKHUB_API_DEFAULT_DATASET, 'full');
+		if(isset($sources_response->results)){
+			$sources_data = $sources_response->results;
+		}
+	}
+	return $sources_data;
+}
+
+/*
+ * function to get source name from id 
+ */
+function _okhubapi_get_source_name_from_id($source_id){
+	$sources_options = _okhubapi_get_sources_options();
+	if(isset($sources_options[$source_id])){
+		return $sources_options[$source_id];
+	}
+	return false;
+}
 
 /**
  * Get array of sources that have themes for form.
@@ -411,16 +438,32 @@ function _okhubapi_get_priorities_arr(){
  	return $priorities;
 }
 
+/*
+ * function to return full name array of selected sources
+ */
+function _okhubapi_selected_sources_full_name_arr(){
+	$sources_selected_ids_arr = variable_get('okhubimport_default_datasources', '');
+	$sources_selected_fullnames_arr = array();
+	foreach($sources_selected_ids_arr as $source_id){
+		if($source_fullname = _okhubapi_get_source_name_from_id($source_id)){
+			$sources_selected_fullnames_arr[] = $source_fullname;			
+		}
+	}
+	return $sources_selected_fullnames_arr;
+}
+
 
 /*
  * Function to display global settings info for module
  */
 function _okhubapi_global_settings_display(){
 	$output = '<ul>'; 
-	$output .= '<li>Data sources: ' . implode(", ", variable_get('okhubimport_default_datasources', '')) . '</li>';
-	$output .= '<li>Priority data source: ' . variable_get('okhubimport_priority_datasource', '') . '</li>';
+	$output .= '<li>Data sources: ' . implode(", ",  _okhubapi_selected_sources_full_name_arr()) . '</li>';
+	$output .= '<li>Priority data source: ' . _okhubapi_get_source_name_from_id(variable_get('okhubimport_priority_datasource', '')) . '</li>';
 	$output .= '<li>Priority language: ' . variable_get('okhubimport_priority_language', '') . '</li>';
-	$output .= '<li>Only use priority language: ' . variable_get('okhubimport_only_use_priority_language', '') . '</li>';
+	if(variable_get('okhubimport_only_use_priority_language', '')){
+		$output .= '<li>Only use priority language.</li>';		
+	}
 	$output .= '</ul>';
 	$output .= '<p>' . l(t('Update global settings'), 'admin/config/services/okhubapi', array('query' => array('destination' => 'admin/config/services/okhubimport'))) . '</p>';
 	return $output;
