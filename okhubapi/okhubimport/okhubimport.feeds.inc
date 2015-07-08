@@ -179,20 +179,20 @@ class OkhubAssetsParser extends FeedsParser {
   public function getMappingSources() {
     return array(
       'object_id' => array(
-        'name' => t('Object ID'),
-        'description' => t('ID of the object in the OKHUB collection.'),
+        'name' => t('Item ID'),
+        'description' => t('ID of the item in the OKHUB collection.'),
       ),
       'object_type' => array(
-        'name' => t('Object Type'),
-        'description' => t('Type of the object'),
+        'name' => t('Item Type'),
+        'description' => t('Type of the item'),
       ),
       'title' => array(
         'name' => t('Title'),
-        'description' => t('Title of the object'),
+        'description' => t('Title of the item'),
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
-        'metadata_url' => t('URL with the OKHUB API metadata of the object'),
+        'metadata_url' => t('URL with the OKHUB API metadata of the item'),
       ),
     );
   }
@@ -231,16 +231,16 @@ class OkhubDocumentsParser extends FeedsParser {
   public function getMappingSources() {
     return array(
       'object_id' => array(
-        'name' => t('Object ID'),
-        'description' => t('Unique identifier of this object (for example, A1417).'),
+        'name' => t('Item ID'),
+        'description' => t('Unique identifier of this item (for example, A1417).'),
       ),
       'object_type' => array(
-        'name' => t('Object type'),
-        'description' => t('Type of object. (Document, Publication, Theme, Subject, Region, Country).'),
+        'name' => t('Item type'),
+        'description' => t('Type of item. (Document, Publication, Theme, Subject, Region, Country).'),
       ),
       'title' => array(
         'name' => t('Title'),
-        'description' => t('Readable identifier of this object.'),
+        'description' => t('Readable identifier of this item.'),
       ),
       'site' => array(
         'name' => t('Site'),
@@ -248,7 +248,7 @@ class OkhubDocumentsParser extends FeedsParser {
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
-        'description' => t('Web-accessible uri for this object.'),
+        'description' => t('Web-accessible uri for this item.'),
       ),
       'timestamp' => array(
         'name' => t('Timestamp'),
@@ -260,7 +260,7 @@ class OkhubDocumentsParser extends FeedsParser {
       ),
       'name' => array(
         'name' => t('Name'),
-        'description' => t('Name of the object.'),
+        'description' => t('Name of the item.'),
       ),
 /*      'asset_id' => array(
         'name' => t('Asset ID'),
@@ -268,11 +268,11 @@ class OkhubDocumentsParser extends FeedsParser {
       ),*/
       'date_created' => array(
         'name' => t('Date created'),
-        'description' => t('Creation date. (Example: 2012-02-09 14:36:21). Date in which the object was added to the collection.'),
+        'description' => t('Creation date. (Example: 2012-02-09 14:36:21). Date in which the item was added to the collection.'),
       ),
       'date_updated' => array(
         'name' => t('Date updated'),
-        'description' => t('Modification date. (Example: 2012-02-09 14:36:21). Date in which the object was last modified.'),
+        'description' => t('Modification date. (Example: 2012-02-09 14:36:21). Date in which the item was last modified.'),
       ),
       'category_theme_array' => array(
         'name' => t('Themes'),
@@ -316,7 +316,7 @@ class OkhubDocumentsParser extends FeedsParser {
       ),
 /*      'publisher_id' => array(
         'name' => t('Publisher ID'),
-        'description' => t('Object ID of the organisation that published the research.'),
+        'description' => t('Item ID of the organisation that published the research.'),
       ),*/
       'licence_type' => array(
         'name' => t('Licence type'),
@@ -392,16 +392,16 @@ class OkhubOrganisationsParser extends FeedsParser {
   public function getMappingSources() {
     return array(
       'object_id' => array(
-        'name' => t('Object ID'),
-        'description' => t('Unique identifier of this object (for example, A1417).'),
+        'name' => t('Item ID'),
+        'description' => t('Unique identifier of this item (for example, A1417).'),
       ),
       'object_type' => array(
-        'name' => t('Object type'),
-        'description' => t('Type of object. (Document, Publication, Theme, Subject, Region, Country).'),
+        'name' => t('Item type'),
+        'description' => t('Type of item. (Document, Publication, Theme, Subject, Region, Country).'),
       ),
       'title' => array(
         'name' => t('Title'),
-        'description' => t('Readable identifier of this object.'),
+        'description' => t('Readable identifier of this item.'),
       ),
       'site' => array(
         'name' => t('Site'),
@@ -409,7 +409,7 @@ class OkhubOrganisationsParser extends FeedsParser {
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
-        'description' => t('Web-accessible uri for this object.'),
+        'description' => t('Web-accessible uri for this item.'),
       ),
       'timestamp' => array(
         'name' => t('Timestamp'),
@@ -421,7 +421,7 @@ class OkhubOrganisationsParser extends FeedsParser {
       ),
       'name' => array(
         'name' => t('Name'),
-        'description' => t('Name of the object.'),
+        'description' => t('Name of the item.'),
       ),
 /*      'asset_id' => array(
         'name' => t('Asset ID'),
@@ -429,11 +429,11 @@ class OkhubOrganisationsParser extends FeedsParser {
       ),*/
       'date_created' => array(
         'name' => t('Date created'),
-        'description' => t('Creation date. (Example: 2012-02-09 14:36:21). Date in which the object was added to the collection.'),
+        'description' => t('Creation date. (Example: 2012-02-09 14:36:21). Date in which the item was added to the collection.'),
       ),
       'date_updated' => array(
         'name' => t('Date updated'),
-        'description' => t('Modification date. (Example: 2012-02-09 14:36:21). Date in which the object was last modified.'),
+        'description' => t('Modification date. (Example: 2012-02-09 14:36:21). Date in which the item was last modified.'),
       ),
       'category_theme_array' => array(
         'name' => t('Themes'),
@@ -568,11 +568,11 @@ class OkhubCategoriesParser extends FeedsParser {
         'description' => t('Web-accessible OKHUB API URI for this object.'),
       ),
       'object_id' => array(
-        'name' => t('Object ID'),
-        'description' => t('Unique identifier of this object in the OKHUB collection.'),
+        'name' => t('Item ID'),
+        'description' => t('Unique identifier of this item in the OKHUB collection.'),
       ),
       'object_type' => array(
-        'name' => t('Object Type'),
+        'name' => t('Item Type'),
         'description' => t('The type of the category in the OKHUB collection.'),
       ),
       'timestamp' => array(
@@ -639,16 +639,16 @@ class OkhubCountriesParser extends FeedsParser {
   public function getMappingSources() {
     return array(
       'object_id' => array(
-        'name' => t('Object ID'),
-        'description' => t('Unique identifier of this object (for example, A1417).'),
+        'name' => t('Item ID'),
+        'description' => t('Unique identifier of this item (for example, A1417).'),
       ),
       'object_type' => array(
-        'name' => t('Object type'),
-        'description' => t('Type of object. (Document, Publication, Theme, Subject, Region, Country).'),
+        'name' => t('Item type'),
+        'description' => t('Type of item. (Document, Publication, Theme, Subject, Region, Country).'),
       ),
       'title' => array(
         'name' => t('Title'),
-        'description' => t('Readable identifier of this object.'),
+        'description' => t('Readable identifier of this item.'),
       ),
       'site' => array(
         'name' => t('Site'),
@@ -656,7 +656,7 @@ class OkhubCountriesParser extends FeedsParser {
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
-        'description' => t('Web-accessible uri for this object.'),
+        'description' => t('Web-accessible uri for this item.'),
       ),
       'timestamp' => array(
         'name' => t('Timestamp'),

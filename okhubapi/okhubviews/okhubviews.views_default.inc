@@ -580,7 +580,7 @@ function okhubviews_views_default_views() {
   $handler->display->display_options['filters']['object_id_filter']['group'] = 1;
   $handler->display->display_options['filters']['object_id_filter']['exposed'] = TRUE;
   $handler->display->display_options['filters']['object_id_filter']['expose']['operator_id'] = 'object_id_filter_op';
-  $handler->display->display_options['filters']['object_id_filter']['expose']['label'] = 'Object ID';
+  $handler->display->display_options['filters']['object_id_filter']['expose']['label'] = 'Item ID';
   $handler->display->display_options['filters']['object_id_filter']['expose']['operator'] = 'object_id_filter_op';
   $handler->display->display_options['filters']['object_id_filter']['expose']['identifier'] = 'object_id_filter';
   $handler->display->display_options['filters']['object_id_filter']['expose']['multiple'] = FALSE;
@@ -1459,7 +1459,7 @@ function okhubviews_views_default_views() {
   $handler->display->display_options['filters']['object_id_filter']['group'] = 1;
   $handler->display->display_options['filters']['object_id_filter']['exposed'] = TRUE;
   $handler->display->display_options['filters']['object_id_filter']['expose']['operator_id'] = 'object_id_filter_op';
-  $handler->display->display_options['filters']['object_id_filter']['expose']['label'] = 'Object ID';
+  $handler->display->display_options['filters']['object_id_filter']['expose']['label'] = 'Item ID';
   $handler->display->display_options['filters']['object_id_filter']['expose']['operator'] = 'object_id_filter_op';
   $handler->display->display_options['filters']['object_id_filter']['expose']['identifier'] = 'object_id_filter';
   $handler->display->display_options['filters']['object_id_filter']['expose']['multiple'] = FALSE;

@@ -10,7 +10,7 @@ $plugin = array(
   'context' => "okhubcontent_argument_context",
   'placeholder form' => array(
     '#type' => "textfield",
-    '#description' => t("Enter the OKHUB API object ID")
+    '#description' => t("Enter the OKHUB API item ID")
   )
 );
 

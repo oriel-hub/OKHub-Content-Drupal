@@ -5738,7 +5738,7 @@ function okhubimport_fields_instances() {
             'weight' => 0,
           ),
         ),
-        'label' => 'Object ID',
+        'label' => 'Item ID',
         'required' => 0,
         'settings' => array(
           'text_processing' => '0',
@@ -5776,7 +5776,7 @@ function okhubimport_fields_instances() {
             'weight' => 0,
           ),
         ),
-        'label' => 'Object Type',
+        'label' => 'Item Type',
         'required' => 0,
         'settings' => array(
           'text_processing' => '0',
@@ -6672,7 +6672,7 @@ function okhubimport_fields_instances() {
             'weight' => 0,
           ),
         ),
-        'label' => 'Object ID',
+        'label' => 'Item ID',
         'required' => 0,
         'settings' => array(
           'text_processing' => '0',
@@ -6710,7 +6710,7 @@ function okhubimport_fields_instances() {
             'weight' => 0,
           ),
         ),
-        'label' => 'Object Type',
+        'label' => 'Item Type',
         'required' => 0,
         'settings' => array(
           'text_processing' => '0',
@@ -7220,7 +7220,7 @@ function okhubimport_fields_instances() {
         'deleted' => '0',
       ),
     'field_object_id' => array(
-        'label' => 'Object ID',
+        'label' => 'Item ID',
         'widget' => array(
           'weight' => '4',
           'type' => 'text_textfield',
@@ -7259,7 +7259,7 @@ function okhubimport_fields_instances() {
         'deleted' => '0',
       ),
     'field_object_type' => array(
-        'label' => 'Object Type',
+        'label' => 'Item Type',
         'widget' => array(
           'weight' => '5',
           'type' => 'text_textfield',
@@ -7672,7 +7672,7 @@ function okhubimport_fields_instances() {
         'deleted' => '0',
       ),
     'field_object_id' => array(
-        'label' => 'Object ID',
+        'label' => 'Item ID',
         'widget' => array(
           'weight' => '4',
           'type' => 'text_textfield',
@@ -7711,7 +7711,7 @@ function okhubimport_fields_instances() {
         'deleted' => '0',
       ),
     'field_object_type' => array(
-        'label' => 'Object Type',
+        'label' => 'Item Type',
         'widget' => array(
           'weight' => '5',
           'type' => 'text_textfield',
@@ -8124,7 +8124,7 @@ function okhubimport_fields_instances() {
         'deleted' => '0',
       ),
     'field_object_id' => array(
-        'label' => 'Object ID',
+        'label' => 'Item ID',
         'widget' => array(
           'weight' => '4',
           'type' => 'text_textfield',
@@ -8163,7 +8163,7 @@ function okhubimport_fields_instances() {
         'deleted' => '0',
       ),
     'field_object_type' => array(
-        'label' => 'Object Type',
+        'label' => 'Item Type',
         'widget' => array(
           'weight' => '5',
           'type' => 'text_textfield',
@@ -8649,7 +8649,7 @@ function okhubimport_fields_instances() {
         'deleted' => '0',
     ),
     'field_object_id' => array(
-        'label' => 'Object ID',
+        'label' => 'Item ID',
         'widget' => array(
           'weight' => '2',
           'type' => 'text_textfield',
@@ -8681,7 +8681,7 @@ function okhubimport_fields_instances() {
         'deleted' => '0',
     ),
     'field_object_type' => array(
-        'label' => 'Object Type',
+        'label' => 'Item Type',
         'widget' => array(
           'weight' => '4',
           'type' => 'text_textfield',

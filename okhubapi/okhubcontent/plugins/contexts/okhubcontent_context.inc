@@ -48,8 +48,8 @@ function okhubcontent_context_create($empty, $data = NULL, $conf = FALSE){
 function okhubcontent_context_settings_form($form, &$form_state){
   $conf = $form_state['conf'];
   $form['okhubcontent'] = array(
-    '#title' => t("OKHUB Object ID"),
-    '#description' => t("Enter a OKHUB Object ID"),
+    '#title' => t("OKHUB Item ID"),
+    '#description' => t("Enter a OKHUB Item ID"),
     '#default_value' => $conf['okhubcontent'],
     '#type' => "textfield"
   );
@@ -69,7 +69,7 @@ function okhubcontent_context_convert_list(){
   return array(
     "title" => t("Title"),
     "description" => t("Description"),
-    'object_id' => t("Object ID")
+    'object_id' => t("Item ID")
   );
 }
 

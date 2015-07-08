@@ -68,15 +68,15 @@ function okhubviews_views_data() {
   );
   // Fields 
   $data['okhubviews_documents'][OKHUB_API_FN_ITEM_ID] = array(
-    'title' => t('Object ID'),
-    'help' => t('Unique identifier of this object.'),
+    'title' => t('Item ID'),
+    'help' => t('Unique identifier of this item.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_documents'][OKHUB_API_FN_ITEM_TYPE] = array(
-    'title' => t('Object type'),
-    'help' => t('Type of object.'),
+    'title' => t('Item type'),
+    'help' => t('Type of item.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
@@ -251,8 +251,8 @@ function okhubviews_views_data() {
   );
   // General filters
   $data['okhubviews_documents']['object_id_filter'] = array(
-    'title' => t('Object ID'),
-    'help' => t('The object ID of the document.'),
+    'title' => t('Item ID'),
+    'help' => t('The item ID of the document.'),
     'filter' => array(
       'handler' => 'okhubviews_handler_filter_text',
     ),
@@ -440,15 +440,15 @@ function okhubviews_views_data() {
   );
   // Fields 
   $data['okhubviews_organisations'][OKHUB_API_FN_ITEM_ID] = array(
-    'title' => t('Object ID'),
-    'help' => t('Unique identifier of this object.'),
+    'title' => t('Item ID'),
+    'help' => t('Unique identifier of this item.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_organisations'][OKHUB_API_FN_ITEM_TYPE] = array(
-    'title' => t('Object type'),
-    'help' => t('Type of object.'),
+    'title' => t('Item type'),
+    'help' => t('Type of item.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
@@ -612,8 +612,8 @@ function okhubviews_views_data() {
   );
   // General filters
   $data['okhubviews_organisations']['object_id_filter'] = array(
-    'title' => t('Object ID'),
-    'help' => t('The object ID of the document.'),
+    'title' => t('Item ID'),
+    'help' => t('The item ID of the document.'),
     'filter' => array(
       'handler' => 'okhubviews_handler_filter_text',
     ),
@@ -747,15 +747,15 @@ function okhubviews_views_data() {
   // Fields
 
   $data['okhubviews_themes'][OKHUB_API_FN_ITEM_ID] = array(
-    'title' => t('Object ID'),
-    'help' => t('Unique identifier of this object.'),
+    'title' => t('Item ID'),
+    'help' => t('Unique identifier of this item.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
   );
   $data['okhubviews_themes'][OKHUB_API_FN_ITEM_TYPE] = array(
-    'title' => t('Object type'),
-    'help' => t('Type of object.'),
+    'title' => t('Item type'),
+    'help' => t('Type of item.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
@@ -823,8 +823,8 @@ function okhubviews_views_data() {
   // Filters
 
   $data['okhubviews_themes']['object_id_filter'] = array(
-    'title' => t('Object ID'),
-    'help' => t('The object ID of the document.'),
+    'title' => t('Item ID'),
+    'help' => t('The item ID of the document.'),
     'filter' => array(
       'handler' => 'okhubviews_handler_filter_text',
     ),
