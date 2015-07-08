@@ -1255,7 +1255,7 @@ function okhubimport_fields_definitions() {
         'taxonomy_term' => array(
           0 => 'okhub_themes',
           1 => 'okhub_regions',
-          2 => 'okhub_sujbjects',
+          2 => 'okhub_subjects',
         ),
         'node' => array(
           0 => 'okhub_document',
