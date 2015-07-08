@@ -151,6 +151,11 @@ function okhubimport_feeds_importer_default()
             'source' => 'document_type',
             'target' => 'field_document_type',
             'unique' => FALSE
+          ),
+          23 => array(
+            'sources' => 'sources',
+            'target' => 'field_sources',
+            'unique' => FALSE
           )
         ),
         'update_existing' => '2',
@@ -292,6 +297,11 @@ function okhubimport_feeds_importer_default()
             'source' => '$location_country',
             'target' => 'field_location_country',
             'unique' => FALSE
+          ),
+          20 => array(
+            'sources' => 'sources',
+            'target' => 'field_sources',
+            'unique' => FALSE
           )
         ),
         'update_existing' => '2',
@@ -394,6 +404,11 @@ function okhubimport_feeds_importer_default()
           12 => array(
             'source' => 'cat_parent',
             'target' => 'field_parent_id',
+            'unique' => FALSE
+          ),
+          13 => array(
+            'sources' => 'sources',
+            'target' => 'field_sources',
             'unique' => FALSE
           )
         ),
@@ -498,6 +513,11 @@ function okhubimport_feeds_importer_default()
             'source' => 'cat_parent',
             'target' => 'field_parent_id',
             'unique' => FALSE
+          ),
+          13 => array(
+            'sources' => 'sources',
+            'target' => 'field_sources',
+            'unique' => FALSE
           )
         ),
         'update_existing' => '2',
@@ -601,6 +621,11 @@ function okhubimport_feeds_importer_default()
           12 => array(
             'source' => 'cat_parent',
             'target' => 'field_parent_id',
+            'unique' => FALSE
+          ),
+          13 => array(
+            'sources' => 'sources',
+            'target' => 'field_sources',
             'unique' => FALSE
           )
         ),
@@ -707,6 +732,11 @@ function okhubimport_feeds_importer_default()
             'target' => 'guid',
             'unique' => 1,
           ),
+          13 => array(
+            'sources' => 'sources',
+            'target' => 'field_sources',
+            'unique' => FALSE
+          )
         ),
         'update_existing' => '2',
         'input_format' => 'plain_text',
