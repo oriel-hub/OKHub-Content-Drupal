@@ -369,7 +369,7 @@ class OkhubDocumentsParser extends FeedsParser {
           'keywords' => $asset->get_value('keywords'),
           'description' => $asset->get_value(OKHUB_API_FN_DESCRIPTION),
           'authors' => $asset->get_value('author'),
-          'language_name' => $asset->get_value(OKHUB_API_FN_METADATA_URL),
+          'language_name' => $asset->get_value(OKHUB_API_FN_METADATA_LANGAUAGES),
           'publication_date' => $asset->get_value('publication_date'),
           'publisher' => $asset->get_value('publisher'),
 /*          'publisher_id' => $asset->get_value('publisher_id'),*/
