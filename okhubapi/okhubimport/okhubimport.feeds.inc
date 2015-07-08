@@ -467,27 +467,27 @@ class OkhubOrganisationsParser extends FeedsParser {
         'name' => t('Description'),
         'description' => t('Description of the organisation.'),
       ),
-      '$acronym' => array(
+      'acronym' => array(
         'name' => t('Acronym'),
         'description' => t('Acronym of organisation.'),
       ),
-      '$alternative_acronym' => array(
+      'alternative_acronym' => array(
         'name' => t('Alternative acronym'),
         'description' => t('Alternative acronym of organisation.'),
       ),
-      '$alternative_name' => array(
+      'alternative_name' => array(
         'name' => t('Alternative name'),
         'description' => t('Alternative name of organisation.'),
       ),
-      '$organisation_type' => array(
+      'organisation_type' => array(
         'name' => t('Organisation type'),
         'description' => t('Primary function or role of the organisation in relation to international development.'),
       ),
-      '$organisation_url' => array(
+      'organisation_url' => array(
         'name' => t('Organisation URL'),
         'description' => t('Link to the organisation website.'),
       ),
-      '$location_country' => array(
+      'location_country' => array(
         'name' => t('Location country'),
         'description' => t('Country where the organisation is located.'),
       ),
@@ -522,11 +522,11 @@ class OkhubOrganisationsParser extends FeedsParser {
           'country_focus_array' => $asset->get_value('country_focus_array'),
           'keywords' => $asset->get_value('keywords'),
           'description' => $asset->get_value(OKHUB_API_DATE_DESCRIPTION),
-          '$acronym' => $asset->acronym,
-          '$alternative_acronym' => $asset->get_value('acronym'),
-          '$alternative_name' => get_value(OKHUB_API_FN_NAME),
-          '$organisation_type' => $asset->get_value('organisation_type'),
-          '$organisation_url' => $asset->get_value('organisation_url'),
+          'acronym' => $asset->acronym,
+          'alternative_acronym' => $asset->get_value('acronym'),
+          'alternative_name' => get_value(OKHUB_API_FN_NAME),
+          'organisation_type' => $asset->get_value('organisation_type'),
+          'organisation_url' => $asset->get_value('organisation_url'),
           'location_country' => $asset->get_value('country'),
         );
         $result->items[] = $item;

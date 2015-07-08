@@ -264,27 +264,27 @@ function okhubimport_feeds_importer_default()
 	        'autocreate' => 1
           ),
           14 => array(
-            'source' => '$acronym',
+            'source' => 'acronym',
             'target' => 'field_acronym',
             'unique' => FALSE
           ),
           15 => array(
-            'source' => '$alternative_acronym',
+            'source' => 'alternative_acronym',
             'target' => 'field_alternative_acronym',
             'unique' => FALSE
           ),
           16 => array(
-            'source' => '$alternative_name',
+            'source' => 'alternative_name',
             'target' => 'field_alternative_name',
             'unique' => FALSE
           ),
           17 => array(
-            'source' => '$organisation_type',
+            'source' => 'organisation_type',
             'target' => 'field_organisation_type',
             'unique' => FALSE
           ),
           18 => array(
-            'source' => '$organisation_url',
+            'source' => 'organisation_url',
             'target' => 'field_organisation_url',
             'unique' => FALSE
           ),
