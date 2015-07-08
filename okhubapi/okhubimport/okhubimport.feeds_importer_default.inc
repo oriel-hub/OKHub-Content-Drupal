@@ -153,7 +153,7 @@ function okhubimport_feeds_importer_default()
             'unique' => FALSE
           ),
           23 => array(
-            'sources' => 'sources',
+            'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
           )
@@ -299,7 +299,7 @@ function okhubimport_feeds_importer_default()
             'unique' => FALSE
           ),
           20 => array(
-            'sources' => 'sources',
+            'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
           )
@@ -407,7 +407,7 @@ function okhubimport_feeds_importer_default()
             'unique' => FALSE
           ),
           13 => array(
-            'sources' => 'sources',
+            'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
           )
@@ -515,7 +515,7 @@ function okhubimport_feeds_importer_default()
             'unique' => FALSE
           ),
           13 => array(
-            'sources' => 'sources',
+            'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
           )
@@ -624,7 +624,7 @@ function okhubimport_feeds_importer_default()
             'unique' => FALSE
           ),
           13 => array(
-            'sources' => 'sources',
+            'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
           )
@@ -733,7 +733,7 @@ function okhubimport_feeds_importer_default()
             'unique' => 1,
           ),
           13 => array(
-            'sources' => 'sources',
+            'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
           )
