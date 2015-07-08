@@ -262,10 +262,10 @@ class OkhubDocumentsParser extends FeedsParser {
         'name' => t('Website URL'),
         'description' => t('URL for the asset on the collection website.'),
       ),
-      'name' => array(
+/*      'name' => array(
         'name' => t('Name'),
         'description' => t('Name of the item.'),
-      ),
+      ),*/
 /*      'asset_id' => array(
         'name' => t('Asset ID'),
         'description' => t('Asset identifier (for example, 12345).'),
@@ -358,7 +358,7 @@ class OkhubDocumentsParser extends FeedsParser {
           'metadata_url' => $asset->get_value(OKHUB_API_FN_METADATA_URL),
           'timestamp' => $asset->get_value(OKHUB_API_FN_TIMESTAMP),
           'website_url' => $asset->get_value(OKHUB_API_FN_WEBSITE_URL),
-          'name' => $asset->get_value(OKHUB_API_FN_NAME),
+/*          'name' => $asset->get_value(OKHUB_API_FN_NAME),*/
 /*          'asset_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),*/
           'date_created' => $asset->get_value(OKHUB_API_FN_DATE_CREATED),
           'date_updated' => $asset->get_value(OKHUB_API_FN_DATE_UPDATED),

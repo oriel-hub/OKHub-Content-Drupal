@@ -722,7 +722,7 @@ function okhubimport_fields_definitions() {
         ),
       ),
     ),
-    'field_name' => array(
+/*    'field_name' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -787,7 +787,7 @@ function okhubimport_fields_definitions() {
           0 => 'okhub_document',
         ),
       ),
-    ),
+    ),*/
     'field_object_id' => array(
       'entity_types' => array(),
       'foreign keys' => array(
@@ -5854,7 +5854,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_document',
         'deleted' => '0',
       ),
-    'field_name' => array(
+/*    'field_name' => array(
         'label' => 'Name',
         'widget' => array(
           'weight' => '14',
@@ -5891,7 +5891,7 @@ function okhubimport_fields_instances() {
         'entity_type' => 'node',
         'bundle' => 'okhub_document',
         'deleted' => '0',
-      ),
+      ),*/
     'field_object_id' => array(
         'default_value' => NULL,
         'description' => '',
