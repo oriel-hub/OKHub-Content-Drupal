@@ -1191,7 +1191,7 @@ function okhubimport_fields_definitions() {
         ),
       ),
     ),
-    'field_site' => array(
+/*    'field_site' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -1257,6 +1257,72 @@ function okhubimport_fields_definitions() {
           1 => 'okhub_regions',
           2 => 'okhub_sujbjects',
         ),
+        'node' => array(
+          0 => 'okhub_document',
+        ),
+      ),
+    ),*/
+    'field_sources' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '500',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_sources' => array(
+                'value' => 'field_sources_value',
+                'format' => 'field_sources_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_sources' => array(
+                'value' => 'field_sources_value',
+                'format' => 'field_sources_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_name' => 'field_sources',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => FIELD_CARDINALITY_UNLIMITED,
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '500',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 500,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
         'node' => array(
           0 => 'okhub_document',
         ),
@@ -2724,7 +2790,7 @@ function okhubimport_fields_definitions() {
         ),
       ),
     ),
-    'field_site' => array(
+/*    'field_site' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -2793,6 +2859,74 @@ function okhubimport_fields_definitions() {
         'node' => array(
           0 => 'okhub_document',
           1 => 'okhub_organisation',
+        ),
+      ),
+    ),*/
+    'field_sources' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '500',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_sources' => array(
+                'value' => 'field_sources_value',
+                'format' => 'field_sources_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_sources' => array(
+                'value' => 'field_sources_value',
+                'format' => 'field_sources_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_name' => 'field_sources',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => FIELD_CARDINALITY_UNLIMITED,
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '500',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 500,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'article',
+          1 => 'okhub_document',
+          2 => 'okhub_organisation',
         ),
       ),
     ),
@@ -5568,6 +5702,44 @@ function okhubimport_fields_instances() {
       'bundle' => 'okhub_document',
       'deleted' => '0',
     ),
+    'field_sources' => array(
+      'label' => 'Sources',
+      'widget' => array(
+        'weight' => '24',
+        'type' => 'text_textfield',
+        'module' => 'text',
+        'active' => 1,
+        'settings' => array(
+          'size' => '60',
+        ),
+      ),
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'type' => 'text_default',
+          'settings' => array(),
+          'module' => 'text',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'above',
+          'settings' => array(),
+          'weight' => 0,
+        ),
+      ),
+      'required' => 0,
+      'description' => '',
+      'default_value' => NULL,
+      'field_name' => 'field_sources',
+      'entity_type' => 'node',
+      'bundle' => 'okhub_document',
+      'deleted' => '0',
+    ),
     'field_language' => array(
         'label' => 'Language',
         'widget' => array(
@@ -5961,7 +6133,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_document',
         'deleted' => '0',
       ),
-    'field_site' => array(
+/*    'field_site' => array(
         'label' => 'Site',
         'widget' => array(
           'weight' => '11',
@@ -5998,7 +6170,7 @@ function okhubimport_fields_instances() {
         'entity_type' => 'node',
         'bundle' => 'okhub_document',
         'deleted' => '0',
-      ),
+      ),*/
     'field_tags' => array(
         'label' => 'Keywords',
         'widget' => array(
@@ -6844,8 +7016,38 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_organisation',
         'deleted' => '0',
       ),
-    'field_site' => array(
+/*    'field_site' => array(
         'label' => 'Site',
+        'widget' => array(
+          'weight' => '11',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '7',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),*/
+    'field_sources' => array(
+        'label' => 'Sources',
         'widget' => array(
           'weight' => '11',
           'type' => 'text_textfield',
@@ -6877,7 +7079,7 @@ function okhubimport_fields_instances() {
         'required' => 0,
         'description' => '',
         'default_value' => NULL,
-        'field_name' => 'field_site',
+        'field_name' => 'field_sources',
         'entity_type' => 'node',
         'bundle' => 'okhub_organisation',
         'deleted' => '0',
@@ -7347,7 +7549,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_regions',
         'deleted' => '0',
       ),
-    'field_site' => array(
+/*    'field_site' => array(
         'label' => 'Site',
         'widget' => array(
           'weight' => '7',
@@ -7386,6 +7588,44 @@ function okhubimport_fields_instances() {
           ),
         ),
         'field_name' => 'field_site',
+        'entity_type' => 'taxonomy_term',
+        'bundle' => 'okhub_regions',
+        'deleted' => '0',
+      ),*/
+    'field_sources' => array(
+        'label' => 'Sources',
+        'widget' => array(
+          'weight' => '7',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_sources',
         'entity_type' => 'taxonomy_term',
         'bundle' => 'okhub_regions',
         'deleted' => '0',
@@ -7799,7 +8039,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_themes',
         'deleted' => '0',
       ),
-    'field_site' => array(
+  /*  'field_site' => array(
         'label' => 'Site',
         'widget' => array(
           'weight' => '7',
@@ -7838,6 +8078,44 @@ function okhubimport_fields_instances() {
           ),
         ),
         'field_name' => 'field_site',
+        'entity_type' => 'taxonomy_term',
+        'bundle' => 'okhub_themes',
+        'deleted' => '0',
+      ),*/
+    'field_sources' => array(
+        'label' => 'Sources',
+        'widget' => array(
+          'weight' => '7',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_sources',
         'entity_type' => 'taxonomy_term',
         'bundle' => 'okhub_themes',
         'deleted' => '0',
@@ -8251,7 +8529,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_subjects',
         'deleted' => '0',
       ),
-    'field_site' => array(
+/*    'field_site' => array(
         'label' => 'Site',
         'widget' => array(
           'weight' => '7',
@@ -8290,6 +8568,44 @@ function okhubimport_fields_instances() {
           ),
         ),
         'field_name' => 'field_site',
+        'entity_type' => 'taxonomy_term',
+        'bundle' => 'okhub_subjects',
+        'deleted' => '0',
+      ),*/
+    'field_sources' => array(
+        'label' => 'Sources',
+        'widget' => array(
+          'weight' => '7',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_sources',
         'entity_type' => 'taxonomy_term',
         'bundle' => 'okhub_subjects',
         'deleted' => '0',
@@ -8741,7 +9057,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_countries',
         'deleted' => '0',
     ),
-    'field_site' => array(
+/*    'field_site' => array(
         'label' => 'Site',
         'widget' => array(
           'weight' => '6',
@@ -8769,6 +9085,38 @@ function okhubimport_fields_instances() {
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_site',
+        'entity_type' => 'taxonomy_term',
+        'bundle' => 'okhub_countries',
+        'deleted' => '0',
+    ),*/
+    'field_sources' => array(
+        'label' => 'Sources',
+        'widget' => array(
+          'weight' => '6',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 2,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_sources',
         'entity_type' => 'taxonomy_term',
         'bundle' => 'okhub_countries',
         'deleted' => '0',

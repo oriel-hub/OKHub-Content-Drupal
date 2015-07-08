@@ -88,13 +88,13 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_documents']['site'] = array(
+/*  $data['okhubviews_documents']['site'] = array(
     'title' => t('Site'),
     'help' => t('Dataset.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
-  );
+  );*/
   $data['okhubviews_documents'][OKHUB_API_FN_SOURCES] = array(
     'title' => t('Data Source'),
     'help' => t('Date Source.'),
@@ -460,13 +460,13 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_organisations']['site'] = array(
+/*  $data['okhubviews_organisations']['site'] = array(
     'title' => t('Site'),
     'help' => t('Dataset.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
-  );
+  );*/
   $data['okhubviews_organisations'][OKHUB_API_FN_SOURCES] = array(
     'title' => t('Data Source'),
     'help' => t('Date Source.'),
@@ -767,13 +767,13 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_themes']['site'] = array(
+/*  $data['okhubviews_themes']['site'] = array(
     'title' => t('Site'),
     'help' => t('Dataset.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field',
     ),
-  );
+  );*/
   $data['okhubviews_themes'][OKHUB_API_FN_SOURCES] = array(
     'title' => t('Data Source'),
     'help' => t('Date Source.'),

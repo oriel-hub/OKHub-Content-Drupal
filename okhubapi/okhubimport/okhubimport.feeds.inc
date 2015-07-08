@@ -244,7 +244,11 @@ class OkhubDocumentsParser extends FeedsParser {
       ),
       'site' => array(
         'name' => t('Site'),
-        'description' => t('Dataset (eldis or bridge).'),
+        'description' => t('Dataset (hub).'),
+      ),
+      'sources' => array(
+        'name' => t('Sources'),
+        'description' => t('Dataset (eldis, bridge, ccccc etc...).'),
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
@@ -405,7 +409,11 @@ class OkhubOrganisationsParser extends FeedsParser {
       ),
       'site' => array(
         'name' => t('Site'),
-        'description' => t('Dataset (eldis or bridge).'),
+        'description' => t('Dataset (hub).'),
+      ),
+      'sources' => array(
+        'name' => t('Sources'),
+        'description' => t('Dataset (eldis, bridge, ccccc etc...).'),
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
@@ -500,6 +508,7 @@ class OkhubOrganisationsParser extends FeedsParser {
           'object_type' => $asset->get_value(OKHUB_API_FN_ITEM_TYPE),
           'title' => $asset->get_value(OKHUB_API_FN_TITLE),
           'site' => $asset->get_value(OKHUB_API_FN_SITE),
+          'sources' => $asset->get_value(OKHUB_API_FN_SOURCES),
           'metadata_url' => $asset->get_value(OKHUB_API_FN_METADATA_URL),
           'timestamp' => $asset->get_value(OKHUB_API_FN_TIMESTAMP),
           'website_url' => $asset->get_value(OKHUB_API_FN_WEBSITE_URL),
@@ -559,6 +568,10 @@ class OkhubCategoriesParser extends FeedsParser {
         'name' => t('Site'),
         'description' => t('Name of the collection to which this category belongs.'),
       ),
+      'sources' => array(
+        'name' => t('Sources'),
+        'description' => t('Names of the sources to which this category belongs'),
+      ),
       'website_url' => array(
         'name' => t('Website URL'),
         'description' => t('Link to the region page on the site URL, where applicable.'),
@@ -602,6 +615,7 @@ class OkhubCategoriesParser extends FeedsParser {
           'cat_superparent' => FALSE,
           'parent_object_id' => FALSE,
           'site' => $category->get_value(OKHUB_API_FN_SITE),
+          'sources' => $category->get_value(OKHUB_API_FN_SOURCES),
           'website_url' => $category->get_value(OKHUB_API_FN_WEBSITE_URL),
           'metadata_url' => $category->get_value(OKHUB_API_FN_METADATA_URL),
           'object_id' => $category->get_value(OKHUB_API_FN_ITEM_ID),
@@ -653,6 +667,10 @@ class OkhubCountriesParser extends FeedsParser {
       'site' => array(
         'name' => t('Site'),
         'description' => t('Dataset (eldis or bridge).'),
+      ),
+      'sources' => array(
+        'name' => t('Sources'),
+        'description' => t('Dataset (eldis, bridge, ccccc etc...).'),
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
@@ -711,6 +729,7 @@ class OkhubCountriesParser extends FeedsParser {
           'object_type' => $country->get_value(OKHUB_API_FN_ITEM_TYPE),
           'title' => $country->get_value(OKHUB_API_FN_TITLE),
           'site' => $country->get_value(OKHUB_API_FN_SITE),
+          'sources' => $country->get_value(OKHUB_API_FN_SOURCES),
           'metadata_url' => $country->get_value(OKHUB_API_FN_METADATA_URL),
           'timestamp' => $country->get_value(OKHUB_API_FN_TIMESTAMP),
           'website_url' => $country->get_value(OKHUB_API_FN_WEBSITE_URL),
