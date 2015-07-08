@@ -84,7 +84,7 @@ function okhubimport_fields_definitions() {
         ),
       ),
     ),
-    'field_asset_id' => array(
+/*    'field_asset_id' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(),
@@ -128,7 +128,7 @@ function okhubimport_fields_definitions() {
           0 => 'okhub_document',
         ),
       ),
-    ),
+    ),*/
     'field_authors' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -1061,7 +1061,7 @@ function okhubimport_fields_definitions() {
         ),
       ),
     ),
-    'field_publisher_id' => array(
+/*    'field_publisher_id' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -1126,7 +1126,7 @@ function okhubimport_fields_definitions() {
           0 => 'okhub_document',
         ),
       ),
-    ),
+    ),*/
     'field_regions' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -1935,7 +1935,7 @@ function okhubimport_fields_definitions() {
         ),
       ),
     ),
-    'field_asset_id' => array(
+/*    'field_asset_id' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(),
@@ -1980,7 +1980,7 @@ function okhubimport_fields_definitions() {
           1 => 'okhub_organisation',
         ),
       ),
-    ),
+    ),*/
     'field_countries' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -4505,7 +4505,7 @@ function okhubimport_fields_definitions() {
         ),
       ),
     ),
-    'field_asset_id' => array(
+/*    'field_asset_id' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(),
@@ -4553,7 +4553,7 @@ function okhubimport_fields_definitions() {
           0 => 'okhub_countries',
         ),
       ),
-    ),
+    ),*/
     'field_iso_number' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -5314,7 +5314,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_document',
         'deleted' => '0',
       ),
-    'field_asset_id' => array(
+/*    'field_asset_id' => array(
         'label' => 'Asset ID',
         'widget' => array(
           'weight' => '15',
@@ -5357,7 +5357,7 @@ function okhubimport_fields_instances() {
         'entity_type' => 'node',
         'bundle' => 'okhub_document',
         'deleted' => '0',
-      ),
+      ),*/
     'field_authors' => array(
         'label' => 'Authors',
         'widget' => array(
@@ -6359,7 +6359,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_organisation',
         'deleted' => '0',
       ),
-    'field_asset_id' => array(
+ /*   'field_asset_id' => array(
         'label' => 'Asset ID',
         'widget' => array(
           'weight' => '15',
@@ -6402,7 +6402,7 @@ function okhubimport_fields_instances() {
         'entity_type' => 'node',
         'bundle' => 'okhub_organisation',
         'deleted' => '0',
-      ),
+      ),*/
     'field_countries' => array(
         'label' => 'Countries',
         'widget' => array(
@@ -8476,7 +8476,7 @@ function okhubimport_fields_instances() {
         'bundle' => 'okhub_countries',
         'deleted' => '0',
     ),
-    'field_asset_id' => array(
+/*    'field_asset_id' => array(
         'label' => 'Asset ID',
         'widget' => array(
           'weight' => '18',
@@ -8513,7 +8513,7 @@ function okhubimport_fields_instances() {
         'entity_type' => 'taxonomy_term',
         'bundle' => 'okhub_countries',
         'deleted' => '0',
-    ),
+    ),*/
     'field_iso_number' => array(
         'label' => 'ISO number',
         'widget' => array(

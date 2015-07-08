@@ -262,10 +262,10 @@ class OkhubDocumentsParser extends FeedsParser {
         'name' => t('Name'),
         'description' => t('Name of the object.'),
       ),
-      'asset_id' => array(
+/*      'asset_id' => array(
         'name' => t('Asset ID'),
         'description' => t('Asset identifier (for example, 12345).'),
-      ),
+      ),*/
       'date_created' => array(
         'name' => t('Date created'),
         'description' => t('Creation date. (Example: 2012-02-09 14:36:21). Date in which the object was added to the collection.'),
@@ -355,7 +355,7 @@ class OkhubDocumentsParser extends FeedsParser {
           'timestamp' => $asset->get_value(OKHUB_API_FN_TIMESTAMP),
           'website_url' => $asset->get_value(OKHUB_API_FN_WEBSITE_URL),
           'name' => $asset->get_value(OKHUB_API_FN_NAME),
-          'asset_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),
+/*          'asset_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),*/
           'date_created' => $asset->get_value(OKHUB_API_FN_DATE_CREATED),
           'date_updated' => $asset->get_value(OKHUB_API_FN_DATE_UPDATED),
           'category_theme_array' => $asset->get_value('category_theme_array'),
@@ -368,7 +368,7 @@ class OkhubDocumentsParser extends FeedsParser {
           'language_name' => $asset->get_value(OKHUB_API_FN_METADATA_URL),
           'publication_date' => $asset->get_value('publication_date'),
           'publisher' => $asset->get_value('publisher'),
-          'publisher_id' => $asset->get_value('publisher_id'),
+/*          'publisher_id' => $asset->get_value('publisher_id'),*/
           'licence_type' => $asset->get_value('licence_type'),
           'document_type' => $asset->get_value(OKHUB_API_FN_DOCUMENT_TYPE),
           'urls' => $asset->get_value(OKHUB_API_FN_URLS),
@@ -423,10 +423,10 @@ class OkhubOrganisationsParser extends FeedsParser {
         'name' => t('Name'),
         'description' => t('Name of the object.'),
       ),
-      'asset_id' => array(
+/*      'asset_id' => array(
         'name' => t('Asset ID'),
         'description' => t('Asset identifier (for example, 12345).'),
-      ),
+      ),*/
       'date_created' => array(
         'name' => t('Date created'),
         'description' => t('Creation date. (Example: 2012-02-09 14:36:21). Date in which the object was added to the collection.'),
@@ -504,7 +504,7 @@ class OkhubOrganisationsParser extends FeedsParser {
           'timestamp' => $asset->get_value(OKHUB_API_FN_TIMESTAMP),
           'website_url' => $asset->get_value(OKHUB_API_FN_WEBSITE_URL),
           'name' => $asset->get_value(OKHUB_API_FN_NAME),
-          'asset_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),
+ /*         'asset_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),*/
           'date_created' => $asset->get_value(OKHUB_API_FN_DATE_CREATED),
           'date_updated' => $asset->get_value(OKHUB_API_FN_DATE_UPDATED),
           'category_theme_array' => $asset->get_value('category_theme_array'),
@@ -674,10 +674,10 @@ class OkhubCountriesParser extends FeedsParser {
         'name' => t('Alternative name'),
         'description' => t('Alternative name of the country.'),
       ),
-      'asset_id' => array(
+/*      'asset_id' => array(
         'name' => t('Asset ID'),
         'description' => t('Country identifier (for example, 12345).'),
-      ),
+      ),*/
       'iso_number' => array(
         'name' => t('ISO number'),
         'description' => t('ISO number. Example: 50 (Bangladesh).'),
@@ -716,7 +716,7 @@ class OkhubCountriesParser extends FeedsParser {
           'website_url' => $country->get_value(OKHUB_API_FN_WEBSITE_URL),
           'name' => $country->get_value(OKHUB_API_FN_NAME),
           'alternative_name' => $country->get_value('alternative_name'),
-          'asset_id' => $country->get_value(OKHUB_API_FN_ITEM_ID),
+/*          'asset_id' => $country->get_value(OKHUB_API_FN_ITEM_ID),*/
           'iso_number' => $country->get_value('iso_number'),
           'iso_three_letter_code' => $country->get_value('iso_three_letter_code'),
           'iso_two_letter_code' => $country->get_value('iso_two_letter_code'),

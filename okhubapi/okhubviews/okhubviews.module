@@ -130,13 +130,13 @@ function okhubviews_views_data() {
       'handler' => 'okhubviews_handler_field',
     ),
   );
-  $data['okhubviews_documents']['asset_id'] = array(
+/*  $data['okhubviews_documents']['asset_id'] = array(
     'title' => t('Asset ID'),
     'help' => t('Asset identifier.'),
     'field' => array(
       'handler' => 'okhubviews_handler_field_numeric',
     ),
-  );
+  );*/
   $data['okhubviews_documents'][OKHUB_API_FN_DATE_CREATED] = array(
     'title' => t('Date created'),
     'help' => t('Date in which the object was added to the collection.'),
