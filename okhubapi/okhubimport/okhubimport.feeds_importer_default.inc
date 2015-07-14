@@ -156,12 +156,7 @@ function okhubimport_feeds_importer_default()
             'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
-          ),
-          24 => array(
-            'source' => 'document_type',
-            'target' => 'field_document_type',
-            'unique' => FALSE
-          ),
+          )
         ),
         'update_existing' => '2',
         'input_format' => 'full_html',
@@ -299,7 +294,7 @@ function okhubimport_feeds_importer_default()
             'unique' => FALSE
           ),
           19 => array(
-            'source' => '$location_country',
+            'source' => 'location_country',
             'target' => 'field_location_country',
             'unique' => FALSE
           ),
