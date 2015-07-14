@@ -262,6 +262,10 @@ class OkhubDocumentsParser extends FeedsParser {
         'name' => t('Website URL'),
         'description' => t('URL for the asset on the collection website.'),
       ),
+      'document_type' => array(
+        'name' => t('Document Type'),
+        'description' => t('The type of document this item is.'),
+      ),
 /*      'name' => array(
         'name' => t('Name'),
         'description' => t('Name of the item.'),
@@ -326,10 +330,6 @@ class OkhubDocumentsParser extends FeedsParser {
         'name' => t('Licence type'),
         'description' => t('Licence type.'),
       ),
-      'document_type' => array(
-        'name' => t('Document type'),
-        'description' => t('Document type.'),
-      ),
       'urls' => array(
         'name' => t('External URLs'),
         'description' => t('External URLs of the full text document.'),
@@ -353,8 +353,10 @@ class OkhubDocumentsParser extends FeedsParser {
         $item = array(
           'object_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),
           'object_type' => $asset->get_value(OKHUB_API_FN_ITEM_TYPE),
+          'document_type' => $asset->get_value(OKHUB_API_FN_DOCUMENT_TYPE),
           'title' => $asset->get_value(OKHUB_API_FN_TITLE),
           'site' => $asset->get_value(OKHUB_API_FN_SITE),
+          'sources' => $asset->get_value(OKHUB_API_FN_SOURCES),
           'metadata_url' => $asset->get_value(OKHUB_API_FN_METADATA_URL),
           'timestamp' => $asset->get_value(OKHUB_API_FN_TIMESTAMP),
           'website_url' => $asset->get_value(OKHUB_API_FN_WEBSITE_URL),
@@ -374,7 +376,6 @@ class OkhubDocumentsParser extends FeedsParser {
           'publisher' => $asset->get_value('publisher'),
 /*          'publisher_id' => $asset->get_value('publisher_id'),*/
           'licence_type' => $asset->get_value('licence_type'),
-          'document_type' => $asset->get_value(OKHUB_API_FN_DOCUMENT_TYPE),
           'urls' => $asset->get_value(OKHUB_API_FN_URLS),
         );
         $result->items[] = $item;

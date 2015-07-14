@@ -134,6 +134,31 @@ function okhubimport_vocabularies() {
       'bc_entity_type' => 'taxonomy_term',
     );
     
+  $vocabularies['okhub_document_type'] = array(
+      'name' => 'OKHUB Document type',
+      'machine_name' => 'okhub_document_type',
+      'description' => 'OKHUB Document type',
+      'hierarchy' => '0',
+      'module' => 'taxonomy',
+      'weight' => '0',
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+      'bc_entity_type' => 'taxonomy_term',
+    );
+    
   $vocabularies['okhub_keywords'] = array(
       'name' => 'OKHUB Keywords',
       'machine_name' => 'okhub_keywords',
