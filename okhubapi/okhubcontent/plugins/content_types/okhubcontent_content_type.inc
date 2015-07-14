@@ -16,7 +16,9 @@ $plugin = array(
     "show_title_in_content" => FALSE,
     "title_label" => "",
     "show_authors" => TRUE,
+    "show_document_type" => TRUE,
     "author_label" => t("Author") . ": ",
+	"document_type_label" => t("Document Type") . ": ",
     "show_documents" => TRUE,
     'documents_label' => "",
     "show_publisher" => TRUE,
@@ -54,6 +56,17 @@ function okhubcontent_content_type_edit_form($form, &$form_state){
     '#type' => "textfield",
     '#default_value' => isset($form_state['conf']['author_label']) ? $form_state['conf']['author_label'] : $form_state['plugin']['defaults']['author_label'],
     '#title' => t("Author label"),
+    '#description' => t("If left blank then no label will be shown, otherwise the text provided will be shown")
+  );
+  $form['show_document_type'] = array(
+    '#type' => "checkbox",
+    '#default_value' => isset($form_state['conf']['show_document_type']) ? $form_state['conf']['show_document_type'] : 1,
+    '#title' => t("Show document type"),
+  );
+  $form['document_type_label'] = array(
+    '#type' => "textfield",
+    '#default_value' => isset($form_state['conf']['document_type_label']) ? $form_state['conf']['document_type_label'] : $form_state['plugin']['defaults']['document_type_label'],
+    '#title' => t("Document Type label"),
     '#description' => t("If left blank then no label will be shown, otherwise the text provided will be shown")
   );
   $form['show_publisher'] = array(
@@ -177,6 +190,10 @@ function okhubcontent_content_type_render($subtype, $conf, $panel_args, $context
       "value" => implode(", ", $data->authors),
       "label" => isset($conf['author_label']) ? $conf['author_label'] : "",
       "show" => isset($conf['show_authors']) ? $conf['show_authors'] : 1),
+    "document_type" => array(
+      "value" => implode(", ", $data->document_type),
+      "label" => isset($conf['document_type_label']) ? $conf['document_type_label'] : "",
+      "show" => isset($conf['show_document_type']) ? $conf['show_document_type'] : 1),
     "publisher" => array(
       "value" => $data->publisher,
       "show" => isset($conf['show_publisher']) ? $conf['show_publisher'] : 1,
