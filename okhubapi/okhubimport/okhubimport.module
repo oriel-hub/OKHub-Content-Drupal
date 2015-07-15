@@ -617,7 +617,7 @@ function okhubimport_entity_save($entity_type, $entity) {
  * Create a new taxonomy term in vocabulary $vid, based on the data in the $category object.
  */
 function okhubimport_taxonomy_term($category, $vid, $source) {
-  $term_info['vid'] = $vid;
+/*  $term_info['vid'] = $vid;
   $term_info['name'] = $category->name;
   $term = (object) $term_info;
   foreach ($category as $property => $value) {
@@ -636,18 +636,29 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
   else {
     $category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $category->object_id);
     $term->field_category_id['und']['0']['value'] = $category_id;
-  }
-  taxonomy_term_save($term);
-  // We let Feeds know about the newly created term, so it's not created again when importing.
-  if ($term->tid) {
-    $processor = $source->importer->processor;
-    $hash = $processor->generateHash($term);
-    $processor->newOkhubItemInfo($term, $source->feed_nid, $hash);
-    $term->feeds_item->entity_id = $term->tid;
-    $term->feeds_item->guid = $category->object_id;
-    feeds_item_info_save($term, $term->tid);
-  }
-  return $term->tid;
+  }*/
+	if(trim($category[0]['object_name'])){
+		$term_info['vid'] = $vid;
+		$term_info['name'] = $category[0]['object_name'];
+		$term = (object) $term_info;
+		/* print("INFO: $vid");
+		print_r($category);
+		print('TERM:');
+		print_r($term);*/
+		taxonomy_term_save($term);
+		// We let Feeds know about the newly created term, so it's not created again when importing.
+		if ($term->tid) {
+			$processor = $source->importer->processor;
+			$hash = $processor->generateHash($term);
+			$processor->newOkhubItemInfo($term, $source->feed_nid, $hash);
+			$term->feeds_item->entity_id = $term->tid;
+			$term->feeds_item->guid = $category->object_id;
+			feeds_item_info_save($term, $term->tid);
+		}
+		return $term->tid;
+	} else {
+		return FALSE;
+	}
 }
 
 /**
@@ -659,6 +670,7 @@ function okhubimport_imported_assets_categories($parsed_items) {
   $categories['themes'] = array();
   $categories['subjects'] = array();
   $categories['countries'] = array();
+  $categories['document_type'] = array();
   $assets = array();
   foreach ($parsed_items as $item) {
     if (isset($item['category_region_array'])) {
