@@ -220,7 +220,13 @@ function _okhubapi_get_theme_names_array_from_ids($ids_arr){
 function _okhubapi_get_datasources_param(){
 	$datasources_param = '';
     if ($selected_datasources = _okhubapi_get_selected_datasources_array()) {
-    	$datasources_param = _okhubapi_array_to_url_param($selected_datasources);
+    	$datasources_param .= _okhubapi_array_to_url_param($selected_datasources);
+    }
+    if($selected_not_datasources = _okhubapi_get_selected_datasources_array('okhubimport_default_not_datasources')){
+    	if($datasources_param){
+    		$datasources_param .= '&';
+    	}
+    	$datasources_param .= _okhubapi_array_to_url_param($selected_not_datasources, '&', TRUE);
     }
     return $datasources_param;
 }
@@ -264,11 +270,14 @@ function _okhubapi_get_lang_param(){
 /*
  * Turn an array into a parameter list for URL in call to API
  */
-function _okhubapi_array_to_url_param($arr){
+function _okhubapi_array_to_url_param($arr, $operator='|', $negate=FALSE){
 	$param_list = '';
     foreach($arr as $value){
     	if($param_list){
-    		$param_list .= '|';
+    		$param_list .= $operator;
+    	}
+    	if($negate){
+    		$param_list .= '!';
     	}
     	$param_list .= str_replace(' ', '+', $value);
     }
@@ -286,6 +295,7 @@ function _okhubapi_get_sources_options(){
 	    $sources_options = array();
 	    if($sources_data){
 		    foreach($sources_data as $source){
+		    	unset($source->hub_data['']);
 		    	$is_semantic = FALSE;
 	    		if($source->get_value('is_semantic')){
 	    			$is_semantic = TRUE;
@@ -445,8 +455,8 @@ function _okhubapi_get_priorities_arr(){
 /*
  * function to return full name array of selected sources
  */
-function _okhubapi_selected_sources_full_name_arr(){
-	$sources_selected_ids_arr = variable_get('okhubimport_default_datasources', '');
+function _okhubapi_selected_sources_full_name_arr($datasource_var_name = 'okhubimport_default_datasources'){
+	$sources_selected_ids_arr = variable_get($datasource_var_name, '');
 	$sources_selected_fullnames_arr = array();
 	foreach($sources_selected_ids_arr as $source_id){
 		if($source_fullname = _okhubapi_get_source_name_from_id($source_id)){
@@ -462,8 +472,12 @@ function _okhubapi_selected_sources_full_name_arr(){
  */
 function _okhubapi_global_settings_display(){
 	$data_source_string = (count(_okhubapi_selected_sources_full_name_arr())) ? implode(", ",  _okhubapi_selected_sources_full_name_arr()) : 'All';
+	$not_data_source_string = (count(_okhubapi_selected_sources_full_name_arr('okhubimport_default_not_datasources'))) ? implode(", ",  _okhubapi_selected_sources_full_name_arr('okhubimport_default_not_datasources')) : FALSE;
 	$output = '<ul>'; 
 	$output .= '<li>Data sources: ' . $data_source_string . '</li>';
+	if($not_data_source_string){
+		$output .= '<li>NOT from Data sources: ' . $not_data_source_string . '</li>';
+	}
 	$output .= '<li>Priority data source: ' . _okhubapi_get_source_name_from_id(variable_get('okhubimport_priority_datasource', '')) . '</li>';
 	$output .= '<li>Priority language: ' . variable_get('okhubimport_priority_language', '') . '</li>';
 	if(variable_get('okhubimport_only_use_priority_language', '')){

@@ -70,6 +70,14 @@ function okhubapi_settings_form() {
     '#description' => t('OKHUB data only import from the prority language don\'t use alternative'),
   );
   
+  $form['general']['okhubimport_default_not_datasources'] = array(
+    '#title' => t('Data sources to ignore (NOT)'),
+    '#type' => 'checkboxes',
+    '#options' => $sources_options,
+  	'#default_value' => variable_get('okhubimport_default_not_datasources', ''),
+    '#description' => t('OKHUB data sources to be ignored by default. Uses NOT logic.'),
+  );
+  
   $form['okhubapi_number_items'] = array(
     '#title' => t('Default number of items'),
     '#type' => 'textfield',
