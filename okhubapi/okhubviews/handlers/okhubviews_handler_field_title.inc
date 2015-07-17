@@ -23,7 +23,6 @@ class okhubviews_handler_field_title extends okhubviews_handler_field {
     $params = array();
     $link_title = '';
     $view_url = $this->view->get_url();
-    print_r($values);
     $item = $this->get_value($values);
     $tipo = gettype($item);
     if ($item->get_value(OKHUB_API_FN_TITLE)) {
