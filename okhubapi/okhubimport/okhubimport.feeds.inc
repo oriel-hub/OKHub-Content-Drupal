@@ -106,9 +106,12 @@ class OkhubCategoriesFetcher extends FeedsFetcher {
    * Overrides parent::__construct().
    */
   public function __construct() {
+  	
     $this->okhub_api_wrapper = new OkhubApiWrapper();
     $this->okhub_api_wrapper->setApiKey(variable_get('okhubapi_api_key', ''));
     $this->okhub_api_wrapper->setSite(variable_get('okhubimport_default_dataset', OKHUB_API_DEFAULT_DATASET));
+    $this->okhub_api_wrapper->setPriorityDatasource(variable_get('okhubimport_priority_datasource', ''));
+    $this->okhub_api_wrapper->setPriorityLanguage(variable_get('okhubimport_priority_language', ''));
     $this->okhub_api_wrapper->setFormat('full');
     if ($query_string = variable_get('okhubimport_query_string')) {
       $this->okhub_api_wrapper->setQueryString($query_string);
@@ -120,16 +123,18 @@ class OkhubCategoriesFetcher extends FeedsFetcher {
    * Note: The defined default dataset is used.
    */
   public function fetch(FeedsSource $source) {
+
     $this->okhub_api_wrapper->setObjectType($this->config['category_type']);
     if (($this->config['category_type'] == 'themes') || ($this->config['category_type'] == 'subjects') || ($this->config['category_type'] == 'regions')) {
-      if ($levels = variable_get('okhubimport_levels_categories')) {
+   /*   if ($levels = variable_get('okhubimport_levels_categories')) {
         $this->okhub_api_wrapper->setParam('level', $levels);
-      }
+      }*/
     }
     $datasources = _okhubapi_get_datasources_param();
     if ($datasources) {
       $this->okhub_api_wrapper->setParam('source', $datasources);
     }
+      	
     $fetcher_result = new OkhubContentFetcherResult($this);
     return $fetcher_result;
   }

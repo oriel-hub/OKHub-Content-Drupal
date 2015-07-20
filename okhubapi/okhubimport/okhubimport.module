@@ -540,6 +540,7 @@ function okhubimport_set_categories($object_ids, $categories) {
   foreach ($categories as $type_category => $categories_assets) {
     $vocabulary_machine_name = 'okhub_' . $type_category;
     if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machine_name)) {
+    	
       $vid = $vocabulary->vid;
       $importers = okhubimport_feeds_importer_default();
       $type_importer = $vocabulary_machine_name . '_importer';
@@ -641,6 +642,24 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 		$term_info['vid'] = $vid;
 		$term_info['name'] = $category[0]['object_name'];
 		$term = (object) $term_info;
+		
+	  foreach ($category[0] as $property => $value) {
+	    $field_term = 'field_' . $property;
+	    $term->{$field_term}['und']['0']['value'] = $value;
+	  }
+	  if (isset($category[0]->cat_parent)) {
+	    $term->field_parent_id['und']['0']['value'] = $category[0]->cat_parent;
+	  }
+	  else {
+	    $term->field_parent_id['und']['0']['value'] = '0';
+	  }
+	  if (isset($category[0]->category_id)) {
+	    $term->field_category_id['und']['0']['value'] = $category[0]->category_id;
+	  }
+	  else {
+	    $category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $category[0]->object_id);
+	    $term->field_category_id['und']['0']['value'] = $category_id;
+	  }
 		/* print("INFO: $vid");
 		print_r($category);
 		print('TERM:');
@@ -652,7 +671,7 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 			$hash = $processor->generateHash($term);
 			$processor->newOkhubItemInfo($term, $source->feed_nid, $hash);
 			$term->feeds_item->entity_id = $term->tid;
-			$term->feeds_item->guid = $category->object_id;
+			$term->feeds_item->guid = $category[0]->object_id;
 			feeds_item_info_save($term, $term->tid);
 		}
 		return $term->tid;
@@ -665,6 +684,7 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
  * Given an array of parsed documents, organisations or countries saves attached categories.
  */
 function okhubimport_imported_assets_categories($parsed_items) {
+	//print_r($parsed_items);
   $categories = array();
   $categories['regions'] = array();
   $categories['themes'] = array();
@@ -687,6 +707,10 @@ function okhubimport_imported_assets_categories($parsed_items) {
     }
     if (isset($item['country_focus_array'])) {
       $categories['countries'][$item['object_id']] = $item['country_focus_array'];
+      $assets[] = $item['object_id'];
+    }
+    if (isset($item['document_type'])) {
+      $categories['document_type'][$item['object_id']] = $item['document_type'];
       $assets[] = $item['object_id'];
     }
   }
