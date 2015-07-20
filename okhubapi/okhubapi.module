@@ -306,6 +306,7 @@ function _okhubapi_get_sources_options(){
 		    }
 	    }
     }
+    asort($sources_options);
  	return $sources_options;
 }
 
@@ -353,6 +354,7 @@ function _okhubapi_get_sources_with_themes_options(){
 	    	}
 	    }
     }
+    asort($source_arr);
  	return $source_arr;
 }
 
