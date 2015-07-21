@@ -647,17 +647,17 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 	    $field_term = 'field_' . $property;
 	    $term->{$field_term}['und']['0']['value'] = $value;
 	  }
-	  if (isset($category[0]->cat_parent)) {
-	    $term->field_parent_id['und']['0']['value'] = $category[0]->cat_parent;
+	  if (isset($category[0]['cat_parent'])) {
+	    $term->field_parent_id['und']['0']['value'] = $category[0]['cat_parent'];
 	  }
 	  else {
 	    $term->field_parent_id['und']['0']['value'] = '0';
 	  }
-	  if (isset($category[0]->category_id)) {
-	    $term->field_category_id['und']['0']['value'] = $category[0]->category_id;
+	  if (isset($category[0]['category_id'])) {
+	    $term->field_category_id['und']['0']['value'] = $category[0]['category_id'];
 	  }
 	  else {
-	    $category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $category[0]->object_id);
+	    $category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $category[0]['object_id']);
 	    $term->field_category_id['und']['0']['value'] = $category_id;
 	  }
 		/* print("INFO: $vid");
