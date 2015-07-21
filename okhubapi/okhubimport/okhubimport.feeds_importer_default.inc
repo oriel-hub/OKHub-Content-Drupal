@@ -150,7 +150,7 @@ function okhubimport_feeds_importer_default()
 		  22 => array(
             'source' => 'document_type',
             'target' => 'field_document_type',
-            'unique' => FALSE,
+            'term_search' => '0',
 		  	'autocreate' => 1
           ),
           23 => array(
