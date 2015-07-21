@@ -396,17 +396,17 @@ function okhubimport_feeds_importer_default()
             'target' => 'field_timestamp:start',
             'unique' => FALSE
           ),
-          11 => array(
+ /*         11 => array(
             'source' => 'archived',
             'target' => 'field_archived',
             'unique' => FALSE
-          ),
-          12 => array(
+          ),*/
+          11 => array(
             'source' => 'cat_parent',
             'target' => 'field_parent_id',
             'unique' => FALSE
           ),
-          13 => array(
+          12 => array(
             'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
@@ -504,17 +504,17 @@ function okhubimport_feeds_importer_default()
             'target' => 'field_timestamp:start',
             'unique' => FALSE
           ),
-          11 => array(
+ /*         11 => array(
             'source' => 'archived',
             'target' => 'field_archived',
             'unique' => FALSE
-          ),
-          12 => array(
+          ),*/
+          11 => array(
             'source' => 'cat_parent',
             'target' => 'field_parent_id',
             'unique' => FALSE
           ),
-          13 => array(
+          12 => array(
             'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
@@ -613,17 +613,17 @@ function okhubimport_feeds_importer_default()
             'target' => 'field_timestamp:start',
             'unique' => FALSE
           ),
-          11 => array(
+ /*         11 => array(
             'source' => 'archived',
             'target' => 'field_archived',
             'unique' => FALSE
-          ),
-          12 => array(
+          ),*/
+          11 => array(
             'source' => 'cat_parent',
             'target' => 'field_parent_id',
             'unique' => FALSE
           ),
-          13 => array(
+          12 => array(
             'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE

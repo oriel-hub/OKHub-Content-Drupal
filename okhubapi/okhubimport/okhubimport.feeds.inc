@@ -527,8 +527,8 @@ class OkhubOrganisationsParser extends FeedsParser {
           'category_region_array' => $asset->get_value('category_region_array'),
           'country_focus_array' => $asset->get_value('country_focus_array'),
           'keywords' => $asset->get_value('keywords'),
-          'description' => $asset->get_value(OKHUB_API_DATE_DESCRIPTION),
-          'acronym' => $asset->acronym,
+          'description' => $asset->get_value(OKHUB_API_FN_DESCRIPTION),
+          'acronym' => $asset->get_value('acronym'),
           'alternative_acronym' => $asset->get_value('acronym'),
           'alternative_name' => get_value(OKHUB_API_FN_NAME),
           'organisation_type' => $asset->get_value('organisation_type'),
@@ -598,10 +598,10 @@ class OkhubCategoriesParser extends FeedsParser {
         'name' => t('Timestamp'),
         'description' => t('Indicates when record was indexed in the OKHUB collection. Timestamp is in ISO 8601 format: YYYY-MM-DD hh:mm:ss.'),
       ),
-      'archived' => array(
+    /*  'archived' => array(
         'name' => t('Archived'),
         'description' => t('Indicates if the category is archived. Archived categories are not imported as taxonomy terms.'),
-      ),
+      ),*/
     );
   }
 
@@ -628,12 +628,12 @@ class OkhubCategoriesParser extends FeedsParser {
           'object_type' => $category->get_value(OKHUB_API_FN_ITEM_TYPE),
           'timestamp' => $category->get_value(OKHUB_API_FN_TIMESTAMP),
         );
-        if (isset($category->archived) && ($category->archived === 'true')) {
+    /*    if (isset($category->archived) && ($category->archived === 'true')) {
           $item['archived'] = 1;
         }
         else {
           $item['archived'] = 0;
-        }
+        }*/
 /*        if (($category->cat_parent == 1) || ($category->cat_parent == 2)){
           $item['cat_parent'] = 0;
         }

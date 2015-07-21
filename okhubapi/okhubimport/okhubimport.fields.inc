@@ -3331,7 +3331,7 @@ function okhubimport_fields_definitions() {
   );
 
   $fields['regions'] = array(
-    'field_archived' => array(
+  /*  'field_archived' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -3387,7 +3387,7 @@ function okhubimport_fields_definitions() {
           2 => 'okhub_subjects',
         ),
       ),
-    ),
+    ),*/
     'field_category_id' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -3953,7 +3953,7 @@ function okhubimport_fields_definitions() {
   );
 
   $fields['themes'] = array(
-    'field_archived' => array(
+ /*   'field_archived' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -4067,7 +4067,7 @@ function okhubimport_fields_definitions() {
           2 => 'okhub_subjects',
         ),
       ),
-    ),
+    ),*/
 
     'field_category_id' => array(
       'translatable' => '0',
@@ -7389,7 +7389,7 @@ function okhubimport_fields_instances() {
   );
 
   $instances['regions'] = array(
-    'field_archived' => array(
+  /*  'field_archived' => array(
         'label' => 'Archived',
         'widget' => array(
           'weight' => '11',
@@ -7430,7 +7430,7 @@ function okhubimport_fields_instances() {
         'entity_type' => 'taxonomy_term',
         'bundle' => 'okhub_regions',
         'deleted' => '0',
-      ),
+      ),*/
     'field_category_id' => array(
         'label' => 'Category ID',
         'widget' => array(
@@ -7879,7 +7879,7 @@ function okhubimport_fields_instances() {
   );
 
   $instances['themes'] = array(
-    'field_archived' => array(
+  /*  'field_archived' => array(
         'label' => 'Archived',
         'widget' => array(
           'weight' => '11',
@@ -7920,7 +7920,7 @@ function okhubimport_fields_instances() {
         'entity_type' => 'taxonomy_term',
         'bundle' => 'okhub_themes',
         'deleted' => '0',
-      ),
+      ),*/
     'field_category_id' => array(
         'label' => 'Category ID',
         'widget' => array(
@@ -8369,7 +8369,7 @@ function okhubimport_fields_instances() {
   );
 
   $instances['subjects'] = array(
-    'field_archived' => array(
+ /*   'field_archived' => array(
         'label' => 'Archived',
         'widget' => array(
           'weight' => '11',
@@ -8410,7 +8410,7 @@ function okhubimport_fields_instances() {
         'entity_type' => 'taxonomy_term',
         'bundle' => 'okhub_subjects',
         'deleted' => '0',
-      ),
+      ),*/
     'field_category_id' => array(
         'label' => 'Category ID',
         'widget' => array(

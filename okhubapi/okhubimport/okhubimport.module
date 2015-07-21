@@ -566,12 +566,12 @@ function okhubimport_set_categories($object_ids, $categories) {
         }
         else {
           // The category does not exist as a taxonomy term. We create it.
-          if (isset($category->archived) && ($category->archived === 'true')) {
+      /*    if (isset($category->archived) && ($category->archived === 'true')) {
               $category->archived = 1;
           }
           else {
             $category->archived = 0;
-          }
+          }*/
           if ($tid = okhubimport_taxonomy_term($category, $vid, $source)) {
             $oids_tids[$oid] = $tid;
             $new_tids[$object_id][$type_category][] = $tid;
