@@ -519,7 +519,6 @@ class OkhubOrganisationsParser extends FeedsParser {
           'timestamp' => $asset->get_value(OKHUB_API_FN_TIMESTAMP),
           'website_url' => $asset->get_value(OKHUB_API_FN_WEBSITE_URL),
           'name' => $asset->get_value(OKHUB_API_FN_NAME),
- /*         'asset_id' => $asset->get_value(OKHUB_API_FN_ITEM_ID),*/
           'date_created' => $asset->get_value(OKHUB_API_FN_DATE_CREATED),
           'date_updated' => $asset->get_value(OKHUB_API_FN_DATE_UPDATED),
           'category_theme_array' => $asset->get_value('category_theme_array'),
@@ -530,7 +529,7 @@ class OkhubOrganisationsParser extends FeedsParser {
           'description' => $asset->get_value(OKHUB_API_FN_DESCRIPTION),
           'acronym' => $asset->get_value('acronym'),
           'alternative_acronym' => $asset->get_value('acronym'),
-          'alternative_name' => get_value(OKHUB_API_FN_NAME),
+          'alternative_name' => $asset->get_value(OKHUB_API_FN_NAME),
           'organisation_type' => $asset->get_value('organisation_type'),
           'organisation_url' => $asset->get_value('organisation_url'),
           'location_country' => $asset->get_value('country'),
