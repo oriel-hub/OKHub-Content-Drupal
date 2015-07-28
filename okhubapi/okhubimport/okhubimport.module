@@ -583,6 +583,7 @@ function okhubimport_set_categories($object_ids, $categories) {
 	            $new_tids[$object_id][$type_category][] = $tid;
 	          }
 	          else {
+	          	$oid = print_r($category, true);
 	            watchdog('okhubimport', "Category !oid was not created.", array('!oid' => $oid), WATCHDOG_WARNING);
 	          }
 	        }
@@ -628,7 +629,7 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 	if(isset($category[0])){
 		$category = $category[0];
 	}
-	if(is_array($category) && trim($category['object_name'])){
+	if(is_array($category) && isset($category['object_name']) && trim($category['object_name'])){
 		$term_info['vid'] = $vid;
 		$term_info['name'] = $category['object_name'];
 		$term = (object) $term_info;

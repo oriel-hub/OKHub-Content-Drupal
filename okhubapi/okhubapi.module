@@ -85,7 +85,7 @@ function okhubapi_help($path, $arg) {
  */
 function okhubapi_get_all($type, $set, $format) {
   if(class_exists('OkhubApiWrapper')){
-	$okhubwrapper = new OkhubApiWrapper;
+	$okhubwrapper = new OkhubApiWrapper();
   	$api_key = variable_get('okhubapi_api_key', '');
   	$priorities = _okhubapi_get_priorities_arr();
   	$response = $okhubwrapper->getAll($type, $set, $api_key, $format, $priorities);
@@ -99,22 +99,30 @@ function okhubapi_get_all($type, $set, $format) {
  * Function used to retrieve OKHUB items using search, with parameters.
  */
 function okhubapi_search($type, $set, $format, $params, $extra_fields = array(), $num_requested = 0, $age_results = 0, $start_offset = 0) {
-  $okhubwrapper = new OkhubApiWrapper;
-  $api_key = variable_get('okhubapi_api_key', '');
-  $priorities = _okhubapi_get_priorities_arr();
-  $response = $okhubwrapper->search($type, $set, $api_key, $format, $num_requested, $age_results, $start_offset, $params, $extra_fields, $priorities);
-  return $response;
+	if(class_exists('OkhubApiWrapper')){
+		$okhubwrapper = new OkhubApiWrapper();
+		$api_key = variable_get('okhubapi_api_key', '');
+		$priorities = _okhubapi_get_priorities_arr();
+		$response = $okhubwrapper->search($type, $set, $api_key, $format, $num_requested, $age_results, $start_offset, $params, $extra_fields, $priorities);
+		return $response;
+	} else {
+		return false;
+	}
 }
 
 /**
  * Function used to retrieve OKHUB items using count, with parameters.
  */
 function okhubapi_count($type, $set, $count_category, $age_results = 0, $params = array()) {
-  $okhubwrapper = new OkhubApiWrapper;
-  $api_key = variable_get('okhubapi_api_key', '');
-  $priorities = _okhubapi_get_priorities_arr();
-  $response = $okhubwrapper->count($type, $set, $api_key, $count_category, $age_results, $params, $priorities);
-  return $response;	
+	if(class_exists('OkhubApiWrapper')){
+		$okhubwrapper = new OkhubApiWrapper();
+		$api_key = variable_get('okhubapi_api_key', '');
+		$priorities = _okhubapi_get_priorities_arr();
+		$response = $okhubwrapper->count($type, $set, $api_key, $count_category, $age_results, $params, $priorities);
+		return $response;	
+	} else {
+		return false;
+	}
 }
 
 /* ---------------- Examples of calls to the OKHUB API --------------- */
@@ -124,15 +132,17 @@ function okhubapi_count($type, $set, $count_category, $age_results = 0, $params 
  */
 function okhubapi_block_info() {
   $blocks = array();
-  $okhubwrapper = new OkhubApiWrapper();
-  $api_key = variable_get('okhubapi_api_key', '');
-  $priorities = _okhubapi_get_priorities_arr();
-  $sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
-  foreach($sources_options as $source_code => $source_name){
-	  $blocks['okhubapi_new_' . $source_code . '_docs'] = array(
-	    'info' => t($source_name . ' documents'),
-	    'cache' => DRUPAL_NO_CACHE,
-	  );  	
+  if(class_exists('OkhubApiWrapper')){
+	  $okhubwrapper = new OkhubApiWrapper;
+	  $api_key = variable_get('okhubapi_api_key', '');
+	  $priorities = _okhubapi_get_priorities_arr();
+	  $sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
+	  foreach($sources_options as $source_code => $source_name){
+		  $blocks['okhubapi_new_' . $source_code . '_docs'] = array(
+		    'info' => t($source_name . ' documents'),
+		    'cache' => DRUPAL_NO_CACHE,
+		  );  	
+	  }
   }
   return $blocks;
 }
