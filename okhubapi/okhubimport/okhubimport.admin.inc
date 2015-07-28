@@ -48,8 +48,7 @@ function okhubimport_settings_form() {
 	  );
 	 
   	$api_key = variable_get('okhubapi_api_key', '');
-  	$priorities = _okhubapi_get_priorities_arr();
-	  $sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
+	  $sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key);
 	
 	  
 	$form['general']['info'] = array(

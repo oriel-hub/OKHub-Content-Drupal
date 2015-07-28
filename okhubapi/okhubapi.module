@@ -135,8 +135,7 @@ function okhubapi_block_info() {
   if(class_exists('OkhubApiWrapper')){
 	  $okhubwrapper = new OkhubApiWrapper;
 	  $api_key = variable_get('okhubapi_api_key', '');
-	  $priorities = _okhubapi_get_priorities_arr();
-	  $sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
+	  $sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key);
 	  foreach($sources_options as $source_code => $source_name){
 		  $blocks['okhubapi_new_' . $source_code . '_docs'] = array(
 		    'info' => t($source_name . ' documents'),
@@ -158,8 +157,7 @@ function okhubapi_block_view($block_name = '') {
   if(count($block_name_arr) > 3){
   	if($block_name_arr[0] == 'okhubapi' && $block_name_arr[1] == 'new' && $block_name_arr[3] == 'docs'){
 		$api_key = variable_get('okhubapi_api_key', '');
-		$priorities = _okhubapi_get_priorities_arr();
-		$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
+		$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key);
   		$source_id = $block_name_arr[2];
   		$params = array('source' => $source_id);
 	    $response = okhubapi_search('documents', OKHUB_API_DEFAULT_DATASET, 'full', $params, $extra_fields = array(), $num_requested = 5);
@@ -310,8 +308,7 @@ function _okhubapi_get_sources_with_themes_options(){
     if(isset($sources_response->results)){
     	/* get all sources full info - name etc... */
 		$api_key = variable_get('okhubapi_api_key', '');
-		$priorities = _okhubapi_get_priorities_arr();
-		$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
+		$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key);
 	    foreach($sources_response->results as $source){
 	    	if(method_exists($source,'get_value')){ /* had to add this line otherwise errored when clearing caches ?? */
 		    	if($source_id = $source->get_value('object_name')){
