@@ -3,15 +3,21 @@
 class okhubviews_handler_filter_datasource extends views_handler_filter {
 
   function option_definition() {
+  	$okhubwrapper = new OkhubApiWrapper();
     $options = parent::option_definition();
-    $sources_options = _okhubapi_get_sources_options();
+  	$api_key = variable_get('okhubapi_api_key', '');
+  	$priorities = _okhubapi_get_priorities_arr();
+	$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
     $options['filter_datasource'] = $sources_options;
     return $options;
   }
 
   function options_form(&$form, &$form_state) {   
     parent::options_form($form, $form_state);
-    $sources_options = _okhubapi_get_sources_options();
+    $okhubwrapper = new OkhubApiWrapper();
+  	$api_key = variable_get('okhubapi_api_key', '');
+  	$priorities = _okhubapi_get_priorities_arr();
+	$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
     $form['filter_datasource'] = array(
       '#type' => 'select',
       '#title'  => t('Data Source'),

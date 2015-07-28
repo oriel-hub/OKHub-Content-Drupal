@@ -625,46 +625,29 @@ function okhubimport_entity_save($entity_type, $entity) {
  * Create a new taxonomy term in vocabulary $vid, based on the data in the $category object.
  */
 function okhubimport_taxonomy_term($category, $vid, $source) {
-/*  $term_info['vid'] = $vid;
-  $term_info['name'] = $category->name;
-  $term = (object) $term_info;
-  foreach ($category as $property => $value) {
-    $field_term = 'field_' . $property;
-    $term->{$field_term}['und']['0']['value'] = $value;
-  }
-  if (isset($category->cat_parent)) {
-    $term->field_parent_id['und']['0']['value'] = $category->cat_parent;
-  }
-  else {
-    $term->field_parent_id['und']['0']['value'] = '0';
-  }
-  if (isset($category->category_id)) {
-    $term->field_category_id['und']['0']['value'] = $category->category_id;
-  }
-  else {
-    $category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $category->object_id);
-    $term->field_category_id['und']['0']['value'] = $category_id;
-  }*/
-	if(trim($category[0]['object_name'])){
+	if(isset($category[0])){
+		$category = $category[0];
+	}
+	if(is_array($category) && trim($category['object_name'])){
 		$term_info['vid'] = $vid;
-		$term_info['name'] = $category[0]['object_name'];
+		$term_info['name'] = $category['object_name'];
 		$term = (object) $term_info;
 		
-	  foreach ($category[0] as $property => $value) {
+	  foreach ($category as $property => $value) {
 	    $field_term = 'field_' . $property;
 	    $term->{$field_term}['und']['0']['value'] = $value;
 	  }
-	  if (isset($category[0]['cat_parent'])) {
-	    $term->field_parent_id['und']['0']['value'] = $category[0]['cat_parent'];
+	  if (isset($category['cat_parent'])) {
+	    $term->field_parent_id['und']['0']['value'] = $category['cat_parent'];
 	  }
 	  else {
 	    $term->field_parent_id['und']['0']['value'] = '0';
 	  }
-	  if (isset($category[0]['category_id'])) {
-	    $term->field_category_id['und']['0']['value'] = $category[0]['category_id'];
+	  if (isset($category['category_id'])) {
+	    $term->field_category_id['und']['0']['value'] = $category['category_id'];
 	  }
 	  else {
-	    $category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $category[0]['object_id']);
+	    $category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $category['object_id']);
 	    $term->field_category_id['und']['0']['value'] = $category_id;
 	  }
 		/* print("INFO: $vid");
@@ -678,7 +661,7 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 			$hash = $processor->generateHash($term);
 			$processor->newOkhubItemInfo($term, $source->feed_nid, $hash);
 			$term->feeds_item->entity_id = $term->tid;
-			$term->feeds_item->guid = $category[0]['object_id'];
+			$term->feeds_item->guid = $category['object_id'];
 			feeds_item_info_save($term, $term->tid);
 		}
 		return $term->tid;

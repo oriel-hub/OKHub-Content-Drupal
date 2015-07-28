@@ -10,8 +10,9 @@
  */
 
 function okhubapi_settings_form() {
+  
   $form = array();
-
+  $okhubwrapper = new OkhubApiWrapper();
   $form['okhubapi_api_key'] = array(
     '#title' => t('API Key'),
     '#type' => 'textfield',
@@ -36,7 +37,9 @@ function okhubapi_settings_form() {
     '#description' => t('OKHUB dataset to be used by default.'),
   );
  
-  $sources_options = _okhubapi_get_sources_options();
+	$api_key = variable_get('okhubapi_api_key', '');
+	$priorities = _okhubapi_get_priorities_arr();
+	$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
   
   $form['general']['okhubimport_default_datasources'] = array(
     '#title' => t('Default data sources'),

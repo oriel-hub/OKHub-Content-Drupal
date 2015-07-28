@@ -46,8 +46,10 @@ function okhubimport_settings_form() {
 	    '#default_value' => variable_get('okhubimport_default_dataset', OKHUB_API_DEFAULT_DATASET),
 	    '#description' => t('OKHUB dataset to be used by default.'),
 	  );
-	  
-	  $sources_options = _okhubapi_get_sources_options();
+	 
+  	$api_key = variable_get('okhubapi_api_key', '');
+  	$priorities = _okhubapi_get_priorities_arr();
+	  $sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key, $priorities);
 	
 	  
 	$form['general']['info'] = array(
