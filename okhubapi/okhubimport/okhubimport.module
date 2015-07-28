@@ -544,11 +544,13 @@ function okhubimport_set_categories($object_ids, $categories) {
       $vid = $vocabulary->vid;
       $importers = okhubimport_feeds_importer_default();
       $type_importer = $vocabulary_machine_name . '_importer';
-      $importer = $importers[$type_importer];
-      $feed_type = $importer->config['content_type'];
-      $feed_nids = okhubimport_get_nids_type($feed_type);
-      $feed_nid = $feed_nids[0];
-      $source =  feeds_source($importer->id, $feed_nid);
+      if(isset($importers[$type_importer])){
+		$importer = $importers[$type_importer];
+		$feed_type = $importer->config['content_type'];
+		$feed_nids = okhubimport_get_nids_type($feed_type);
+		$feed_nid = $feed_nids[0];
+      	$source =  feeds_source($importer->id, $feed_nid);
+      }
     }
     else {
       watchdog('okhubimport', 'The !vocabulary_name does not exist.', array('!vocabulary_name' => $vocabulary_machine_name), WATCHDOG_WARNING);
@@ -556,30 +558,35 @@ function okhubimport_set_categories($object_ids, $categories) {
     }
     $oids_tids = okhubimport_get_oids_tids($vid);
     foreach ($categories_assets as $object_id => $categories_asset) {
-      foreach ($categories_asset as $category) {
-        if (isset($category->object_id)) {
-          $oid = $category->object_id;
-        }
-        if (isset($oids_tids[$oid])) {
-          $tid = $oids_tids[$oid];
-          $new_tids[$object_id][$type_category][] = $tid;
-        }
-        else {
-          // The category does not exist as a taxonomy term. We create it.
-      /*    if (isset($category->archived) && ($category->archived === 'true')) {
-              $category->archived = 1;
-          }
-          else {
-            $category->archived = 0;
-          }*/
-          if ($tid = okhubimport_taxonomy_term($category, $vid, $source)) {
-            $oids_tids[$oid] = $tid;
-            $new_tids[$object_id][$type_category][] = $tid;
-          }
-          else {
-            watchdog('okhubimport', "Category !oid was not created.", array('!oid' => $oid), WATCHDOG_WARNING);
-          }
-        }
+    	if (is_array($categories_asset) || is_object($categories_asset))
+		{
+	    	foreach ($categories_asset as $category) {
+	        if (isset($category->object_id)) {
+	          $oid = $category->object_id;
+	        }
+	        if (isset($oid) && isset($oids_tids[$oid])) {
+	          $tid = $oids_tids[$oid];
+	          $new_tids[$object_id][$type_category][] = $tid;
+	        }
+	        else {
+	          // The category does not exist as a taxonomy term. We create it.
+	      /*    if (isset($category->archived) && ($category->archived === 'true')) {
+	              $category->archived = 1;
+	          }
+	          else {
+	            $category->archived = 0;
+	          }*/
+	          if ($tid = okhubimport_taxonomy_term($category, $vid, $source)) {
+	            if (isset($oid)){
+	          		$oids_tids[$oid] = $tid;
+	            }
+	            $new_tids[$object_id][$type_category][] = $tid;
+	          }
+	          else {
+	            watchdog('okhubimport', "Category !oid was not created.", array('!oid' => $oid), WATCHDOG_WARNING);
+	          }
+	        }
+	    }
       }
     }
   }
@@ -671,7 +678,7 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 			$hash = $processor->generateHash($term);
 			$processor->newOkhubItemInfo($term, $source->feed_nid, $hash);
 			$term->feeds_item->entity_id = $term->tid;
-			$term->feeds_item->guid = $category[0]->object_id;
+			$term->feeds_item->guid = $category[0]['object_id'];
 			feeds_item_info_save($term, $term->tid);
 		}
 		return $term->tid;
