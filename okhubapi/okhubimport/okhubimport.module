@@ -562,8 +562,12 @@ function okhubimport_set_categories($object_ids, $categories) {
 			{
 				foreach ($categories_asset as $category) {
 					foreach($category as $key => $term){
+						/* OLD Eldis key object_id - but still used for regions/countries */
 						if (isset($term['object_id'])) {
 							$oid = $term['object_id'];
+						}
+						if (isset($term['item_id'])) {
+							$oid = $term['item_id'];
 						}
 						if (isset($oid) && isset($oids_tids[$oid])) {
 							$tid = $oids_tids[$oid];
@@ -624,9 +628,25 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 	/*if(isset($category[0])){
 		$category = $category[0];
 		}*/
-	if(is_array($category) && isset($category['object_name']) && trim($category['object_name'])){
+	/* OLD Eldis key object_name - but still used for regions/countries */
+	$term_name = FALSE;
+	if(isset($category['object_name']) && trim($category['object_name'])){
+		$term_name = $category['object_name'];
+	}
+	if(isset($category['title']) && trim($category['title'])){
+		$term_name = $category['title'];
+	}
+	$item_id = FALSE;
+	if(isset($category['object_id'])){
+		/* OLD Eldis key object_id - but still used for regions/countries */
+		$item_id = $category['object_id'];
+	}
+	if(isset($category['item_id'])){
+		$item_id = $category['item_id'];
+	}
+	if(is_array($category) && $term_name){
 		$term_info['vid'] = $vid;
-		$term_info['name'] = $category['object_name'];
+		$term_info['name'] = $term_name;
 		$term = (object) $term_info;
 
 		foreach ($category as $property => $value) {
@@ -643,8 +663,9 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 			$term->field_category_id['und']['0']['value'] = $category['category_id'];
 		}
 		else {
-			$category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $category['object_id']);
+			$category_id = preg_replace('/[a-zA-Z]*(\d+)/', '$1', $item_id);
 			$term->field_category_id['und']['0']['value'] = $category_id;
+			$term->field_object_id['und']['0']['value'] = $category_id;
 		}
 		/* print("INFO: $vid");
 		 print_r($category);
@@ -657,7 +678,7 @@ function okhubimport_taxonomy_term($category, $vid, $source) {
 			$hash = $processor->generateHash($term);
 			$processor->newOkhubItemInfo($term, $source->feed_nid, $hash);
 			$term->feeds_item->entity_id = $term->tid;
-			$term->feeds_item->guid = $category['object_id'];
+			$term->feeds_item->guid = $item_id;
 			feeds_item_info_save($term, $term->tid);
 		}
 		return $term->tid;
@@ -679,25 +700,35 @@ function okhubimport_imported_assets_categories($parsed_items) {
 	$categories['document_type'] = array();
 	$assets = array();
 	foreach ($parsed_items as $item) {
-		if (isset($item['category_region_array'])) {
-			$categories['regions'][$item['object_id']] = $item['category_region_array'];
-			$assets[] = $item['object_id'];
+		$item_id = FALSE;
+		if(isset($item['object_id'])){
+			/* OLD Eldis key object_id - but still used for regions/countries */
+			$item_id = $item['object_id'];
 		}
-		if (isset($item['category_theme_array'])) {
-			$categories['themes'][$item['object_id']] = $item['category_theme_array'];
-			$assets[] = $item['object_id'];
+		if(isset($item['item_id'])){
+			$item_id = $item['item_id'];
 		}
-		if (isset($item['category_subject_array'])) {
-			$categories['subjects'][$item['object_id']] = $item['category_subject_array'];
-			$assets[] = $item['object_id'];
-		}
-		if (isset($item['country_focus_array'])) {
-			$categories['countries'][$item['object_id']] = $item['country_focus_array'];
-			$assets[] = $item['object_id'];
-		}
-		if (isset($item['document_type'])) {
-			$categories['document_type'][$item['object_id']] = $item['document_type'];
-			$assets[] = $item['object_id'];
+		if($item_id){
+			if (isset($item['category_region_array'])) {
+				$categories['regions'][$item_id] = $item['category_region_array'];
+				$assets[] = $item_id;
+			}
+			if (isset($item['category_theme_array'])) {
+				$categories['themes'][$item_id] = $item['category_theme_array'];
+				$assets[] = $item_id;
+			}
+			if (isset($item['category_subject_array'])) {
+				$categories['subjects'][$item_id] = $item['category_subject_array'];
+				$assets[] = $item_id;
+			}
+			if (isset($item['country_focus_array'])) {
+				$categories['countries'][$item_id] = $item['country_focus_array'];
+				$assets[] = $item_id;
+			}
+			if (isset($item['document_type'])) {
+				$categories['document_type'][$item_id] = $item['document_type'];
+				$assets[] = $item_id;
+			}
 		}
 	}
 	$object_ids = array_unique($assets);
