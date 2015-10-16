@@ -451,7 +451,7 @@ function okhubimport_feeds_importer_default()
         'vocabulary' => OKHUB_IMPORT_THEMES_VOCABULARY,
         'mappings' => array(
           0 => array(
-            'source' => 'name',
+            'source' => 'title',
             'target' => 'name',
             'unique' => 0
           ),
@@ -465,42 +465,42 @@ function okhubimport_feeds_importer_default()
             'target' => 'guid',
             'unique' => 1
           ),
-          3 => array(
+     /*     3 => array(
             'source' => 'title',
             'target' => 'description',
             'unique' => FALSE
-          ),
-          4 => array(
+          ),*/
+          3 => array(
             'source' => 'cat_superparent',
             'target' => 'field_superparent_id',
             'unique' => FALSE
           ),
-          5 => array(
+          4 => array(
             'source' => 'site',
             'target' => 'field_site',
             'unique' => FALSE
           ),
-          6 => array(
+          5 => array(
             'source' => 'website_url',
             'target' => 'field_website_url',
             'unique' => FALSE
           ),
-          7 => array(
+          6 => array(
             'source' => 'metadata_url',
             'target' => 'field_metadata_url',
             'unique' => FALSE
           ),
-          8 => array(
+          7 => array(
             'source' => 'object_id',
             'target' => 'field_object_id',
             'unique' => FALSE
           ),
-          9 => array(
+          8 => array(
             'source' => 'object_type',
             'target' => 'field_object_type',
             'unique' => FALSE
           ),
-          10 => array(
+          9 => array(
             'source' => 'timestamp',
             'target' => 'field_timestamp:start',
             'unique' => FALSE
@@ -510,12 +510,12 @@ function okhubimport_feeds_importer_default()
             'target' => 'field_archived',
             'unique' => FALSE
           ),*/
-          11 => array(
+          10 => array(
             'source' => 'cat_parent',
             'target' => 'field_parent_id',
             'unique' => FALSE
           ),
-          12 => array(
+          11 => array(
             'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
@@ -560,7 +560,7 @@ function okhubimport_feeds_importer_default()
         'vocabulary' => OKHUB_IMPORT_SUBJECTS_VOCABULARY,
         'mappings' => array(
           0 => array(
-            'source' => 'name',
+            'source' => 'title',
             'target' => 'name',
             'unique' => 0
           ),
@@ -574,42 +574,42 @@ function okhubimport_feeds_importer_default()
             'target' => 'guid',
             'unique' => 1
           ),
-          3 => array(
+       /*   3 => array(
             'source' => 'title',
             'target' => 'description',
             'unique' => FALSE
-          ),
-          4 => array(
+          ),*/
+          3 => array(
             'source' => 'cat_superparent',
             'target' => 'field_superparent_id',
             'unique' => FALSE
           ),
-          5 => array(
+          4 => array(
             'source' => 'site',
             'target' => 'field_site',
             'unique' => FALSE
           ),
-          6 => array(
+          5 => array(
             'source' => 'website_url',
             'target' => 'field_website_url',
             'unique' => FALSE
           ),
-          7 => array(
+          6 => array(
             'source' => 'metadata_url',
             'target' => 'field_metadata_url',
             'unique' => FALSE
           ),
-          8 => array(
+          7 => array(
             'source' => 'object_id',
             'target' => 'field_object_id',
             'unique' => FALSE
           ),
-          9 => array(
+          8 => array(
             'source' => 'object_type',
             'target' => 'field_object_type',
             'unique' => FALSE
           ),
-          10 => array(
+          9 => array(
             'source' => 'timestamp',
             'target' => 'field_timestamp:start',
             'unique' => FALSE
@@ -619,12 +619,12 @@ function okhubimport_feeds_importer_default()
             'target' => 'field_archived',
             'unique' => FALSE
           ),*/
-          11 => array(
+          10 => array(
             'source' => 'cat_parent',
             'target' => 'field_parent_id',
             'unique' => FALSE
           ),
-          12 => array(
+          11 => array(
             'source' => 'sources',
             'target' => 'field_sources',
             'unique' => FALSE
