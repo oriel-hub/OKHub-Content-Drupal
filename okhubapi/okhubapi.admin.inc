@@ -10,7 +10,8 @@
  */
 
 function okhubapi_settings_form() {
-  
+  drupal_add_css(drupal_get_path('module', 'okhubapi') . '/css/okhubapi-admin.css');
+  drupal_add_js(drupal_get_path('module', 'okhubapi') . '/js/okhubapi-admin.js');
   $form = array();
   $okhubwrapper = new OkhubApiWrapper();
   $form['okhubapi_api_key'] = array(
@@ -39,11 +40,12 @@ function okhubapi_settings_form() {
  
 	$api_key = variable_get('okhubapi_api_key', '');
 	$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key);
+  	$sources_options_descriptive = _okhubapi_get_sources_options_descriptive_mode();
   
   $form['general']['okhubimport_default_datasources'] = array(
     '#title' => t('Default data sources'),
     '#type' => 'checkboxes',
-    '#options' => $sources_options,
+    '#options' => $sources_options_descriptive,
   	'#default_value' => variable_get('okhubimport_default_datasources', ''),
     '#description' => t('OKHUB data sources to be used by default. If none selected then ALL sources used.'),
   );
@@ -75,7 +77,7 @@ function okhubapi_settings_form() {
   $form['general']['okhubimport_default_not_datasources'] = array(
     '#title' => t('Data sources to ignore (NOT)'),
     '#type' => 'checkboxes',
-    '#options' => $sources_options,
+    '#options' => $sources_options_descriptive,
   	'#default_value' => variable_get('okhubimport_default_not_datasources', ''),
     '#description' => t('OKHUB data sources to be ignored by default. Uses NOT logic.'),
   );

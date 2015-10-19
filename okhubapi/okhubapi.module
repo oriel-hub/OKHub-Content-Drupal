@@ -323,6 +323,38 @@ function _okhubapi_get_sources_with_themes_options(){
 }
 
 /**
+ * Get array of sources that have themes for form with logo/description.
+ */
+function _okhubapi_get_sources_options_descriptive_mode(){
+	$okhubwrapper = new OkhubApiWrapper();
+	$api_key = variable_get('okhubapi_api_key', '');
+	$sources_options_objects = $okhubwrapper->okhubapi_get_sources_options_objects($api_key);
+	$source_arr = array();
+    foreach($sources_options_objects as $source_id => $sources_obj){
+    	$source_logo_obj = $sources_obj->get_value('logo');
+    	$source_logo_url = (isset($source_logo_obj[OKHUB_API_LOGO_ARR_POS_URL])) ? $source_logo_obj[OKHUB_API_LOGO_ARR_POS_URL]:FALSE;
+    	$source_description = $sources_obj->get_value(OKHUB_API_FN_DESCRIPTION);
+    	$source_name = $sources_obj->get_value(OKHUB_API_FN_NAME);
+    	$source_descriptive_mode = '<span class="okhub-source-option-name">' . $source_name . '</span>';
+    	if($source_description || $source_logo_url){
+	    	$source_descriptive_mode .= '<span class="okhub-source-option-moreinfo"><span class="okhub-source-option-moreinfo-inner">';
+	    	if($source_logo_url){
+	    		$source_descriptive_mode .= '<span class="okhub-source-option-logo"><img src="' . $source_logo_url . '" alt="' . $sources_obj->get_value(OKHUB_API_FN_NAME) . ' logo"/></span>';
+	    	}
+	    	$source_descriptive_mode .= '<h4>' . $source_name . '</h4>';
+	    	if($source_description){
+	    		$source_descriptive_mode .= '<span class="okhub-source-option-description">' . $source_description . '</span>';
+	    	}
+	    	$source_descriptive_mode .= '</span></span>';
+    	}
+    	$source_arr[$source_id] = $source_descriptive_mode;
+    }
+
+    asort($source_arr);
+ 	return $source_arr;	
+}
+
+/**
  * Get array of all themes (or for only for selected datasources) for form.
  */
 function _okhubapi_get_themes_arr($selected_datasources_only = FALSE){

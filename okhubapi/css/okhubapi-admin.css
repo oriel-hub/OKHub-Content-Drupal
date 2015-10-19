@@ -1,0 +1,39 @@
+.okhub-source-option-moreinfo {
+	margin-top:0.5em;
+	margin-bottom:1em;
+	display:none;
+	width:50%;
+	max-width:600px;
+	min-with:200px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	overflow:hidden;
+}
+
+.okhub-source-option-moreinfo h4 {
+	padding-top:0; 
+	margin-top:0;
+}
+
+.okhub-source-option-moreinfo-inner {
+	padding:1em;
+	display:block;
+}
+
+.okhub-show-me {
+	display:block;	
+}
+
+.okhub-source-option-logo img {
+	width:100px;
+}
+
+.okhub-source-option-logo {
+	float:right; 
+	display:block;
+	margin:0 0 5px 10px;
+}
+
+.form-item-okhubimport-default-datasources .form-type-checkbox {
+	clear:both;
+}
