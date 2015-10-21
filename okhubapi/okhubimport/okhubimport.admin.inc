@@ -376,7 +376,7 @@ function okhubimport_settings_form() {
 	
 	  $form['delete'] = array (
 	    '#type' => 'fieldset',
-	    '#title' => t('Delete OKHUB categories'),
+	    '#title' => t('Delete OKHUB content'),
 	    '#prefix' => '<div class="okhubimport-form-advanced">',
 	    '#suffix' => '</div>',
 	    '#collapsible' => TRUE,
