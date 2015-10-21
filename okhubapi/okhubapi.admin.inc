@@ -26,13 +26,10 @@ function okhubapi_settings_form() {
 
   if(variable_get('okhubapi_api_key', '')){
   
+  /* this is left over from IDS API Module was Eddis or Brigde now always hub */
   $form['okhubapi_default_dataset'] = array(
     '#title' => t('Default dataset'),
     '#type' => 'hidden',
-/*  '#type' => 'select',
-    '#options' => array(
-      'hub' => 'OKhub'
-    ),*/
     '#required' => FALSE,
     '#default_value' => variable_get('okhubapi_default_dataset', OKHUB_API_DEFAULT_DATASET),
     '#description' => t('OKHUB dataset to be used by default.'),
@@ -41,8 +38,15 @@ function okhubapi_settings_form() {
 	$api_key = variable_get('okhubapi_api_key', '');
 	$sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key);
   	$sources_options_descriptive = _okhubapi_get_sources_options_descriptive_mode();
+  	
+ $form['basic'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Basic settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
   
-  $form['general']['okhubimport_default_datasources'] = array(
+  $form['basic']['okhubimport_default_datasources'] = array(
     '#title' => t('Default data sources'),
     '#type' => 'checkboxes',
     '#options' => $sources_options_descriptive,
@@ -50,31 +54,38 @@ function okhubapi_settings_form() {
     '#description' => t('OKHUB data sources to be used by default. If none selected then ALL sources used.'),
   );
   
-  $form['general']['okhubimport_priority_datasource'] = array(
-    '#title' => t('Priority data source to import from'),
-    '#type' => 'select',
-    '#options' => $sources_options,
-  	'#default_value' => variable_get('okhubimport_priority_datasource', ''),
-    '#description' => t('The priority OKHUB data source to be used to import data from (where multiple for one document).'),
+ $form['advanced'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Advanced settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
   
-  $form['general']['okhubimport_priority_language'] = array(
-    '#title' => t('Priority language to import from'),
+  $form['advanced']['okhubimport_priority_datasource'] = array(
+    '#title' => t('Priority data source'),
+    '#type' => 'select',
+    '#options' => array('none' =>'None') + $sources_options,
+  	'#default_value' => variable_get('okhubimport_priority_datasource', ''),
+    '#description' => t('The priority OKHUB data source to be used to import data and/or display content from (where multiple for one document).'),
+  );
+  
+  $form['advanced']['okhubimport_priority_language'] = array(
+    '#title' => t('Priority language'),
     '#type' => 'select',
     '#options' => _okhubapi_get_all_languages_arr(),
   	'#default_value' => variable_get('okhubimport_priority_language', ''),
-    '#description' => t('OKHUB data priority language to be used to import data from. Will use alernative if chosen language not found'),
+    '#description' => t('OKHUB data priority language to be used to import data and/or display content from. Will use alernative if chosen language not found'),
   );
   
-  $form['general']['okhubimport_only_use_priority_language'] = array(
+  $form['advanced']['okhubimport_only_use_priority_language'] = array(
     '#title' => t('Only use priority language'),
     '#type' => 'select',
     '#options' => array(0 => 'No', 1 => 'Yes'),
   	'#default_value' => variable_get('okhubimport_only_use_priority_language', ''),
-    '#description' => t('OKHUB data only import from the prority language don\'t use alternative'),
+    '#description' => t('OKHUB data only import and/or display content from the prority language don\'t use alternative'),
   );
   
-  $form['general']['okhubimport_default_not_datasources'] = array(
+  $form['advanced']['okhubimport_default_not_datasources'] = array(
     '#title' => t('Data sources to ignore (NOT)'),
     '#type' => 'checkboxes',
     '#options' => $sources_options_descriptive,
@@ -82,7 +93,7 @@ function okhubapi_settings_form() {
     '#description' => t('OKHUB data sources to be ignored by default. Uses NOT logic.'),
   );
   
-  $form['okhubapi_number_items'] = array(
+  $form['advanced']['okhubapi_number_items'] = array(
     '#title' => t('Default number of items'),
     '#type' => 'textfield',
     '#size' => 10,
@@ -91,8 +102,15 @@ function okhubapi_settings_form() {
     '#default_value' => variable_get('okhubapi_number_items', OKHUB_API_NUM_ITEMS),
     '#description' => t('Max. number of items to retrieve in each call to the OKHUB API.'),
   );
+  
+ $form['caching'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Caching settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
 
-  $form['okhubapi_cache_time'] = array(
+  $form['caching']['okhubapi_cache_time'] = array(
     '#title' => t('Cache lifetime'),
     '#type' => 'select',
     '#options' => array(
@@ -106,21 +124,11 @@ function okhubapi_settings_form() {
     '#default_value' => variable_get('okhubapi_cache_time', OKHUB_API_DEFAULT_CACHE_TIME),
     '#description' => t('How long cached values from the API should be considered valid.'),
   );
-  
-  $form['advanced']['show_advanced'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Show advanced options.'),
-  );
     
-  $form['advanced']['okhubapi_cache_clear'] = array(
+  $form['caching']['okhubapi_cache_clear'] = array(
     '#type' => 'submit',
     '#value' => t('Clear all the content in the cache'),
     '#submit' => array('okhubapi_cache_clear'),
-    '#states' => array(
-      'visible' => array(
-        ':input[name="show_advanced"]' => array('checked' => TRUE),
-      ),
-    ),    
   );
   
   }
