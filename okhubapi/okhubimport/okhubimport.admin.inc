@@ -27,21 +27,19 @@ function okhubimport_settings_form() {
   
 	  $form['#submit'][] = 'okhubimport_settings_form_submit';
 	
-	  $form['general'] = array (
+	  $form['global'] = array (
 	    '#type' => 'fieldset',
-	    '#title' => t('Global settings'),
+	    '#title' => t('OKHUB API Module settings'),
 	    '#prefix' => '<div class="okhubimport-form-general">',
 	    '#suffix' => '</div>',
+	    '#collapsible' => TRUE,
+	    '#collapsed' => FALSE,
 	  );
 	
-	  // TODO To allow fetchers to override this.
-	  $form['general']['okhubimport_default_dataset'] = array(
+	  /* this is left over from IDS API Module was Eddis or Brigde now always hub */
+	  $form['global']['okhubimport_default_dataset'] = array(
 	    '#title' => t('Default dataset'),
 	    '#type' => 'hidden',
-	/*  '#type' => 'select',
-	    '#options' => array(
-	      'hub' => 'OKhub'
-	    ),*/
 	    '#required' => TRUE,
 	    '#default_value' => variable_get('okhubimport_default_dataset', OKHUB_API_DEFAULT_DATASET),
 	    '#description' => t('OKHUB dataset to be used by default.'),
@@ -51,57 +49,23 @@ function okhubimport_settings_form() {
 	  $sources_options = $okhubwrapper->okhubapi_get_sources_options($api_key);
 	
 	  
-	$form['general']['info'] = array(
+	$form['global']['info'] = array(
 	    '#title' => t('general settings information'),
 	    '#type' => 'markup',
 		'#markup' => _okhubapi_global_settings_display() . _okhubapi_global_settings_link(),
 	  );   
 	  
-	  
-	  //    '#value' => 
-	  
-	  
-	 /* $form['general']['okhubimport_default_datasources'] = array(
-	    '#title' => t('Data sources to import from'),
-	    '#type' => 'checkboxes',
-	    '#options' => $sources_options,
-	  	'#default_value' => variable_get('okhubimport_default_datasources', ''),
-	    '#description' => t('OKHUB data sources to be used to import data from. If none selected then ALL sources used.'),
-	  );
-	  
-	  $form['general']['okhubimport_priority_datasource'] = array(
-	    '#title' => t('Priority data source to import from'),
-	    '#type' => 'select',
-	    '#options' => $sources_options,
-	  	'#default_value' => variable_get('okhubimport_priority_datasource', ''),
-	    '#description' => t('The priority OKHUB data source to be used to import data from (where multiple for one document).'),
-	  );
-	  
-	  $form['general']['okhubimport_priority_language'] = array(
-	    '#title' => t('Priority language to import from'),
-	    '#type' => 'select',
-	    '#options' => _okhubapi_get_all_languages_arr(),
-	  	'#default_value' => variable_get('okhubimport_priority_language', ''),
-	    '#description' => t('OKHUB data priority language to be used to import data from. Will use alernative if chosen language not found'),
-	  );
-	  
-	  $form['general']['okhubimport_only_use_priority_language'] = array(
-	    '#title' => t('Only use priority language'),
-	    '#type' => 'select',
-	    '#options' => array(0 => 'No', 1 => 'Yes'),
-	  	'#default_value' => variable_get('okhubimport_only_use_priority_language', ''),
-	    '#description' => t('OKHUB data only import from the prority language don\'t use alternative'),
-	  );*/
-	
-	  $form['general']['assets'] = array (
+	  $form['general'] = array (
 	    '#type' => 'fieldset',
 	    '#title' => t('General importing settings'),
 	    '#description' => t('These settings apply both to manual and periodic automatic imports of <b>documents</b> and <b>organisations</b>.<br>Please note that no partial importing is available for categories (' . $list_categories . '):<br> if chosen, all of the items in the categories sets are imported in order to preserve the internal coherence of the data.'),
 	    '#prefix' => '<div class="okhubimport-form-general">',
 	    '#suffix' => '</div>',
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
 	  );
 	
-	  $form['general']['assets']['okhubimport_number_assets'] = array(
+	  $form['general']['okhubimport_number_assets'] = array(
 	    '#title' => t('Number of documents and/or organisations to import'),
 	    '#type' => 'textfield',
 	    '#size' => 10,
@@ -111,15 +75,28 @@ function okhubimport_settings_form() {
 	    '#description' => t('Number of documents and/or organisations to retrieve in each call to the OKHUB API. Leave blank if you do not want to limit it, and import all available items.'),
 	  );
 	  
-	   $form['general']['filters'] = array (
+	  $form['general']['okhubimport_new_user'] = array(
+	    '#title' => t('Author'),
+	    '#type' => 'textfield',
+	    '#size' => 10,
+	    '#maxlength' => 10,
+	    '#required' => TRUE,
+	    '#default_value' => variable_get('okhubimport_new_user', OKHUB_IMPORT_USER),
+	    '#description' => t('Imported OKHUB content will be assigned to this user. If the user does not exist, it will be created.'),
+	    '#autocomplete_path' => 'user/autocomplete',
+	  );
+	  
+	   $form['filters'] = array (
 	    '#type' => 'fieldset',
 	    '#title' => t('Filter importing settings'),
 	    '#description' => t('Use these settings to filter the the imported items.'),
 	    '#prefix' => '<div class="okhubimport-form-general">',
 	    '#suffix' => '</div>',
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
 	  ); 
 	  
-	  $form['general']['filters']['okhubimport_age_new_assets'] = array(
+	  $form['filters']['okhubimport_age_new_assets'] = array(
 	    '#title' => t('Age of new content'),
 	    '#type' => 'select',
 	    '#options' => array(
@@ -134,21 +111,9 @@ function okhubimport_settings_form() {
 	    '#description' => t('Import documents and/or organisations posted within the indicated period.'),
 	  );
 	  
-	  $form['general']['assets']['okhubimport_new_user'] = array(
-	    '#title' => t('Author'),
-	    '#type' => 'textfield',
-	    '#size' => 10,
-	    '#maxlength' => 10,
-	    '#required' => TRUE,
-	    '#default_value' => variable_get('okhubimport_new_user', OKHUB_IMPORT_USER),
-	    '#description' => t('Imported OKHUB content will be assigned to this user. If the user does not exist, it will be created.'),
-	    '#autocomplete_path' => 'user/autocomplete',
-	  );
-	  
-	  
 	  $sources_options = _okhubapi_get_sources_with_themes_options();
 	  
-	  $form['general']['filters']['okhubimport_themes_datasources'] = array(
+	  $form['filters']['okhubimport_themes_datasources'] = array(
 	    '#title' => t('Data sources to provide themes'),
 	    '#type' => 'checkboxes',
 	    '#options' => $sources_options,
@@ -156,7 +121,7 @@ function okhubimport_settings_form() {
 	    '#description' => t('OKHUB data sources to be used to provide the themes. If none selected then ALL sources used. Note only data sources that make their themes available are listed.'),
 	  );
 	  
-	  $form['general']['filters'][] = array(
+	  $form['filters'][] = array(
 	    '#type' => 'submit',
 	    '#value' => t('Save configuration'),
 	    '#submit' => array('okhubimport_settings_form_submit'),
@@ -168,7 +133,7 @@ function okhubimport_settings_form() {
 	  
 	  $language_options_for_themes = _okhubapi_get_language_options_from_themes($theme_arr);
 	  
-	  $form['general']['filters']['okhubimport_default_lang_themes'] = array(
+	  $form['filters']['okhubimport_default_lang_themes'] = array(
 	    '#title' => t('Language selection for Themes'),
 	    '#type' => 'select',
 	    '#options' => $language_options_for_themes,
@@ -176,7 +141,7 @@ function okhubimport_settings_form() {
 	    '#description' => t('Languages to be used to filter Themes.'),
 	  );
 	  
-	  $form['general']['filters']['okhubimport_default_themes'] = array(
+	  $form['filters']['okhubimport_default_themes'] = array(
 	    '#title' => t('Themes'),
 	    '#type' => 'select',
 	    '#multiple' => 'true',
@@ -184,22 +149,8 @@ function okhubimport_settings_form() {
 	  	'#default_value' => variable_get('okhubimport_default_themes', ''),
 	    '#description' => t('Themes to be used to filter results. If none selected then ALL themes used.'),
 	  );
-	/*
-	  $form['general']['assets']['okhubimport_levels_categories'] = array(
-	    '#title' => t('Levels of categories'),
-	    '#type' => 'select',
-	    '#options' => array(
-	      '1|2' => t('Categories in levels 1 and 2'),
-	      '1' => t('Categories in level 1'),
-	      '' => t('Categories in all levels'),
-	    ),
-	    '#required' => FALSE,
-	    '#default_value' => variable_get('okhubimport_levels_categories', OKHUB_IMPORT_LEVELS_CATEGORIES),
-	    '#description' => t('The levels of categories to import.'),
-	  );
-	*/
 	
-	  $form['general']['filters']['okhubimport_query_string'] = array(
+	  $form['filters']['okhubimport_query_string'] = array(
 	    '#title' => t('Query string'),
 	    '#type' => 'textfield',
 	    '#size' => 40,
@@ -208,12 +159,13 @@ function okhubimport_settings_form() {
 	    '#description' => t('Query string to be appended to the OKHUB API URLs used when importing <b>documents and/or organisations</b>.<br>Use comma-separated pairs of unencoded query fields and values (example: <i>country=Argentina,keyword=climate change,language_name=Spanish</i>).<br>Please check the <a href="@okhubapidoc">OKHUB API documentation</a> for a list of query fields available.', array('@okhubapidoc' => 'http://developer.okhub.org/hub-api-documentation/api-explorer/')),
 	  );
 	
-	
 	  $form['enable'] = array (
 	    '#type' => 'fieldset',
 	    '#title' => t('Periodic import'),
 	    '#prefix' => '<div class="okhubimport-form-enable">',
 	    '#suffix' => '</div>',
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
 	  );
 	
 	  $form['enable']['okhubimport_check_enable_assets'] = array(
@@ -378,6 +330,8 @@ function okhubimport_settings_form() {
 	    '#title' => t('Manual import'),
 	    '#prefix' => '<div class="okhubimport-form-import">',
 	    '#suffix' => '</div>',
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
 	  );
 	
 	  $form['import']['okhubimport_check_import'] = array(
@@ -420,29 +374,15 @@ function okhubimport_settings_form() {
 	    '#submit' => array('okhubimport_settings_form_submit','okhubimport_import_now'),
 	  );
 	
-	  $form['advanced'] = array (
+	  $form['delete'] = array (
 	    '#type' => 'fieldset',
-	    '#title' => t('Advanced administrative options'),
+	    '#title' => t('Delete OKHUB categories'),
 	    '#prefix' => '<div class="okhubimport-form-advanced">',
 	    '#suffix' => '</div>',
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
 	  );
 	
-	  $form['advanced']['show_advanced'] = array(
-	    '#type' => 'checkbox',
-	    '#title' => t('Show advanced options.'),
-	  );
-	
-	  $form['advanced']['delete'] = array (
-	    '#type' => 'fieldset',
-	    '#title' => t('Delete'),
-	    '#prefix' => '<div class="okhubimport-form-advanced-delete">',
-	    '#suffix' => '</div>',
-	    '#states' => array(
-	      'visible' => array(
-	        ':input[name="show_advanced"]' => array('checked' => TRUE),
-	      ),
-	    ),
-	  );
 	
 	  $options_delete_types = array(
 	      OKHUB_IMPORT_DOCUMENTS_TYPE => t('Documents'),
@@ -454,7 +394,7 @@ function okhubimport_settings_form() {
 	  if ($additional_fields) {
 	    $options_delete_types[OKHUB_IMPORT_SUBJECTS_VOCABULARY] = t('Subjects');
 	  }
-	  $form['advanced']['delete']['okhubimport_delete_types'] = array(
+	  $form['delete']['okhubimport_delete_types'] = array(
 	    '#title' => t('Delete items imported from the OKHUB collection'),
 	    '#type' => 'checkboxes',
 	    '#multiple' => TRUE,
@@ -468,7 +408,7 @@ function okhubimport_settings_form() {
 	    '#description' => t('Please indicate the content that you want to delete.'),
 	  );
 	
-	  $form['advanced']['delete']['okhubimport_delete'] = array(
+	  $form['delete']['okhubimport_delete'] = array(
 	    '#type' => 'submit',
 	    '#value' => t('Delete selected items'),
 	    '#description' => t('Delete selected items from the OKHUB collection.'),
@@ -481,20 +421,17 @@ function okhubimport_settings_form() {
 	    ),
 	  );
 	
-	  $form['advanced']['rebuild'] = array (
+	  $form['rebuild'] = array (
 	    '#type' => 'fieldset',
 	    '#title' => t('Rebuild OKHUB categories'),
 	    '#description' => t('This will run a process to make the Drupal taxonomies match the OKHUB categories trees.<br>If the Drupal taxonomies corresponding to OKHUB categories have been manually changed, these changes will be undone.<br>This process is executed automatically after categories are imported.<br>'),
 	    '#prefix' => '<div class="okhubimport-form-advanced-delete">',
 	    '#suffix' => '</div>',
-	    '#states' => array(
-	      'visible' => array(
-	        ':input[name="show_advanced"]' => array('checked' => TRUE),
-	      ),
-	    ),
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
 	  );
 	
-	  $form['advanced']['rebuild']['okhubimport_rebuild_taxonomies'] = array(
+	  $form['rebuild']['okhubimport_rebuild_taxonomies'] = array(
 	    '#title' => t('Rebuild OKHUB categories'),
 	    '#type' => 'submit',
 	    '#value' => t('Rebuild OKHUB taxonomies'),
@@ -507,20 +444,17 @@ function okhubimport_settings_form() {
 	    ),
 	  );
 	
-	  $form['advanced']['cache'] = array (
+	  $form['caching'] = array (
 	    '#type' => 'fieldset',
 	    '#title' => t('Clear Feeds cache'),
 	    '#description' => t('If you deleted imported items manually, you might need to clear the cache in order to re-import them.<br>'),
 	    '#prefix' => '<div class="okhubimport-form-advanced-delete">',
 	    '#suffix' => '</div>',
-	    '#states' => array(
-	      'visible' => array(
-	        ':input[name="show_advanced"]' => array('checked' => TRUE),
-	      ),
-	    ),
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
 	  );
 	
-	  $form['advanced']['cache']['okhubimport_cache_clear'] = array(
+	  $form['caching']['okhubimport_cache_clear'] = array(
 	    '#title' => t('Clear Feeds cache'),
 	    '#type' => 'submit',
 	    '#value' => t('Clear Feeds cache'),
