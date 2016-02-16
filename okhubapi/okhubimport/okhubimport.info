@@ -12,6 +12,6 @@ files[] = okhubimport.install
 files[] = okhubimport.module
 
 dependencies[] = "okhubapi"
-dependencies[] = "feeds"
+dependencies[] = "feeds (2.0-alpha9)"
 dependencies[] = "feeds_ui"
 dependencies[] = "date"
