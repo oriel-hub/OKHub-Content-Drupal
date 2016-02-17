@@ -79,34 +79,34 @@ function okhubimport_settings_form() {
 	     '#type' => 'fieldset',
 	     '#title' => t('Import limits'),
 	     '#description' => t(''),
-	     '#prefix' => '<div class="idsimport-form-general">',
+	     '#prefix' => '<div class="okhubimport-form-general">',
 	     '#suffix' => '</div>',
 	   );  
 	   
-	   $form['general']['assets']['limits']['idsimport_get_assets_older_content'] = array(
+	   $form['general']['assets']['limits']['okhubimport_get_assets_older_content'] = array(
 	     '#title' => t('Import older content items'),
 	     '#type' => 'select',
 	     '#options' => array(
-	       '' => t('None'),
-	       'all' => t('All'),
-	       'specified_number' => t('Specified number'),
+			OKHUB_IMPORT_GET_ASSETS_OLDER_CONTENT_NONE => t('None'),
+      		OKHUB_IMPORT_GET_ASSETS_OLDER_CONTENT_ALL => t('All'),
+	       	'specified_number' => t('Specified number'),
 	     ),
-	     '#default_value' => variable_get('idsimport_get_assets_older_content', ''),
+	     '#default_value' => variable_get('okhubimport_get_assets_older_content', OKHUB_IMPORT_GET_ASSETS_OLDER_CONTENT_NONE),
 	     '#required' => FALSE,
 	     '#description' => t('When set, All content will be imported/or specified number of older content items.'),
 	   );
 	 
-	   $form['general']['assets']['limits']['idsimport_number_assets_older_content'] = array(
+	   $form['general']['assets']['limits']['okhubimport_number_assets_older_content'] = array(
 	     '#title' => t('Maximum number of older content items to import'),
 	     '#type' => 'textfield',
 	     '#size' => 10,
 	     '#maxlength' => 10,
 	     '#required' => FALSE,
-	     '#default_value' => variable_get('idsimport_number_assets_older_content', OKHUB_IMPORT_NUM_ASSETS),
+	     '#default_value' => variable_get('okhubimport_number_assets_older_content', OKHUB_IMPORT_NUM_ASSETS_OLDER_CONTENT),
 	     '#description' => t('When set, all content will be imported until this limit is reached.'),
 	     '#states' => array(
 	       'visible' => array(
-	         ':input[name="idsimport_get_assets_older_content"]' => array('value' => 'specified_number'),
+	         ':input[name="okhubimport_get_assets_older_content"]' => array('value' => 'specified_number'),
 	       ),
 	     ),
 	   );  
