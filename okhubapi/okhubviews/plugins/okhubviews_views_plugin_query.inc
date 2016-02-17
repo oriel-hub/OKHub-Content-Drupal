@@ -52,8 +52,8 @@ class okhubviews_views_plugin_query extends views_plugin_query_default {
 
   function add_filter($group, $filter, $value) {
     if ($this->check_filter($group, $filter)) {
-      $value = preg_replace('/\s*(\&|AND)\s*/i','&',$value); 
-      $value = preg_replace('/\s*(\||OR)\s*/i','|',$value);
+      $value = preg_replace('/\s+(\&|AND)\s+/i','&',$value); 
+      $value = preg_replace('/\s+(\||OR)\s+/i','|',$value);
       $this->where[$group]['conditions'][] = array(
             'field' => $filter,
             'value' => $value
