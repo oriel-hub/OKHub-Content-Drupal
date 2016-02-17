@@ -610,8 +610,8 @@ function okhubimport_set_categories($object_ids, $categories) {
 						}
 						if(!$tid_attached_already){
 							$entity->{$field}['und'][]= $new_tid;
+							okhubimport_entity_save($entity_type, $entity);
 						}
-						okhubimport_entity_save($entity_type, $entity);
 					}
 				}
 			}
