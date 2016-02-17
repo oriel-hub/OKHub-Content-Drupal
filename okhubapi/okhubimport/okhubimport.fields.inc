@@ -1000,8 +1000,8 @@ function okhubimport_fields_definitions() {
       'settings' => array(
         'granularity' => array(
           'year' => 'year',
-          'month' => 0,
-          'day' => 0,
+          'month' => 'month',
+          'day' => 'day',
           'hour' => 0,
           'minute' => 0,
           'second' => 0,
