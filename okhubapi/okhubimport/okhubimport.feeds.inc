@@ -26,6 +26,10 @@ class OkhubAssetsFetcher extends FeedsFetcher {
 
   // Object of type OkhubApiWrapper that performs the API request.
   public $okhub_api_wrapper;
+  
+	public function setOffset($start_offset){
+		$this->ids_api_wrapper->setOffset($start_offset);
+	}
 
   /**
    * Overrides parent::__construct().
