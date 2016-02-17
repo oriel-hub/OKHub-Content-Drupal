@@ -7,30 +7,42 @@
  * creating new vocabulary terms for imported assets' categories.
  */
 function okhubimport_feeds_after_import($source) {
-  $processor = $source->importer->processor;
-  $parser = $source->importer->parser;
-  if ($parser instanceOf OkhubCategoriesParser) {
-    if ($vocabulary = $processor->vocabulary()) {
-      okhubimport_build_category_tree($vocabulary->vid);
-      drupal_set_message(t('Rebuilt category hierarchy.'));
-    }
-  }
-  elseif (($parser instanceOf OkhubDocumentsParser) || ($parser instanceOf OkhubOrganisationsParser) || ($parser instanceOf OkhubCountriesParser)) {
-    if ($items = $processor->parsed_items) {
-      okhubimport_imported_assets_categories($items);
-    }
-  }
+	$processor = $source->importer->processor;
+	$parser = $source->importer->parser;
+	if ($parser instanceOf OkhubCategoriesParser) {
+		if ($vocabulary = $processor->vocabulary()) {
+			okhubimport_build_category_tree($vocabulary->vid);
+			drupal_set_message(t('Rebuilt category hierarchy.'));
+		}
+	}
+	elseif (($parser instanceOf OkhubDocumentsParser) || ($parser instanceOf OkhubOrganisationsParser) || ($parser instanceOf OkhubCountriesParser)) {
+		if ($items = $processor->parsed_items) {
+			/* Joe McP -- commented out line below and moved to hook_feeds_after_save as when in batch process
+			 * that is called after saving every item, but hook_feeds_after_import
+			 * is only called on last batch run (so wasn't saving themes etc...)
+			 */
+			//okhubimport_imported_assets_categories($items);
+		}
+	}
+}
+
+function okhubimport_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id){
+	if (($entity->type == 'ids_document') || ($entity->type == 'ids_organisation') || ($entity->type == 'ids_countries')) {
+		$items = array();
+		$items[] = $item;
+		okhubimport_imported_assets_categories($items);
+	}
 }
 
 /**
  * Implements hook_ctools_plugin_api().
  */
 function okhubimport_ctools_plugin_api() {
-  cache_clear_all('plugins:feeds:plugins', 'cache');
-  list($module, $api) = func_get_args();
-  if ($module == "feeds" && $api == "feeds_importer_default") {
-    return array("version" => "1");
-  }
+	cache_clear_all('plugins:feeds:plugins', 'cache');
+	list($module, $api) = func_get_args();
+	if ($module == "feeds" && $api == "feeds_importer_default") {
+		return array("version" => "1");
+	}
 }
 
 /**
@@ -38,10 +50,10 @@ function okhubimport_ctools_plugin_api() {
  * Declares available Fetcher, Parser and Processor.
  */
 function okhubimport_feeds_plugins() {
-  cache_clear_all('plugins:feeds:plugins', 'cache');
-  module_load_include('inc', 'okhubimport', 'feeds');
-  $info = array();
-  $info['OkhubAssetsFetcher'] = array(
+	cache_clear_all('plugins:feeds:plugins', 'cache');
+	module_load_include('inc', 'okhubimport', 'feeds');
+	$info = array();
+	$info['OkhubAssetsFetcher'] = array(
     'name' => 'OKHUB Assets Fetcher',
     'description' => 'Fetch OKHUB assets.',
     'help' => 'Fetch OKHUB assets.',
@@ -50,9 +62,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubAssetsFetcher',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-  $info['OkhubCategoriesFetcher'] = array(
+	),
+	);
+	$info['OkhubCategoriesFetcher'] = array(
     'name' => 'OKHUB Categories Fetcher',
     'description' => 'Fetch OKHUB categories.',
     'help' => 'Fetch OKHUB categories.',
@@ -61,9 +73,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubCategoriesFetcher',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-  $info['OkhubAssetsParser'] = array(
+	),
+	);
+	$info['OkhubAssetsParser'] = array(
     'name' => 'OKHUB Assets Parser',
     'description' => 'Parse OKHUB assets.',
     'help' => 'Parse OKHUB assets.',
@@ -72,9 +84,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubAssetsParser',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-    $info['OkhubDocumentsParser'] = array(
+	),
+	);
+	$info['OkhubDocumentsParser'] = array(
     'name' => 'OKHUB Documents Parser',
     'description' => 'Parse OKHUB documents.',
     'help' => 'Parse OKHUB documents.',
@@ -83,9 +95,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubDocumentsParser',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-    $info['OkhubOrganisationsParser'] = array(
+	),
+	);
+	$info['OkhubOrganisationsParser'] = array(
     'name' => 'OKHUB Organisations Parser',
     'description' => 'Parse OKHUB organisations.',
     'help' => 'Parse OKHUB organisations.',
@@ -94,9 +106,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubOrganisationsParser',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-  $info['OkhubCategoriesParser'] = array(
+	),
+	);
+	$info['OkhubCategoriesParser'] = array(
     'name' => 'OKHUB Categories Parser',
     'description' => 'Parse OKHUB regions, themes and subjects.',
     'help' => 'Parse OKHUB regions, themes and subjects.',
@@ -105,9 +117,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubCategoriesParser',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-  $info['OkhubCountriesParser'] = array(
+	),
+	);
+	$info['OkhubCountriesParser'] = array(
     'name' => 'OKHUB Countries Parser',
     'description' => 'Parse OKHUB countries.',
     'help' => 'Parse OKHUB countries.',
@@ -116,9 +128,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubCountriesParser',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-  $info['OkhubAssetsProcessor'] = array(
+	),
+	);
+	$info['OkhubAssetsProcessor'] = array(
     'name' => 'OKHUB Assets Processor',
     'description' => 'Process OKHUB assets.',
     'help' => 'Process OKHUB assets.',
@@ -127,9 +139,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubAssetsProcessor',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-  $info['OkhubCategoriesProcessor'] = array(
+	),
+	);
+	$info['OkhubCategoriesProcessor'] = array(
     'name' => 'OKHUB Categories Processor',
     'description' => 'Process OKHUB categories.',
     'help' => 'Process OKHUB categories.',
@@ -138,9 +150,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubCategoriesProcessor',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-  $info['OkhubCountriesProcessor'] = array(
+	),
+	);
+	$info['OkhubCountriesProcessor'] = array(
     'name' => 'OKHUB Countries Processor',
     'description' => 'Process OKHUB countries.',
     'help' => 'Process OKHUB countries.',
@@ -149,9 +161,9 @@ function okhubimport_feeds_plugins() {
       'class' => 'OkhubCountriesProcessor',
       'file' => 'okhubimport.feeds.inc',
       'path' => drupal_get_path('module', 'okhubimport'),
-    ),
-  );
-  return $info;
+	),
+	);
+	return $info;
 }
 
 
