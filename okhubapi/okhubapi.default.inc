@@ -3,7 +3,7 @@
 
 /**
  * @file
- *   OKHUB API Module default parameters.
+ *   OKhub API Module default parameters.
  *   See okhubwrapper/okhubwrapper.default.inc for additional settings.
  *
  */

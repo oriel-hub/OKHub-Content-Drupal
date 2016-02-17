@@ -11,7 +11,7 @@ class OkhubContentFetcherResult extends FeedsFetcherResult {
   public $okhub_api_response;
 
  /**
-  * Constructor. Makes the call to the OKHUB API.
+  * Constructor. Makes the call to the OKhub API.
   */
   public function __construct($fetcher) {
     $this->okhub_api_response = $fetcher->okhub_api_wrapper->makeRequest();
@@ -221,7 +221,7 @@ class OkhubAssetsParser extends FeedsParser {
     return array(
       'object_id' => array(
         'name' => t('Item ID'),
-        'description' => t('ID of the item in the OKHUB collection.'),
+        'description' => t('ID of the item in the OKhub collection.'),
       ),
       'object_type' => array(
         'name' => t('Item Type'),
@@ -233,7 +233,7 @@ class OkhubAssetsParser extends FeedsParser {
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
-        'metadata_url' => t('URL with the OKHUB API metadata of the item'),
+        'metadata_url' => t('URL with the OKhub API metadata of the item'),
       ),
     );
   }
@@ -595,7 +595,7 @@ class OkhubCategoriesParser extends FeedsParser {
       ),    
       'category_id' => array(
         'name' => t('Category ID'),
-        'description' => t('ID of the category in the OKHUB collection.'),
+        'description' => t('ID of the category in the OKhub collection.'),
       ),
       'cat_parent' => array(
         'name' => t('Parent category'),
@@ -619,19 +619,19 @@ class OkhubCategoriesParser extends FeedsParser {
       ),
       'metadata_url' => array(
         'name' => t('Metadata URL'),
-        'description' => t('Web-accessible OKHUB API URI for this object.'),
+        'description' => t('Web-accessible OKhub API URI for this object.'),
       ),
       'object_id' => array(
         'name' => t('Item ID'),
-        'description' => t('Unique identifier of this item in the OKHUB collection.'),
+        'description' => t('Unique identifier of this item in the OKhub collection.'),
       ),
       'object_type' => array(
         'name' => t('Item Type'),
-        'description' => t('The type of the category in the OKHUB collection.'),
+        'description' => t('The type of the category in the OKhub collection.'),
       ),
       'timestamp' => array(
         'name' => t('Timestamp'),
-        'description' => t('Indicates when record was indexed in the OKHUB collection. Timestamp is in ISO 8601 format: YYYY-MM-DD hh:mm:ss.'),
+        'description' => t('Indicates when record was indexed in the OKhub collection. Timestamp is in ISO 8601 format: YYYY-MM-DD hh:mm:ss.'),
       ),
     /*  'archived' => array(
         'name' => t('Archived'),
@@ -834,7 +834,7 @@ class OkhubAssetsProcessor extends FeedsNodeProcessor {
     $form['author'] = array(
       '#type' => 'textfield',
       '#title' => t('Author'),
-      '#description' => t('Imported OKHUB content will be assigned to this user. If the user does not exist, it will be created.'),
+      '#description' => t('Imported OKhub content will be assigned to this user. If the user does not exist, it will be created.'),
       '#autocomplete_path' => 'user/autocomplete',
       '#default_value' =>  empty($author->name) ?  'anonymous' : check_plain($author->name),
     );
@@ -856,7 +856,7 @@ class OkhubAssetsProcessor extends FeedsNodeProcessor {
         '31536000' => t('After one year'),
        ),
       '#default_value' => $this->config['expire'],
-      '#description' => t('Select after how much time imported OKHUB content should expire and be deleted from the database.'),
+      '#description' => t('Select after how much time imported OKhub content should expire and be deleted from the database.'),
     );
     return $form;
   }

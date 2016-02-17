@@ -1,7 +1,7 @@
 ;$Id$
-name = OKHUB API 
-description = Provides access to the OKHUB collection via the OKHUB Knowledge Services API.
-package = OKHUB
+name = OKhub API 
+description = Provides access to the OKhub collection via the OKhub Knowledge Services API.
+package = OKhub
 core = 7.x
 version = 7.x-1.0-beta
 

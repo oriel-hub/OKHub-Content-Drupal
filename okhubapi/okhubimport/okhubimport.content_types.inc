@@ -5,15 +5,15 @@
  */
 
 /**
- * Creates content-type definitions for OKHUB assets (documents, organisations) and importers.
+ * Creates content-type definitions for OKhub assets (documents, organisations) and importers.
  */
 function okhubimport_content_types() {
   $types[OKHUB_IMPORT_DOCUMENTS_TYPE] = array(
       'type' => OKHUB_IMPORT_DOCUMENTS_TYPE,
-      'name' => 'OKHUB Document',
+      'name' => 'OKhub Document',
       'base' => 'node_content',
       'module' => 'okhubimport',
-      'description' => 'Documents imported via the OKHUB API.',
+      'description' => 'Documents imported via the OKhub API.',
       'help' => '',
       'has_title' => '1',
       'title_label' => 'Title',
@@ -27,10 +27,10 @@ function okhubimport_content_types() {
     );
   $types[OKHUB_IMPORT_ORGANISATIONS_TYPE] = array(
       'type' => OKHUB_IMPORT_ORGANISATIONS_TYPE,
-      'name' => 'OKHUB Organisation',
+      'name' => 'OKhub Organisation',
       'base' => 'node_content',
       'module' => 'okhubimport',
-      'description' => 'Organisations imported via the OKHUB API.',
+      'description' => 'Organisations imported via the OKhub API.',
       'help' => '',
       'has_title' => '1',
       'title_label' => 'Title',
@@ -44,7 +44,7 @@ function okhubimport_content_types() {
     );
     $types[OKHUB_IMPORT_DOCUMENTS_FEED_TYPE] = array(
       'type' => OKHUB_IMPORT_DOCUMENTS_FEED_TYPE,    
-      'name' => 'OKHUB Documents Feed',
+      'name' => 'OKhub Documents Feed',
       'base' => 'node_content',
       'description' => 'Feeds for documents imported via the OKHUB API.',
       'has_title' => '1',
@@ -61,9 +61,9 @@ function okhubimport_content_types() {
     );
     $types[OKHUB_IMPORT_ORGANISATIONS_FEED_TYPE] = array(
       'type' => OKHUB_IMPORT_ORGANISATIONS_FEED_TYPE,        
-      'name' => 'OKHUB Organisations Feed',
+      'name' => 'OKhub Organisations Feed',
       'base' => 'node_content',
-      'description' => 'Feeds for organisations imported via the OKHUB API.',
+      'description' => 'Feeds for organisations imported via the OKhub API.',
       'has_title' => '1',
       'title_label' => 'Title',
       'help' => '',
@@ -78,10 +78,10 @@ function okhubimport_content_types() {
     );
     $types[OKHUB_IMPORT_THEMES_FEED_TYPE] = array(   
       'type' => OKHUB_IMPORT_THEMES_FEED_TYPE,
-      'name' => 'OKHUB Themes Feed',
+      'name' => 'OKhub Themes Feed',
       'base' => 'node_content',
       'module' => 'node',
-      'description' => 'Feeds for themes imported via the OKHUB API.',
+      'description' => 'Feeds for themes imported via the OKhub API.',
       'help' => '',
       'has_title' => '1',
       'title_label' => 'Title',
@@ -95,7 +95,7 @@ function okhubimport_content_types() {
     );
     $types[OKHUB_IMPORT_SUBJECTS_FEED_TYPE] = array(   
       'type' => OKHUB_IMPORT_SUBJECTS_FEED_TYPE,
-      'name' => 'OKHUB Subjects Feed',
+      'name' => 'OKhub Subjects Feed',
       'base' => 'node_content',
       'module' => 'node',
       'description' => 'Feeds for subjects imported via the OKHUB API.',
@@ -115,7 +115,7 @@ function okhubimport_content_types() {
       'name' => 'OKHUB Regions Feed',
       'base' => 'node_content',
       'module' => 'node',
-      'description' => 'Feeds for regions imported via the OKHUB API.',
+      'description' => 'Feeds for regions imported via the OKhub API.',
       'help' => '',
       'has_title' => '1',
       'title_label' => 'Title',
@@ -129,10 +129,10 @@ function okhubimport_content_types() {
     );
     $types[OKHUB_IMPORT_COUNTRIES_FEED_TYPE] = array(   
       'type' => OKHUB_IMPORT_COUNTRIES_FEED_TYPE,
-      'name' => 'OKHUB Countries Feed',
+      'name' => 'OKhub Countries Feed',
       'base' => 'node_content',
       'module' => 'node',
-      'description' => 'Feeds for countries imported via the OKHUB API.',
+      'description' => 'Feeds for countries imported via the OKhub API.',
       'help' => '',
       'has_title' => '1',
       'title_label' => 'Title',

@@ -3,7 +3,7 @@
 
 /**
  * @file
- *   OKHUB API Module global settings form.
+ *   OKhub API Module global settings form.
  *
  * Display and allows to change global settings for the module.
  *
@@ -21,7 +21,7 @@ function okhubapi_settings_form() {
     '#maxlength' => 36,
     '#required' => TRUE,
     '#default_value' => variable_get('okhubapi_api_key', ''),
-    '#description' => t('Your OKHUB API key. ') . l(t('If you do not have an API key, request one here.'), OKHUB_API_KEY_URL),
+    '#description' => t('Your OKhub API key. ') . l(t('If you do not have an API key, request one here.'), OKHUB_API_KEY_URL),
   );
 
   if(variable_get('okhubapi_api_key', '')){
@@ -32,7 +32,7 @@ function okhubapi_settings_form() {
     '#type' => 'hidden',
     '#required' => FALSE,
     '#default_value' => variable_get('okhubapi_default_dataset', OKHUB_API_DEFAULT_DATASET),
-    '#description' => t('OKHUB dataset to be used by default.'),
+    '#description' => t('OKhub dataset to be used by default.'),
   );
  
 	$api_key = variable_get('okhubapi_api_key', '');
@@ -51,7 +51,7 @@ function okhubapi_settings_form() {
     '#type' => 'checkboxes',
     '#options' => $sources_options_descriptive,
   	'#default_value' => variable_get('okhubimport_default_datasources', ''),
-    '#description' => t('OKHUB data sources to be used by default. If none selected then ALL sources used.'),
+    '#description' => t('OKhub data sources to be used by default. If none selected then ALL sources used.'),
   );
   
  $form['advanced'] = array(
@@ -66,7 +66,7 @@ function okhubapi_settings_form() {
     '#type' => 'select',
     '#options' => array('none' =>'None') + $sources_options,
   	'#default_value' => variable_get('okhubimport_priority_datasource', ''),
-    '#description' => t('The priority OKHUB data source to be used to import data and/or display content from (where multiple for one document).'),
+    '#description' => t('The priority OKhub data source to be used to import data and/or display content from (where multiple for one document).'),
   );
   
   $form['advanced']['okhubimport_priority_language'] = array(
@@ -74,7 +74,7 @@ function okhubapi_settings_form() {
     '#type' => 'select',
     '#options' => _okhubapi_get_all_languages_arr(),
   	'#default_value' => variable_get('okhubimport_priority_language', ''),
-    '#description' => t('OKHUB data priority language to be used to import data and/or display content from. Will use alernative if chosen language not found'),
+    '#description' => t('OKhub data priority language to be used to import data and/or display content from. Will use alernative if chosen language not found'),
   );
   
   $form['advanced']['okhubimport_only_use_priority_language'] = array(
@@ -82,7 +82,7 @@ function okhubapi_settings_form() {
     '#type' => 'select',
     '#options' => array(0 => 'No', 1 => 'Yes'),
   	'#default_value' => variable_get('okhubimport_only_use_priority_language', ''),
-    '#description' => t('OKHUB data only import and/or display content from the prority language don\'t use alternative'),
+    '#description' => t('OKhub data only import and/or display content from the prority language don\'t use alternative'),
   );
   
   $form['advanced']['okhubimport_default_not_datasources'] = array(
@@ -90,7 +90,7 @@ function okhubapi_settings_form() {
     '#type' => 'checkboxes',
     '#options' => $sources_options_descriptive,
   	'#default_value' => variable_get('okhubimport_default_not_datasources', ''),
-    '#description' => t('OKHUB data sources to be ignored by default. Uses NOT logic.'),
+    '#description' => t('OKhub data sources to be ignored by default. Uses NOT logic.'),
   );
   
   $form['advanced']['okhubapi_number_items'] = array(
@@ -100,7 +100,7 @@ function okhubapi_settings_form() {
     '#maxlength' => 10,
     '#required' => FALSE,
     '#default_value' => variable_get('okhubapi_number_items', OKHUB_API_NUM_ITEMS),
-    '#description' => t('Max. number of items to retrieve in each call to the OKHUB API.'),
+    '#description' => t('Max. number of items to retrieve in each call to the OKhub API.'),
   );
   
  $form['caching'] = array(
@@ -141,7 +141,7 @@ function okhubapi_settings_form() {
  * Clear the request cache.
  */
 function okhubapi_cache_clear(&$form) {
-  drupal_set_message(t('The OKHUB API cache has been cleared.'));
+  drupal_set_message(t('The OKhub API cache has been cleared.'));
   cache_clear_all('*', 'okhubapi_cache', TRUE);
 }
 

@@ -3,7 +3,7 @@
 
 /**
  * @file
- *   OKHUB Import Module global settings form.
+ *   OKhub Import Module global settings form.
  *
  * Display and allows to change global settings for the module.
  * Includes a button to import content and categories.
@@ -29,7 +29,7 @@ function okhubimport_settings_form() {
 	
 	  $form['global'] = array (
 	    '#type' => 'fieldset',
-	    '#title' => t('OKHUB API Module settings'),
+	    '#title' => t('OKhub API Module settings'),
 	    '#prefix' => '<div class="okhubimport-form-general">',
 	    '#suffix' => '</div>',
 	    '#collapsible' => TRUE,
@@ -42,7 +42,7 @@ function okhubimport_settings_form() {
 	    '#type' => 'hidden',
 	    '#required' => TRUE,
 	    '#default_value' => variable_get('okhubimport_default_dataset', OKHUB_API_DEFAULT_DATASET),
-	    '#description' => t('OKHUB dataset to be used by default.'),
+	    '#description' => t('OKhub dataset to be used by default.'),
 	  );
 	 
   	$api_key = variable_get('okhubapi_api_key', '');
@@ -72,7 +72,7 @@ function okhubimport_settings_form() {
 	    '#maxlength' => 10,
 	    '#required' => FALSE,
 	    '#default_value' => variable_get('okhubimport_number_assets', OKHUB_IMPORT_NUM_ASSETS),
-	    '#description' => t('Number of documents and/or organisations to retrieve in each call to the OKHUB API. Leave blank if you do not want to limit it, and import all available items.'),
+	    '#description' => t('Number of documents and/or organisations to retrieve in each call to the OKhub API. Leave blank if you do not want to limit it, and import all available items.'),
 	  );
 	  
 	  $form['general']['assets']['limits'] = array (
@@ -118,7 +118,7 @@ function okhubimport_settings_form() {
 	    '#maxlength' => 10,
 	    '#required' => TRUE,
 	    '#default_value' => variable_get('okhubimport_new_user', OKHUB_IMPORT_USER),
-	    '#description' => t('Imported OKHUB content will be assigned to this user. If the user does not exist, it will be created.'),
+	    '#description' => t('Imported OKhub content will be assigned to this user. If the user does not exist, it will be created.'),
 	    '#autocomplete_path' => 'user/autocomplete',
 	  );
 	  
@@ -154,7 +154,7 @@ function okhubimport_settings_form() {
 	    '#type' => 'checkboxes',
 	    '#options' => $sources_options,
 	  	'#default_value' => variable_get('okhubimport_themes_datasources', ''),
-	    '#description' => t('OKHUB data sources to be used to provide the themes. If none selected then ALL sources used. Note only data sources that make their themes available are listed.'),
+	    '#description' => t('OKhub data sources to be used to provide the themes. If none selected then ALL sources used. Note only data sources that make their themes available are listed.'),
 	  );
 	  
 	  $form['filters'][] = array(
@@ -192,7 +192,7 @@ function okhubimport_settings_form() {
 	    '#size' => 40,
 	    '#required' => FALSE,
 	    '#default_value' => variable_get('okhubimport_query_string'),
-	    '#description' => t('Query string to be appended to the OKHUB API URLs used when importing <b>documents and/or organisations</b>.<br>Use comma-separated pairs of unencoded query fields and values (example: <i>country=Argentina,keyword=climate change,language_name=Spanish</i>).<br>Please check the <a href="@okhubapidoc">OKHUB API documentation</a> for a list of query fields available.', array('@okhubapidoc' => 'http://developer.okhub.org/hub-api-documentation/api-explorer/')),
+	    '#description' => t('Query string to be appended to the OKhub API URLs used when importing <b>documents and/or organisations</b>.<br>Use comma-separated pairs of unencoded query fields and values (example: <i>country=Argentina,keyword=climate change,language_name=Spanish</i>).<br>Please check the <a href="@okhubapidoc">OKhub API documentation</a> for a list of query fields available.', array('@okhubapidoc' => 'http://developer.okhub.org/hub-api-documentation/api-explorer/')),
 	  );
 	
 	  $form['enable'] = array (
@@ -206,13 +206,13 @@ function okhubimport_settings_form() {
 	
 	  $form['enable']['okhubimport_check_enable_assets'] = array(
 	    '#type' => 'checkbox',
-	    '#title' => t('Enable periodic importing of OKHUB documents and/or organisations.'),
+	    '#title' => t('Enable periodic importing of OKhub documents and/or organisations.'),
 	    '#default_value' => variable_get('okhubimport_check_enable_assets', FALSE),
 	  );
 	  
 	  $form['enable']['okhubimport_check_enable_categories'] = array(
 	    '#type' => 'checkbox',
-	    '#title' => t('Enable periodic importing of OKHUB categories (' . $list_categories .').'),
+	    '#title' => t('Enable periodic importing of OKhub categories (' . $list_categories .').'),
 	    '#default_value' => variable_get('okhubimport_check_enable_categories', FALSE),
 	  );
 	
@@ -269,7 +269,7 @@ function okhubimport_settings_form() {
 	        ':input[name="okhubimport_check_enable_assets"]' => array('checked' => TRUE),
 	      ),
 	    ),
-	    '#description' => t('Choose how often OKHUB documents and/or organisations should be imported (<a href="@cronurl">requires cron to be configured</a>).', array('@cronurl' => url('admin/config/system/cron'))),
+	    '#description' => t('Choose how often OKhub documents and/or organisations should be imported (<a href="@cronurl">requires cron to be configured</a>).', array('@cronurl' => url('admin/config/system/cron'))),
 	  );
 	
 	  $form['enable']['assets']['okhubimport_expire_period_assets'] = array(
@@ -291,7 +291,7 @@ function okhubimport_settings_form() {
 	     ),
 	    '#required' => FALSE,
 	    '#default_value' => variable_get('okhubimport_expire_period_assets', OKHUB_IMPORT_EXPIRE_PERIOD_ASSETS),
-	    '#description' => t('Select after how much time imported OKHUB content should expire and be deleted from the database.<br><small>This can be overriden in the importers processors settings, so different expiration times can be used for different sets of imported items.<br>To change these settings for current importers, please go to the <a href="@feedsadmin">Feeds importers administration page</a> and edit the importer that you would like to change.</small>', array('@feedsadmin' => url('admin/structure/feeds'))),
+	    '#description' => t('Select after how much time imported OKhub content should expire and be deleted from the database.<br><small>This can be overriden in the importers processors settings, so different expiration times can be used for different sets of imported items.<br>To change these settings for current importers, please go to the <a href="@feedsadmin">Feeds importers administration page</a> and edit the importer that you would like to change.</small>', array('@feedsadmin' => url('admin/structure/feeds'))),
 	  );
 	
 	  $form['enable']['categories'] = array (
@@ -352,7 +352,7 @@ function okhubimport_settings_form() {
 	        ':input[name="okhubimport_check_enable_categories"]' => array('checked' => TRUE),
 	      ),
 	    ),
-	    '#description' => t('Choose how often OKHUB categories (' . $list_categories . ') should be imported (<a href="@cronurl">requires cron to be configured</a>).', array('@cronurl' => url('admin/config/system/cron'))),
+	    '#description' => t('Choose how often OKhub categories (' . $list_categories . ') should be imported (<a href="@cronurl">requires cron to be configured</a>).', array('@cronurl' => url('admin/config/system/cron'))),
 	  );
 	
 	  $form['enable'][] = array(
@@ -372,7 +372,7 @@ function okhubimport_settings_form() {
 	
 	  $form['import']['okhubimport_check_import'] = array(
 	    '#type' => 'checkbox',
-	    '#title' => t('Import OKHUB content now.'),
+	    '#title' => t('Import OKhub content now.'),
 	    '#default_value' => variable_get('okhubimport_check_import', FALSE),
 	  );
 	
@@ -396,12 +396,12 @@ function okhubimport_settings_form() {
 	        ':input[name="okhubimport_check_import"]' => array('checked' => TRUE),
 	      ),
 	    ),    
-	    '#description' => t('Please indicate the content that you want to import.<br><small>Please note that due to the large number of <b>themes</b> in the OKHUB collection, <u>importing themes can take some minutes</u></small>.'),
+	    '#description' => t('Please indicate the content that you want to import.<br><small>Please note that due to the large number of <b>themes</b> in the OKhub collection, <u>importing themes can take some minutes</u></small>.'),
 	  );
 	
 	  $form['import']['okhubimport_import_now'] = array(
 	    '#type' => 'submit',
-	    '#value' => t('Save configuration and import OKHUB content'),
+	    '#value' => t('Save configuration and import OKhub content'),
 	    '#states' => array(
 	      'visible' => array(
 	        ':input[name="okhubimport_check_import"]' => array('checked' => TRUE),
@@ -412,7 +412,7 @@ function okhubimport_settings_form() {
 	
 	  $form['delete'] = array (
 	    '#type' => 'fieldset',
-	    '#title' => t('Delete OKHUB content'),
+	    '#title' => t('Delete OKhub content'),
 	    '#prefix' => '<div class="okhubimport-form-advanced">',
 	    '#suffix' => '</div>',
 	    '#collapsible' => TRUE,
@@ -431,7 +431,7 @@ function okhubimport_settings_form() {
 	    $options_delete_types[OKHUB_IMPORT_SUBJECTS_VOCABULARY] = t('Subjects');
 	  }
 	  $form['delete']['okhubimport_delete_types'] = array(
-	    '#title' => t('Delete items imported from the OKHUB collection'),
+	    '#title' => t('Delete items imported from the OKhub collection'),
 	    '#type' => 'checkboxes',
 	    '#multiple' => TRUE,
 	    '#options' => $options_delete_types,
@@ -447,7 +447,7 @@ function okhubimport_settings_form() {
 	  $form['delete']['okhubimport_delete'] = array(
 	    '#type' => 'submit',
 	    '#value' => t('Delete selected items'),
-	    '#description' => t('Delete selected items from the OKHUB collection.'),
+	    '#description' => t('Delete selected items from the OKhub collection.'),
 	    '#submit' => array('okhubimport_delete'),
 	    '#attributes' => array('onclick' => 'if(!confirm("Are you sure that you want to delete these items?")){return false;}'),
 	    '#states' => array(
@@ -459,8 +459,8 @@ function okhubimport_settings_form() {
 	
 	  $form['rebuild'] = array (
 	    '#type' => 'fieldset',
-	    '#title' => t('Rebuild OKHUB categories'),
-	    '#description' => t('This will run a process to make the Drupal taxonomies match the OKHUB categories trees.<br>If the Drupal taxonomies corresponding to OKHUB categories have been manually changed, these changes will be undone.<br>This process is executed automatically after categories are imported.<br>'),
+	    '#title' => t('Rebuild OKhub categories'),
+	    '#description' => t('This will run a process to make the Drupal taxonomies match the OKhub categories trees.<br>If the Drupal taxonomies corresponding to OKhub categories have been manually changed, these changes will be undone.<br>This process is executed automatically after categories are imported.<br>'),
 	    '#prefix' => '<div class="okhubimport-form-advanced-delete">',
 	    '#suffix' => '</div>',
 	    '#collapsible' => TRUE,
@@ -468,10 +468,10 @@ function okhubimport_settings_form() {
 	  );
 	
 	  $form['rebuild']['okhubimport_rebuild_taxonomies'] = array(
-	    '#title' => t('Rebuild OKHUB categories'),
+	    '#title' => t('Rebuild OKhub categories'),
 	    '#type' => 'submit',
-	    '#value' => t('Rebuild OKHUB taxonomies'),
-	    '#description' => t('Rebuild the OKHUB categories trees.'),
+	    '#value' => t('Rebuild OKhub taxonomies'),
+	    '#description' => t('Rebuild the OKhub categories trees.'),
 	    '#submit' => array('okhubimport_rebuild_taxonomies'),
 	    '#states' => array(
 	      'visible' => array(
@@ -521,7 +521,7 @@ function okhubimport_settings_form_validate($form, &$form_state) {
   $api_key = variable_get('okhubapi_api_key', '');
   $reg = '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/';
   if (!preg_match($reg, $api_key)) {
-    form_set_error('okhubimport_import_now', t('Please enter a valid API key in the <a href="@okhubconfig">OKHUB API Module configuration page</a>.', array('@okhubconfig' => url('admin/config/services/okhubapi'))));
+    form_set_error('okhubimport_import_now', t('Please enter a valid API key in the <a href="@okhubconfig">OKhub API Module configuration page</a>.', array('@okhubconfig' => url('admin/config/services/okhubapi'))));
   }
   $num_items = $form_state['values']['okhubimport_number_assets'];
   if ($form_state['values']['okhubimport_check_enable_assets']) {

@@ -4,13 +4,13 @@
  */
 
 $plugin = array(
-  'title' => t("OKHUB Document"),
+  'title' => t("OKhub Document"),
   'keyword' => "okhubcontent_context",
-  'description' => t("Creates an OKHUB Document context from a string argument"),
+  'description' => t("Creates an OKhub Document context from a string argument"),
   'context' => "okhubcontent_argument_context",
   'placeholder form' => array(
     '#type' => "textfield",
-    '#description' => t("Enter the OKHUB API item ID")
+    '#description' => t("Enter the OKhub API item ID")
   )
 );
 

@@ -3,11 +3,11 @@
 
 /**
  * @file
- *  OKHUB API Module.
+ *  OKhub API Module.
  *
- * This module uses the OKHUB Knowldege Services API (http://developer.okhub.org/hub-api-documentation/api-explorer) in order
- * to search, display and import data and metadata contained in the OKHUB
- * datasets, which are maintained by the OKHUB.
+ * This module uses the OKhub Knowldege Services API (http://developer.okhub.org/hub-api-documentation/api-explorer) in order
+ * to search, display and import data and metadata contained in the OKhub
+ * datasets, which are maintained by the OKhub.
  */
 
 /* --------------------- Hooks implementations -------------------- */
@@ -30,7 +30,7 @@ function okhubapi_flush_caches() {
  */
 function okhubapi_enable() {
     drupal_flush_all_caches();
-    drupal_set_message(t('To use the OKHUB API module, first go to the <a href="@url">OKHUB API Administration</a> to set general parameters, including your OKHUB API key.', array('@url' => url('admin/config/services/okhubapi'))));
+    drupal_set_message(t('To use the OKhub API module, first go to the <a href="@url">OKhub API Administration</a> to set general parameters, including your OKHUB API key.', array('@url' => url('admin/config/services/okhubapi'))));
 }
 
 /**
@@ -47,8 +47,8 @@ function okhubapi_menu() {
   $items = array();
 
   $items['admin/config/services/okhubapi'] = array(
-    'title' => t('OKHUB API Module settings'),
-    'description' => t('Global settings for the OKHUB API module.'),
+    'title' => t('OKhub API Module settings'),
+    'description' => t('Global settings for the OKhub API module.'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('okhubapi_settings_form'),
     'type' => MENU_NORMAL_ITEM,
@@ -65,8 +65,8 @@ function okhubapi_menu() {
 function okhubapi_permission() {
   return array(
     'administer okhubapi' => array(
-      'title' => t('Administer the OKHUB API module'), 
-      'description' => t('Perform administration tasks for the OKHUB API module.'),
+      'title' => t('Administer the OKhub API module'), 
+      'description' => t('Perform administration tasks for the OKhub API module.'),
     ),
   );
 }
@@ -76,12 +76,12 @@ function okhubapi_permission() {
  */
 function okhubapi_help($path, $arg) {
   if ($path == 'admin/help#okhubapi') {
-    return t('Uses the OKHUB API to provide access to Eldis and Bridge content. API documentation: ') . OKHUB_API_DOCUMENTATION_URL;
+    return t('Uses the OKhub API to provide access to Eldis and Bridge content. API documentation: ') . OKHUB_API_DOCUMENTATION_URL;
   }
 }
 
 /**
- * Function used to retrieve OKHUB items using get_all.
+ * Function used to retrieve OKhub items using get_all.
  */
 function okhubapi_get_all($type, $set, $format) {
   if(class_exists('OkhubApiWrapper')){
@@ -96,7 +96,7 @@ function okhubapi_get_all($type, $set, $format) {
 }
 
 /**
- * Function used to retrieve OKHUB items using search, with parameters.
+ * Function used to retrieve OKhub items using search, with parameters.
  */
 function okhubapi_search($type, $set, $format, $params, $extra_fields = array(), $num_requested = 0, $age_results = 0, $start_offset = 0) {
 	if(class_exists('OkhubApiWrapper')){
@@ -111,7 +111,7 @@ function okhubapi_search($type, $set, $format, $params, $extra_fields = array(),
 }
 
 /**
- * Function used to retrieve OKHUB items using count, with parameters.
+ * Function used to retrieve OKhub items using count, with parameters.
  */
 function okhubapi_count($type, $set, $count_category, $age_results = 0, $params = array()) {
 	if(class_exists('OkhubApiWrapper')){
@@ -125,7 +125,7 @@ function okhubapi_count($type, $set, $count_category, $age_results = 0, $params 
 	}
 }
 
-/* ---------------- Examples of calls to the OKHUB API --------------- */
+/* ---------------- Examples of calls to the OKhub API --------------- */
 
 /**
  * Implements hook_block_info().
@@ -496,6 +496,6 @@ function _okhubapi_global_settings_display(){
  * Link to global settings page
  */
 function _okhubapi_global_settings_link(){
-	$output = '<p>' . l(t('Update OKHUB API Module settings'), 'admin/config/services/okhubapi', array('query' => array('destination' => 'admin/config/services/okhubimport'))) . '</p>';
+	$output = '<p>' . l(t('Update OKhub API Module settings'), 'admin/config/services/okhubapi', array('query' => array('destination' => 'admin/config/services/okhubimport'))) . '</p>';
 	return $output;	
 }

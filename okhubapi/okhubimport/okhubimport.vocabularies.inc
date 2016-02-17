@@ -5,13 +5,13 @@
  */
 
 /**
- * Creates vocabulary definitions for OKHUB categories.
+ * Creates vocabulary definitions for OKhub categories.
  */
 function okhubimport_vocabularies() {
   $vocabularies['okhub_regions'] = array(
-      'name' => 'OKHUB Regions',
+      'name' => 'OKhub Regions',
       'machine_name' => 'okhub_regions',
-      'description' => 'Vocabulary for regions imported from the OKHUB collection.',
+      'description' => 'Vocabulary for regions imported from the OKhub collection.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
@@ -34,9 +34,9 @@ function okhubimport_vocabularies() {
     );
 
   $vocabularies['okhub_themes'] = array(
-      'name' => 'OKHUB Themes',
+      'name' => 'OKhub Themes',
       'machine_name' => 'okhub_themes',
-      'description' => 'Vocabulary for themes imported from the OKHUB collection.',
+      'description' => 'Vocabulary for themes imported from the OKhub collection.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
@@ -59,9 +59,9 @@ function okhubimport_vocabularies() {
     );
 
   $vocabularies['okhub_subjects'] = array(
-      'name' => 'OKHUB Subjects',
+      'name' => 'OKhub Subjects',
       'machine_name' => 'okhub_subjects',
-      'description' => 'Vocabulary for subjects imported from the OKHUB collection.',
+      'description' => 'Vocabulary for subjects imported from the OKhub collection.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
@@ -85,9 +85,9 @@ function okhubimport_vocabularies() {
 
 
   $vocabularies['okhub_countries'] = array(
-      'name' => 'OKHUB Countries',
+      'name' => 'OKhub Countries',
       'machine_name' => 'okhub_countries',
-      'description' => 'Vocabulary for countries imported from the OKHUB collection.',
+      'description' => 'Vocabulary for countries imported from the OKhub collection.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
@@ -110,9 +110,9 @@ function okhubimport_vocabularies() {
     );
 
   $vocabularies['okhub_authors'] = array(
-      'name' => 'OKHUB Authors',
+      'name' => 'OKhub Authors',
       'machine_name' => 'okhub_authors',
-      'description' => 'OKHUB Authors',
+      'description' => 'OKhub Authors',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
@@ -135,9 +135,9 @@ function okhubimport_vocabularies() {
     );
     
   $vocabularies['okhub_document_type'] = array(
-      'name' => 'OKHUB Document type',
+      'name' => 'OKhub Document type',
       'machine_name' => 'okhub_document_type',
-      'description' => 'OKHUB Document type',
+      'description' => 'OKhub Document type',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
@@ -160,9 +160,9 @@ function okhubimport_vocabularies() {
     );
     
   $vocabularies['okhub_keywords'] = array(
-      'name' => 'OKHUB Keywords',
+      'name' => 'OKhub Keywords',
       'machine_name' => 'okhub_keywords',
-      'description' => 'Subject keywords that relate to OKHUB documents.',
+      'description' => 'Subject keywords that relate to OKhub documents.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',

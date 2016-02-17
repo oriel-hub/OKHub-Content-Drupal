@@ -1,7 +1,7 @@
 ;$Id$
-name = OKHUB Import 
-description = Imports assets and categories from the OKHUB Collection via the OKHUB API, using the Feeds module.
-package = OKHUB
+name = OKhub Import 
+description = Imports assets and categories from the OKhub Collection via the OKhub API, using the Feeds module.
+package = OKhub
 core = 7.x
 version = 7.x-1.0-beta
 

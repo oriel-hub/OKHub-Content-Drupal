@@ -3,7 +3,7 @@
 
 /**
  * @file
- *  OKHUB Import Module.
+ *  OKhub Import Module.
  *
  */
 
@@ -45,8 +45,8 @@ function okhubimport_help($path, $arg) {
 	switch ($path) {
 		case 'admin/help#okhubimport':
 			$output = '';
-			$output .= '<h3>' . t('OKHUB Import') . '</h3>';
-			$output .= '<p>' . t('This module allows you to import content from the OKHUB Collection.');
+			$output .= '<h3>' . t('OKhub Import') . '</h3>';
+			$output .= '<p>' . t('This module allows you to import content from the OKhub Collection.');
 			return $output;
 	}
 }
@@ -57,8 +57,8 @@ function okhubimport_help($path, $arg) {
 function okhubimport_menu() {
 	$items = array();
 	$items['admin/config/services/okhubimport'] = array(
-    'title' => t('OKHUB Import settings'),
-    'description' => t('Global settings for the OKHUB Import module.'),
+    'title' => t('OKhub Import settings'),
+    'description' => t('Global settings for the OKhub Import module.'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('okhubimport_settings_form'),
     'type' => MENU_NORMAL_ITEM,
@@ -74,8 +74,8 @@ function okhubimport_menu() {
 function okhubimport_permission() {
 	return array(
     'administer okhubimport' => array(
-      'title' => t('Administer the OKHUB Import module'), 
-      'description' => t('Perform administration tasks for the OKHUB Import module.'),
+      'title' => t('Administer the OKhub Import module'), 
+      'description' => t('Perform administration tasks for the OKhub Import module.'),
 	),
 	);
 }
@@ -180,7 +180,7 @@ function okhubimport_new_user($username) {
 }
 
 /**
- * Grants the OKHUB user permissions on imported content and feeds.
+ * Grants the OKhub user permissions on imported content and feeds.
  */
 function okhubimport_grant_permissions($rid) {
 	$types = array(
@@ -214,7 +214,7 @@ function okhubimport_grant_permissions($rid) {
 }
 
 
-/* ---------------- Additional OKHUB metadata-related functions --------------- */
+/* ---------------- Additional OKhub metadata-related functions --------------- */
 
 function okhubimport_menu_alter(&$items) {
 	$hide_types = array(OKHUB_IMPORT_SUBJECTS_FEED_TYPE);
@@ -417,7 +417,7 @@ function okhubimport_build_category_tree($vid) {
 			}
 			else {
 				$error = TRUE;
-				watchdog('okhubimport', "Taxonomy term !tid does not have an OKHUB category as parent.", array('!tid' => $tid), WATCHDOG_ALERT);
+				watchdog('okhubimport', "Taxonomy term !tid does not have an OKhub category as parent.", array('!tid' => $tid), WATCHDOG_ALERT);
 			}
 			// Current parent term in drupal
 			if (array_key_exists($tid, $tids_ptids)) {
@@ -448,7 +448,7 @@ function okhubimport_build_category_tree($vid) {
 }
 
 /**
- * Rebuild all OKHUB categories trees.
+ * Rebuild all OKhub categories trees.
  */
 function okhubimport_build_all_category_trees() {
 	$vocabularies = okhubimport_vocabularies();

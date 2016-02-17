@@ -56,9 +56,9 @@ function okhubimport_feeds_plugins() {
 	module_load_include('inc', 'okhubimport', 'feeds');
 	$info = array();
 	$info['OkhubAssetsFetcher'] = array(
-    'name' => 'OKHUB Assets Fetcher',
-    'description' => 'Fetch OKHUB assets.',
-    'help' => 'Fetch OKHUB assets.',
+    'name' => 'OKhub Assets Fetcher',
+    'description' => 'Fetch OKhub assets.',
+    'help' => 'Fetch OKhub assets.',
     'handler' => array(
       'parent' => 'FeedsFetcher',
       'class' => 'OkhubAssetsFetcher',
@@ -67,9 +67,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubCategoriesFetcher'] = array(
-    'name' => 'OKHUB Categories Fetcher',
-    'description' => 'Fetch OKHUB categories.',
-    'help' => 'Fetch OKHUB categories.',
+    'name' => 'OKhub Categories Fetcher',
+    'description' => 'Fetch OKhub categories.',
+    'help' => 'Fetch OKhub categories.',
     'handler' => array(
       'parent' => 'FeedsFetcher',
       'class' => 'OkhubCategoriesFetcher',
@@ -78,9 +78,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubAssetsParser'] = array(
-    'name' => 'OKHUB Assets Parser',
-    'description' => 'Parse OKHUB assets.',
-    'help' => 'Parse OKHUB assets.',
+    'name' => 'OKhub Assets Parser',
+    'description' => 'Parse OKhub assets.',
+    'help' => 'Parse OKhub assets.',
     'handler' => array(
       'parent' => 'FeedsParser',
       'class' => 'OkhubAssetsParser',
@@ -89,9 +89,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubDocumentsParser'] = array(
-    'name' => 'OKHUB Documents Parser',
-    'description' => 'Parse OKHUB documents.',
-    'help' => 'Parse OKHUB documents.',
+    'name' => 'OKhub Documents Parser',
+    'description' => 'Parse OKhub documents.',
+    'help' => 'Parse OKhub documents.',
     'handler' => array(
       'parent' => 'FeedsParser',
       'class' => 'OkhubDocumentsParser',
@@ -100,9 +100,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubOrganisationsParser'] = array(
-    'name' => 'OKHUB Organisations Parser',
-    'description' => 'Parse OKHUB organisations.',
-    'help' => 'Parse OKHUB organisations.',
+    'name' => 'OKhub Organisations Parser',
+    'description' => 'Parse OKhub organisations.',
+    'help' => 'Parse OKhub organisations.',
     'handler' => array(
       'parent' => 'FeedsParser',
       'class' => 'OkhubOrganisationsParser',
@@ -111,9 +111,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubCategoriesParser'] = array(
-    'name' => 'OKHUB Categories Parser',
-    'description' => 'Parse OKHUB regions, themes and subjects.',
-    'help' => 'Parse OKHUB regions, themes and subjects.',
+    'name' => 'OKhub Categories Parser',
+    'description' => 'Parse OKhub regions, themes and subjects.',
+    'help' => 'Parse OKhub regions, themes and subjects.',
     'handler' => array(
       'parent' => 'FeedsParser',
       'class' => 'OkhubCategoriesParser',
@@ -122,9 +122,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubCountriesParser'] = array(
-    'name' => 'OKHUB Countries Parser',
-    'description' => 'Parse OKHUB countries.',
-    'help' => 'Parse OKHUB countries.',
+    'name' => 'OKhub Countries Parser',
+    'description' => 'Parse OKhub countries.',
+    'help' => 'Parse OKhub countries.',
     'handler' => array(
       'parent' => 'FeedsParser',
       'class' => 'OkhubCountriesParser',
@@ -133,9 +133,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubAssetsProcessor'] = array(
-    'name' => 'OKHUB Assets Processor',
-    'description' => 'Process OKHUB assets.',
-    'help' => 'Process OKHUB assets.',
+    'name' => 'OKhub Assets Processor',
+    'description' => 'Process OKhub assets.',
+    'help' => 'Process OKhub assets.',
     'handler' => array(
       'parent' => 'FeedsNodeProcessor',
       'class' => 'OkhubAssetsProcessor',
@@ -144,9 +144,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubCategoriesProcessor'] = array(
-    'name' => 'OKHUB Categories Processor',
-    'description' => 'Process OKHUB categories.',
-    'help' => 'Process OKHUB categories.',
+    'name' => 'OKhub Categories Processor',
+    'description' => 'Process OKhub categories.',
+    'help' => 'Process OKhub categories.',
     'handler' => array(
       'parent' => 'FeedsTermProcessor',
       'class' => 'OkhubCategoriesProcessor',
@@ -155,9 +155,9 @@ function okhubimport_feeds_plugins() {
 	),
 	);
 	$info['OkhubCountriesProcessor'] = array(
-    'name' => 'OKHUB Countries Processor',
-    'description' => 'Process OKHUB countries.',
-    'help' => 'Process OKHUB countries.',
+    'name' => 'OKhub Countries Processor',
+    'description' => 'Process OKhub countries.',
+    'help' => 'Process OKhub countries.',
     'handler' => array(
       'parent' => 'FeedsTermProcessor',
       'class' => 'OkhubCountriesProcessor',

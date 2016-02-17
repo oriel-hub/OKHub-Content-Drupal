@@ -16,8 +16,8 @@ function okhubimport_feeds_importer_default()
   $documents_importer->api_version = 1;
   $documents_importer->id = OKHUB_IMPORT_IMPORTER_DOCUMENTS;
   $documents_importer->config = array(
-    'name' => 'OKHUB Documents Importer',
-    'description' => 'Importer for document in the OKHUB collection.',
+    'name' => 'OKhub Documents Importer',
+    'description' => 'Importer for document in the OKhub collection.',
     'fetcher' => array(
       'plugin_key' => 'OkhubAssetsFetcher',
       'config' => array(
@@ -179,8 +179,8 @@ function okhubimport_feeds_importer_default()
   $organisations_importer->api_version = 1;
   $organisations_importer->id = OKHUB_IMPORT_IMPORTER_ORGANISATIONS;
   $organisations_importer->config = array(
-    'name' => 'OKHUB Organisations Importer',
-    'description' => 'Importer for organisations in the OKHUB collection.',
+    'name' => 'OKhub Organisations Importer',
+    'description' => 'Importer for organisations in the OKhub collection.',
     'fetcher' => array(
       'plugin_key' => 'OkhubAssetsFetcher',
       'config' => array(
@@ -325,8 +325,8 @@ function okhubimport_feeds_importer_default()
   $regions_importer->api_version = 1;
   $regions_importer->id = OKHUB_IMPORT_IMPORTER_REGIONS;
   $regions_importer->config = array(
-    'name' => 'OKHUB Regions Importer',
-    'description' => 'Importer for regions in the OKHUB collection.',
+    'name' => 'OKhub Regions Importer',
+    'description' => 'Importer for regions in the OKhub collection.',
     'fetcher' => array(
       'plugin_key' => 'OkhubCategoriesFetcher',
       'config' => array(
@@ -433,8 +433,8 @@ function okhubimport_feeds_importer_default()
   $themes_importer->api_version = 1;
   $themes_importer->id = OKHUB_IMPORT_IMPORTER_THEMES;
   $themes_importer->config = array(
-    'name' => 'OKHUB Themes Importer',
-    'description' => 'Importer for themes in the OKHUB collection.',
+    'name' => 'OKhub Themes Importer',
+    'description' => 'Importer for themes in the OKhub collection.',
     'fetcher' => array(
       'plugin_key' => 'OkhubCategoriesFetcher',
       'config' => array(
@@ -542,8 +542,8 @@ function okhubimport_feeds_importer_default()
   $subjects_importer->api_version = 1;
   $subjects_importer->id = OKHUB_IMPORT_IMPORTER_SUBJECTS;
   $subjects_importer->config = array(
-    'name' => 'OKHUB Subjects Importer',
-    'description' => 'Importer for subjects in the OKHUB collection.',
+    'name' => 'OKhub Subjects Importer',
+    'description' => 'Importer for subjects in the OKhub collection.',
     'fetcher' => array(
       'plugin_key' => 'OkhubCategoriesFetcher',
       'config' => array(
@@ -651,8 +651,8 @@ function okhubimport_feeds_importer_default()
   $countries_importer->api_version = 1;
   $countries_importer->id = OKHUB_IMPORT_IMPORTER_COUNTRIES;
   $countries_importer->config = array(
-    'name' => 'OKHUB Countries Importer',
-    'description' => 'Importer for countries in the OKHUB collection.',
+    'name' => 'OKhub Countries Importer',
+    'description' => 'Importer for countries in the OKhub collection.',
     'fetcher' => array(
       'plugin_key' => 'OkhubCategoriesFetcher',
       'config' => array(

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Create content types and vocabularies for the OKHUB Content Feeds module.
+ * Create content types and vocabularies for the OKhub Content Feeds module.
  */
 
 /**
@@ -46,8 +46,8 @@ function okhubimport_install() {
       }    
     }
   }
-  // Create vocabularies for OKHUB Regions, Themes, Subjects, Countries.
-  // (Content types for OKHUB Documents, Organisations are created through hook_node_info)
+  // Create vocabularies for OKhub Regions, Themes, Subjects, Countries.
+  // (Content types for OKhub Documents, Organisations are created through hook_node_info)
   $vocabularies = okhubimport_vocabularies();
   foreach ($vocabularies as $vocabulary) {
     $voc_loaded = taxonomy_vocabulary_machine_name_load($vocabulary['machine_name']);
@@ -132,7 +132,7 @@ function okhubimport_enable() {
       }
     }
   }
-  drupal_set_message(t('OKHUB Import module installed. Please go to <a href="@url">the configuration page</a> if you want to change its default settings.', array('@url' => url('admin/config/services/okhubimport'))));
+  drupal_set_message(t('OKhub Import module installed. Please go to <a href="@url">the configuration page</a> if you want to change its default settings.', array('@url' => url('admin/config/services/okhubimport'))));
   cache_clear_all('plugins:feeds:plugins', 'cache');
   feeds_cache_clear();
   drupal_flush_all_caches();
@@ -147,7 +147,7 @@ function okhubimport_disable() {
     okhubimport_delete_nodes_importer($importer);
     $importer->delete();    
   }
-  drupal_set_message(t('OKHUB Import: Default OKHUB importers deleted. The imported content was not deleted.'));
+  drupal_set_message(t('OKhub Import: Default OKhub importers deleted. The imported content was not deleted.'));
   cache_clear_all('plugins:feeds:plugins', 'cache');
   feeds_cache_clear();
   drupal_flush_all_caches();
@@ -229,7 +229,7 @@ function okhubimport_patch_feeds() {
   }
   
   if (!$resp) {
-      watchdog('okhubimport', "The Feeds module could not be fully patched. The OKHUB Import module might report some errors.", array('okhubimport_install'), WATCHDOG_ALERT);
+      watchdog('okhubimport', "The Feeds module could not be fully patched. The OKhub Import module might report some errors.", array('okhubimport_install'), WATCHDOG_ALERT);
   }
   else {
       drupal_set_message('The Feeds module was succesfully patched.');

@@ -4,7 +4,7 @@ $page->disabled = FALSE; /* Edit this to true to make a default page disabled in
 $page->api_version = 1;
 $page->name = 'okhub_document_panel_page';
 $page->task = 'page';
-$page->admin_title = 'OKHUB document panel page';
+$page->admin_title = 'OKhub document panel page';
 $page->admin_description = '';
 $page->path = 'okhub-document/%object_id';
 $page->access = array();
@@ -12,7 +12,7 @@ $page->menu = array();
 $page->arguments = array(
   'object_id' => array(
     'id' => 1,
-    'identifier' => 'OKHUB Document',
+    'identifier' => 'OKhub Document',
     'name' => 'object_id',
     'settings' => array(),
   ),

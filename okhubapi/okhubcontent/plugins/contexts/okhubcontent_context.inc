@@ -4,8 +4,8 @@
  */
 
 $plugin = array(
-  'title' => t("OKHUB Document"),
-  'description' => t("A document from the OKHUB API"),
+  'title' => t("OKhub Document"),
+  'description' => t("A document from the OKhub API"),
   'context' => "okhubcontent_context_create",
   'edit form' => "okhubcontent_context_settings_form",
   'keyword' => "okhubcontent_context",
@@ -14,7 +14,7 @@ $plugin = array(
   'convert' => "okhubcontent_context_convert",
   'placeholder form' => array(
     '#type' => "textfield",
-    '#description' => t("Enter the ID of the OKHUB API object")
+    '#description' => t("Enter the ID of the OKhub API object")
   )
 );
 
@@ -48,8 +48,8 @@ function okhubcontent_context_create($empty, $data = NULL, $conf = FALSE){
 function okhubcontent_context_settings_form($form, &$form_state){
   $conf = $form_state['conf'];
   $form['okhubcontent'] = array(
-    '#title' => t("OKHUB Item ID"),
-    '#description' => t("Enter a OKHUB Item ID"),
+    '#title' => t("OKhub Item ID"),
+    '#description' => t("Enter a OKhub Item ID"),
     '#default_value' => $conf['okhubcontent'],
     '#type' => "textfield"
   );

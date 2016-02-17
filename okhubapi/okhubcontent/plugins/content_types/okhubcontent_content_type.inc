@@ -5,13 +5,13 @@
 
 $plugin = array(
   'single' => TRUE,
-  'title' => t("OKHUB Document"),
-  'description' => t("Shows a single OKHUB document"),
-  'category' => t("OKHUB Content"),
+  'title' => t("OKhub Document"),
+  'description' => t("Shows a single OKhub document"),
+  'category' => t("OKhub Content"),
   'edit form' => "okhubcontent_content_type_edit_form",
   'render callback' => "okhubcontent_content_type_render",
   'admin info' => "okhubcontent_content_type_admin_info",
-  'required context' => new ctools_context_required(t("OKHUB Document"), "okhubcontent"),
+  'required context' => new ctools_context_required(t("OKhub Document"), "okhubcontent"),
   'defaults' => array(
     "show_title_in_content" => FALSE,
     "title_label" => "",
