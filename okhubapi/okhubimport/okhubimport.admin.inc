@@ -645,7 +645,7 @@ function okhubimport_delete($form, &$form_state) {
   }
   okhubimport_delete_items_type($types_to_delete);
   feeds_cache_clear();
-  drupal_set_message(t('The imported items have been deleted.'));
+  //drupal_set_message(t('The imported items have been deleted.'));
 }
 
 /**
