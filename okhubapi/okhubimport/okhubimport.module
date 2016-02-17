@@ -540,7 +540,7 @@ function okhubimport_set_categories($object_ids, $categories) {
 	foreach ($categories as $type_category => $categories_assets) {
 		$vocabulary_machine_name = 'okhub_' . $type_category;
 		if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machine_name)) {
-			 
+
 			$vid = $vocabulary->vid;
 			$importers = okhubimport_feeds_importer_default();
 			$type_importer = $vocabulary_machine_name . '_importer';
@@ -600,7 +600,17 @@ function okhubimport_set_categories($object_ids, $categories) {
 						$entity_id = $assets[$object_id]->entity_id;
 						$entity_type = $assets[$object_id]->entity_type;
 						$entity = $entities[$entity_type][$entity_id];
-						$entity->{$field}['und'][]= $new_tid;
+						$tid_attached_already = FALSE;
+						if(isset($entity->{$field}['und'])){
+							foreach($entity->{$field}['und'] as $tid_obj){
+								if($tid_obj['tid'] == $tid){
+									$tid_attached_already = TRUE;
+								}
+							}
+						}
+						if(!$tid_attached_already){
+							$entity->{$field}['und'][]= $new_tid;
+						}
 						okhubimport_entity_save($entity_type, $entity);
 					}
 				}
