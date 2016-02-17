@@ -73,7 +73,7 @@ class OkhubAssetsFetcher extends FeedsHTTPFetcher {
     	
  	    $state = $source->state(FEEDS_FETCH);
  	    if ($state->total == 0) {
- 	      $state->total = (variable_get('okhubimport_get_assets_older_content', OKHUB_IMPORT_GET_ASSETS_OLDER_CONTENT_NONE) == OKHUB_IMPORT_GET_ASSETS_OLDER_CONTENT_ALL) ? 100000 : variable_get('okhubimport_number_assets_older_content', OKHUB_IMPORT_NUM_ASSETS_OLDER_CONTENT);
+ 	      $state->total = (variable_get('okhubimport_get_assets_older_content', OKHUB_IMPORT_GET_ASSETS_OLDER_CONTENT_NONE) == OKHUB_IMPORT_GET_ASSETS_OLDER_CONTENT_ALL) ? $this->getTotalResults() : variable_get('okhubimport_number_assets_older_content', OKHUB_IMPORT_NUM_ASSETS_OLDER_CONTENT);
  	      $state->count = $state->total;
  	    }
  	    $this->okhub_api_wrapper->setOffset($state->count);
@@ -81,7 +81,6 @@ class OkhubAssetsFetcher extends FeedsHTTPFetcher {
  	    $fetcher_result = new OkhubContentFetcherResult($this);
 
  	    if ($state->count > 0) {
- 	      $state->next_url = $href;
  	      $state->count -= $batch_amount;
  	      $state->progress($state->total, $state->total - $state->count);
  	      if ($state->count <= 0) {
@@ -97,6 +96,11 @@ class OkhubAssetsFetcher extends FeedsHTTPFetcher {
  	    return $fetcher_result;
      }    
     
+  }
+  
+  private function getTotalResults() {
+   	    $fetcher_result = new OkhubContentFetcherResult($this);
+   	    return $fetcher_result->okhub_api_response->total_results;	
   }
   
   /**
